@@ -3,7 +3,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function Navbar() {
+export default function Navbar({ transparent = false }) {
   const { language, toggleLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,28 +12,35 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'About Us', href: '#' },
-    { name: 'Ministries', href: '#' },
-    { name: 'Events', href: '#' },
-    { name: 'Sermons', href: '#' },
-    { name: 'Contact Us', href: '#' },
+    { name: 'Home', href: 'home' },
+    { name: 'About Us', href: '#about' },
+    { name: 'Ministries', href: 'ministries' },
+    { name: 'Events', href: '#events' },
+    { name: 'Sermons', href: '#sermons' },
+    { name: 'Contact Us', href: '#contact' },
   ];
 
+  const bgColor = transparent ? 'bg-transparent border-off-white/15' : 'bg-off-white/95 backdrop-blur-md border-midnight-navy/10';
+  const textColor = transparent ? 'text-off-white' : 'text-midnight-navy';
+  const subTextColor = transparent ? 'text-off-white/70' : 'text-midnight-navy/60';
+  const linkColor = transparent ? 'text-off-white/90 hover:text-off-white' : 'text-midnight-navy/80 hover:text-deep-blue';
+  const mobileMenuBg = transparent ? 'bg-midnight-navy/95 border-off-white/10' : 'bg-off-white border-midnight-navy/10';
+  const mobileLinkColor = transparent ? 'text-off-white/80 hover:text-off-white' : 'text-midnight-navy hover:text-deep-blue';
+
   return (
-    <nav className="absolute w-full z-50 bg-white/95 backdrop-blur-md text-gray-900 border-b border-gray-200 transition-all duration-300">
+    <nav className={`absolute w-full z-50 ${bgColor} border-b transition-all duration-300`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
             <div className="shrink-0">
               <a href="#" className="flex items-center gap-3">
-                <img src={logo} alt="Logo" className="h-10 w-auto rounded-full shadow-sm" />
+                <img src={logo} alt="Logo" className="h-12 w-auto rounded-full shadow-sm bg-white" />
                 <div className="flex flex-col gap-0.5">
-                  <span className="font-bold tracking-wide leading-none text-gray-600 text-xs">
-                    ቦሌ ሩዋንዳ ሙሉ ወንጌል ቤተ ክርስቲያን
+                  <span className={`font-bold tracking-wide leading-none ${subTextColor}`}>
+                    የኢትዮጵያ ሙሉ ወንጌል<br/> አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ
                   </span>
-                  <span className="font-bold tracking-tighter leading-none text-gray-900 text-lg">
-                    Full Gospel Church
+                  <span className={`tracking-tighter leading-none ${textColor}`}>
+                    Ethiopian Full Gospel Believers Church, Bole Local
                   </span>
                 </div>
               </a>
@@ -45,24 +52,24 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700"
+                  className={`${linkColor} px-3 py-2 rounded-md text-sm font-bold transition-colors`}
                 >
                   {link.name}
                 </a>
               ))}
               
               <div 
-                className="relative inline-flex items-center h-6 rounded-full w-14 cursor-pointer transition-colors duration-200 ease-in-out bg-gray-200 ml-4 border border-gray-300"
+                className={`relative inline-flex items-center h-6 rounded-full w-14 cursor-pointer transition-colors duration-200 ease-in-out ml-4 border ${transparent ? 'bg-off-white/15 border-off-white/30' : 'bg-off-white border-midnight-navy/20'}`}
                 onClick={toggleLanguage}
               >
                 <span className={`
                   ${language === 'en' ? 'translate-x-1' : 'translate-x-8'} 
-                  inline-block w-4 h-4 transform bg-white rounded-full transition duration-200 ease-in-out z-10 shadow-sm
+                  inline-block w-4 h-4 transform bg-off-white rounded-full transition duration-200 ease-in-out z-10 shadow-sm
                 `} />
-                <span className={`absolute left-1.5 text-[10px] font-bold ${language === 'en' ? 'text-gray-900' : 'text-gray-400'}`}>
+                <span className={`absolute left-1.5 text-[10px] font-bold ${language === 'en' ? (transparent ? 'text-off-white' : 'text-midnight-navy') : (transparent ? 'text-off-white/50' : 'text-midnight-navy/40')}`}>
                   EN
                 </span>
-                <span className={`absolute right-1.5 text-[10px] font-bold ${language === 'am' ? 'text-gray-900' : 'text-gray-400'}`}>
+                <span className={`absolute right-1.5 text-[10px] font-bold ${language === 'am' ? (transparent ? 'text-off-white' : 'text-midnight-navy') : (transparent ? 'text-off-white/50' : 'text-midnight-navy/40')}`}>
                   AM
                 </span>
               </div>
@@ -72,7 +79,7 @@ export default function Navbar() {
             <button
               onClick={toggleMenu}
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
+              className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${transparent ? 'text-off-white hover:bg-off-white/10' : 'text-midnight-navy hover:text-deep-blue hover:bg-off-white/80'}`}
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
@@ -86,19 +93,19 @@ export default function Navbar() {
       {/* Mobile menu, show/hide based on menu state. */}
       {isOpen && (
         <div className="md:hidden" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100 shadow-xl">
+          <div className={`px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t shadow-xl ${mobileMenuBg}`}>
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="hover:text-blue-600 text-gray-800 block px-3 py-2 rounded-md text-base font-medium"
+                className={`${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium`}
               >
                 {link.name}
               </a>
             ))}
             <button
               onClick={toggleLanguage}
-              className="w-full text-left text-gray-700 px-3 py-2 rounded-md text-base font-bold transition-colors mt-2 border border-gray-200 hover:bg-gray-50 bg-gray-50"
+              className={`w-full text-left px-3 py-2 rounded-md text-base font-bold transition-colors mt-2 border ${transparent ? 'text-off-white border-off-white/20 hover:bg-off-white/10' : 'text-midnight-navy border-midnight-navy/10 hover:bg-off-white/80 bg-off-white'}`}
             >
               Switch to {language === 'en' ? 'Amharic' : 'English'}
             </button>

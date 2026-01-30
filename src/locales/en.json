@@ -7,8 +7,8 @@
     "verse_ref": "Hebrews 13:8",
     "watch_message": "Watch Message",
     "new_here": "New Here?",
-    "join_live": "Join Us Live",
-    "service_time": "Sunday 9:00 AM & 11:00 AM",
+    "join_live": "Join Us",
+    "service_time": "Sunday 9:00 AM - 6:30 PM",
     "live_badge": "LIVE",
     "prayer_request": "Prayer Request?",
     "here_for_you": "We are here for you"
@@ -23,13 +23,13 @@
     "text": "Welcome Home"
   },
   "mission": {
-    "statement": "Leading people to become fully devoted followers of Jesus",
-    "description": "By helping you know Jesus, experience His presence, discover your purpose, and make a difference in our community.",
+    "statement": "To comprehend transformed society by the gospel of Jesus Christ",
+    "description": "To comprehend transformed society by the gospel of Jesus Christ, growing up skilled, healthy and productive and get out of poverty, committed to change and development.",
     "button": "What We Believe"
   },
   "connect": {
     "title": "Get Connected",
-    "description": "Explore our ministries and discover meaningful ways to grow, serve, and build relationships.",
+    "description": "Explore our ministries and discover meaningful ways to grow, and serve the kingdom of God.",
     "kids": "Kids",
     "youth": "Youth",
     "young_adults": "Young Adults"
@@ -70,11 +70,11 @@
     "listen_now": "Listen Now"
   },
   "footer": {
-    "about_title": "Grace Community",
+    "about_title": "Ethiopian Full Gospel Believers Church, Bole Local",
     "about_desc": "Growing together in faith, love, and service",
     "email": "Email",
     "find_us": "Find Us",
     "call_us": "Call Us",
-    "rights": "© {{year}} Grace Community Church. All rights reserved."
+    "rights": "© {{year}} Ethiopian Full Gospel Believers Church, Bole Local. All rights reserved."
   }
 }
