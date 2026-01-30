@@ -1,0 +1,80 @@
+{
+  "hero": {
+    "invited": "You are invited this Sunday",
+    "jesus_prefix": "Jesus Christ",
+    "jesus_suffix": "is the Same",
+    "verse": "Jesus Christ is the same yesterday and today and forever.",
+    "verse_ref": "Hebrews 13:8",
+    "watch_message": "Watch Message",
+    "new_here": "New Here?",
+    "join_live": "Join Us Live",
+    "service_time": "Sunday 9:00 AM & 11:00 AM",
+    "live_badge": "LIVE",
+    "prayer_request": "Prayer Request?",
+    "here_for_you": "We are here for you"
+  },
+  "cards": {
+    "know_us": "Get To Know Us",
+    "events": "Events",
+    "next_steps": "Next Steps",
+    "learn_more": "Learn More"
+  },
+  "welcome": {
+    "text": "Welcome Home"
+  },
+  "mission": {
+    "statement": "Leading people to become fully devoted followers of Jesus",
+    "description": "By helping you know Jesus, experience His presence, discover your purpose, and make a difference in our community.",
+    "button": "What We Believe"
+  },
+  "connect": {
+    "title": "Get Connected",
+    "description": "Explore our ministries and discover meaningful ways to grow, serve, and build relationships.",
+    "kids": "Kids",
+    "youth": "Youth",
+    "young_adults": "Young Adults"
+  },
+  "more": {
+    "wait": "WAIT, THERE'S MORE!",
+    "title": "Looking For More Ministries?",
+    "description": "Discover new ways to connect with our faith community, grow spiritually, and make a meaningful impact in service.",
+    "community": "Community Life",
+    "community_desc": "Small groups and fellowships",
+    "view_all": "View All Ministries",
+    "prayer": "Ministry: Prayer & Worship",
+    "prayer_desc": "Experience spiritual growth",
+    "service": "Sunday Service Times",
+    "service_desc": "Join us in person or online",
+    "view_schedule": "View Schedule",
+    "view_events": "View More Events"
+  },
+  "happenings": {
+    "label": "LATEST HAPPENINGS",
+    "title": "Upcoming Events",
+    "app_title": "Download our Church App",
+    "app_desc": "Stay connected with our community. Get the latest updates and join us from anywhere.",
+    "prayer_title": "Midweek Prayer & Worship",
+    "prayer_desc": "Join us for prayer, worship, and community connection every Wednesday at 7:00 PM.",
+    "service_title": "Sunday Service Times",
+    "service_desc": "Join us on Sunday at 9:00 AM or 10:30 AM for worship, community, and spiritual growth."
+  },
+  "sermons": {
+    "label": "WATCH & LISTEN",
+    "title": "Latest Sermons",
+    "recent": "Recent Message",
+    "recent_desc": "Watch our latest sermon",
+    "series": "Series Archive",
+    "series_desc": "Browse all our sermons",
+    "podcast": "Podcast",
+    "podcast_desc": "Listen on the go",
+    "listen_now": "Listen Now"
+  },
+  "footer": {
+    "about_title": "Grace Community",
+    "about_desc": "Growing together in faith, love, and service",
+    "email": "Email",
+    "find_us": "Find Us",
+    "call_us": "Call Us",
+    "rights": "© {{year}} Grace Community Church. All rights reserved."
+  }
+}
