@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import { useLanguage } from '../context/LanguageContext';
@@ -12,12 +13,12 @@ export default function Navbar({ transparent = false }) {
   };
 
   const navLinks = [
-    { name: 'Home', href: 'home' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Ministries', href: 'ministries' },
-    { name: 'Events', href: '#events' },
-    { name: 'Sermons', href: '#sermons' },
-    { name: 'Contact Us', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Ministries', href: '/ministries' },
+    { name: 'Events', href: '/events' },
+    { name: 'Sermons', href: '/sermons' },
+    { name: 'Contact Us', href: '/contact' },
   ];
 
   const bgColor = transparent ? 'bg-transparent border-off-white/15' : 'bg-off-white/95 backdrop-blur-md border-midnight-navy/10';
@@ -33,7 +34,7 @@ export default function Navbar({ transparent = false }) {
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
             <div className="shrink-0">
-              <a href="#" className="flex items-center gap-3">
+              <Link to="/" className="flex items-center gap-3">
                 <img src={logo} alt="Logo" className="h-12 w-auto rounded-full shadow-sm bg-white" />
                 <div className="flex flex-col gap-0.5">
                   <span className={`font-bold tracking-wide leading-none ${subTextColor}`}>
@@ -43,19 +44,19 @@ export default function Navbar({ transparent = false }) {
                     Ethiopian Full Gospel Believers Church, Bole Local
                   </span>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   className={`${linkColor} px-3 py-2 rounded-md text-sm font-bold transition-colors`}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
               
               <div 
@@ -95,13 +96,14 @@ export default function Navbar({ transparent = false }) {
         <div className="md:hidden" id="mobile-menu">
           <div className={`px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t shadow-xl ${mobileMenuBg}`}>
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
+                onClick={() => setIsOpen(false)}
                 className={`${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <button
               onClick={toggleLanguage}

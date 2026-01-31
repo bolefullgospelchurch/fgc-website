@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { convertToEthiopianDate, toEthiopianTime, parseFullDateParts } from '../utils/ethiopianDate';
-import { getEthiopianTimeOfDay } from '../utils/ethiopianTimeOfDay';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
-  FaMobileAlt,
-  FaPrayingHands,
-  FaBookOpen,
   FaPlay,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
 import { sanityClient } from "../sanity";
 import { useLanguage } from "../context/LanguageContext";
+import EventsSection from "./EventsSection";
 // import stage from "../assets/stage.jpeg";
 import stage from "../assets/girl.jpg";
 import ministriesBg from "../assets/bible.jpg";
@@ -40,10 +37,6 @@ export default function Home() {
   const moreBgRef = useRef(null);
   const [weeklyPrograms, setWeeklyPrograms] = useState([]);
   const [isWeeklyLoading, setIsWeeklyLoading] = useState(true);
-  const [events, setEvents] = useState([]);
-  const [isEventsLoading, setIsEventsLoading] = useState(true);
-  const [now, setNow] = useState(() => new Date());
-  const NEW_BADGE_DAYS = 7;
   const normalizeDay = (day) => String(day || '').toLowerCase();
   const getProgramDayIndex = (schedule = []) => {
     if (!schedule.length) return 99;
@@ -85,206 +78,6 @@ export default function Home() {
       .then(setWeeklyPrograms)
       .finally(() => setIsWeeklyLoading(false));
   }, [lang]);
-
-  useEffect(() => {
-    setIsEventsLoading(true);
-    sanityClient
-      .fetch(`*[_type == "event"]{
-        _id,
-        _createdAt,
-        "title": title.${lang},
-        "description": description.${lang},
-        startDate,
-        endDate,
-        type,
-        featured
-      }`)
-      .then(setEvents)
-      .finally(() => setIsEventsLoading(false));
-  }, [lang]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => setNow(new Date()), 60000);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const parseDate = (value) => (value ? new Date(value) : null);
-  const getNextWeeklyOccurrence = (startDateValue) => {
-    const start = parseDate(startDateValue);
-    if (!start) return null;
-    const target = new Date(now);
-    target.setHours(
-      start.getHours(),
-      start.getMinutes(),
-      start.getSeconds(),
-      start.getMilliseconds()
-    );
-    const dayDiff = (start.getDay() - target.getDay() + 7) % 7;
-    target.setDate(target.getDate() + dayDiff);
-    if (target <= now) {
-      target.setDate(target.getDate() + 7);
-    }
-    return target;
-  };
-  const isEventVisible = (event) => {
-    if (!event?.startDate) return false;
-    const start = parseDate(event.startDate);
-    const end = parseDate(event.endDate);
-    if (event.type === 'weekly') return true;
-    if (now < start) return true;
-    if (end && now <= end) return true;
-    return false;
-  };
-  const getEventNextOccurrence = (event) => {
-    if (!event?.startDate) return null;
-    if (event.type === 'weekly') return getNextWeeklyOccurrence(event.startDate);
-    const start = parseDate(event.startDate);
-    if (!start) return null;
-    if (now < start) return start;
-    if (event.endDate && now <= parseDate(event.endDate)) return now;
-    return null;
-  };
-  const getCountdownText = (event) => {
-    const nextTime = getEventNextOccurrence(event);
-    if (!nextTime) return 'Ended';
-    if (event.type !== 'weekly') {
-      const start = parseDate(event.startDate);
-      if (start && now >= start) {
-        const end = parseDate(event.endDate);
-        if (end && now <= end) return lang === 'am' ? 'በመካሄድ ላይ' : 'Live now';
-      }
-    }
-    const diffMs = Math.max(0, nextTime - now);
-    const totalMinutes = Math.floor(diffMs / 60000);
-    const days = Math.floor(totalMinutes / 1440);
-    const hours = Math.floor((totalMinutes % 1440) / 60);
-    const minutes = totalMinutes % 60;
-    if (days > 0) {
-      return lang === 'am'
-        ? `በ${days} ቀን ${hours} ሰዓት ይጀምራል`
-        : `Starts in ${days} day${days === 1 ? '' : 's'} ${hours} hour${hours === 1 ? '' : 's'}`;
-    }
-    if (hours > 0) {
-      return lang === 'am'
-        ? `በ${hours} ሰዓት ${minutes} ደቂቃ ይጀምራል`
-        : `Starts in ${hours} hour${hours === 1 ? '' : 's'} ${minutes} min`;
-    }
-    return lang === 'am'
-      ? `በ${minutes} ደቂቃ ይጀምራል`
-      : `Starts in ${minutes} min`;
-  };
-  const getBadges = (event) => {
-    const badges = [];
-    const createdAt = parseDate(event._createdAt);
-    if (createdAt && now - createdAt <= NEW_BADGE_DAYS * 24 * 60 * 60 * 1000) {
-      badges.push({
-        label: lang === 'am' ? 'አዲስ' : 'NEW',
-        tone: 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30'
-      });
-    }
-    if (event.type === 'weekly') {
-      badges.push({
-        label: lang === 'am' ? 'ሳምንታዊ' : 'WEEKLY',
-        tone: 'bg-sky-blue/15 text-deep-blue border-sky-blue/30'
-      });
-    }
-    if (event.type === 'special') {
-      badges.push({
-        label: lang === 'am' ? 'ልዩ መርሃ ግብር' : 'SPECIAL',
-        tone: 'bg-coral-red/15 text-coral-red border-coral-red/30'
-      });
-    }
-    return badges;
-  };
-  const getCardClassName = (event) => {
-    if (event.type === 'special') {
-      return 'bg-coral-red/10 border border-coral-red/30 shadow-sm';
-    }
-    return 'bg-off-white border border-midnight-navy/10';
-  };
-
-  // Helper to format event date/time for display
-  const [ethiopianDates, setEthiopianDates] = useState({});
-  // Fetch and cache Ethiopian dates for all visible events
-  useEffect(() => {
-    if (lang !== 'am' || isEventsLoading) return;
-    const fetchDates = async () => {
-      const toConvert = events
-        .filter((event) => event.featured && isEventVisible(event))
-        .flatMap((event) => [event.startDate, event.endDate].filter(Boolean));
-      const uniqueDates = Array.from(new Set(toConvert));
-      const results = {};
-      await Promise.all(uniqueDates.map(async (iso) => {
-        if (!iso) return;
-        const d = new Date(iso);
-        const eth = await convertToEthiopianDate(d);
-        if (eth) results[iso] = eth;
-      }));
-      setEthiopianDates((prev) => ({ ...prev, ...results }));
-    };
-    fetchDates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, isEventsLoading, events]);
-
-  function getDateParts(dateStr) {
-    if (!dateStr) return null;
-    const date = new Date(dateStr);
-    if (lang === 'am' && ethiopianDates[dateStr]) {
-      return ethiopianDates[dateStr];
-    }
-    return parseFullDateParts(date, lang);
-  }
-
-  function formatEventDateOnly(dateStr) {
-    const parts = getDateParts(dateStr);
-    if (!parts) return '';
-    return `${parts.weekday} ${parts.month} ${parts.day}, ${parts.year}`;
-  }
-
-  function formatEventTime(dateStr) {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    if (lang === 'am') {
-      const time = toEthiopianTime(date);
-      const tod = getEthiopianTimeOfDay(date);
-      return `${time} ${tod}`.trim();
-    }
-    return date.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
-  }
-
-  function formatEventDateTime(dateStr, showTime = true) {
-    if (!dateStr) return '';
-    const dateText = formatEventDateOnly(dateStr);
-    if (!showTime) return dateText;
-    const timeText = formatEventTime(dateStr);
-    return `${dateText}${timeText ? ' ' + timeText : ''}`;
-  }
-
-  function isSameCalendarDay(startStr, endStr) {
-    if (!startStr || !endStr) return false;
-    const startParts = getDateParts(startStr);
-    const endParts = getDateParts(endStr);
-    if (startParts && endParts) {
-      return (
-        startParts.year === endParts.year &&
-        startParts.month === endParts.month &&
-        startParts.day === endParts.day
-      );
-    }
-    const start = new Date(startStr);
-    const end = new Date(endStr);
-    return (
-      start.getFullYear() === end.getFullYear() &&
-      start.getMonth() === end.getMonth() &&
-      start.getDate() === end.getDate()
-    );
-  }
-
-  function shouldShowTime(dateStr) {
-    if (!dateStr) return false;
-    const d = new Date(dateStr);
-    return d.getHours() !== 0 || d.getMinutes() !== 0;
-  }
   const sortedWeeklyPrograms = weeklyPrograms
     .slice()
     .sort((a, b) => getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule));
@@ -600,7 +393,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Upcoming Events */}
+      {/* Events Section */}
       <section className="bg-sky-blue/10 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-sm font-bold text-midnight-navy/60 mb-4">
@@ -609,111 +402,15 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-black text-center mb-12">
             {t('happenings.title')}
           </h2>
-
-          <div className="flex flex-col gap-6">
-            {isEventsLoading &&
-              Array.from({ length: 2 }).map((_, index) => (
-                <div
-                  key={`event-skeleton-${index}`}
-                  className="rounded-lg p-6 bg-off-white border border-midnight-navy/10 animate-pulse"
-                >
-                  <div className="flex gap-2 mb-3">
-                    <div className="h-5 w-16 bg-midnight-navy/10 rounded-full"></div>
-                    <div className="h-5 w-20 bg-midnight-navy/10 rounded-full"></div>
-                  </div>
-                  <div className="h-6 w-2/3 bg-midnight-navy/10 rounded mb-3"></div>
-                  <div className="space-y-2 mb-4">
-                    <div className="h-3 w-full bg-midnight-navy/10 rounded"></div>
-                    <div className="h-3 w-5/6 bg-midnight-navy/10 rounded"></div>
-                  </div>
-                  <div className="h-4 w-40 bg-midnight-navy/10 rounded"></div>
-                </div>
-              ))}
-            {!isEventsLoading &&
-              events
-                .filter((event) => event.featured)
-                .filter(isEventVisible)
-                .map((event) => ({
-                  ...event,
-                  nextOccurrence: getEventNextOccurrence(event)
-                }))
-                .filter((event) => event.nextOccurrence)
-                .sort((a, b) => a.nextOccurrence - b.nextOccurrence)
-                .map((event) => {
-                  // Date display logic
-                  const hasEnd = Boolean(event.endDate);
-                  const sameDay = hasEnd && isSameCalendarDay(event.startDate, event.endDate);
-                  const showEnd = hasEnd && !sameDay;
-                  const showStartTime = shouldShowTime(event.startDate);
-                  const showEndTime = hasEnd && shouldShowTime(event.endDate);
-                  const dateOnlyText = formatEventDateOnly(event.startDate);
-                  const startTimeText = showStartTime ? formatEventTime(event.startDate) : '';
-                  const endTimeText = showEndTime ? formatEventTime(event.endDate) : '';
-                  const timeRangeText =
-                    startTimeText && endTimeText
-                      ? `${startTimeText} – ${endTimeText}`
-                      : startTimeText || endTimeText;
-                  return (
-                    <div
-                      key={event._id}
-                      className={`rounded-lg p-6 transition-shadow ${getCardClassName(event)}`}
-                    >
-                      <div className="flex flex-wrap gap-2 mb-3 items-center justify-between">
-                        <div className="flex flex-wrap gap-2">
-                          {getBadges(event).map((badge, index) => (
-                            <span
-                              key={`${event._id}-badge-${index}`}
-                              className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full border ${badge.tone}`}
-                            >
-                              {badge.label}
-                            </span>
-                          ))}
-                        </div>
-                        <div className="text-xs font-semibold text-midnight-navy/80">
-                          {sameDay ? (
-                            <>
-                              {dateOnlyText}
-                              {timeRangeText && <span> {timeRangeText}</span>}
-                            </>
-                          ) : (
-                            <>
-                              {formatEventDateTime(event.startDate, showStartTime)}
-                              {showEnd && (
-                                <>
-                                  <span className="mx-1">–</span>
-                                  {formatEventDateTime(event.endDate, showEndTime)}
-                                </>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      </div>
-                      <h3 className="text-2xl font-black mb-2 text-midnight-navy">
-                        {event.title}
-                      </h3>
-                      <p className="text-midnight-navy/70 text-sm mb-4">
-                        {event.description}
-                      </p>
-                      <div className="text-sm font-semibold text-midnight-navy">
-                        {getCountdownText(event)}
-                      </div>
-                    </div>
-                  );
-                })}
+          <EventsSection limit={4} onlyFeatured />
+          <div className="text-center mt-10">
+            <Link
+              to="/events"
+              className="inline-flex items-center justify-center bg-deep-blue text-off-white px-6 py-3 rounded-full font-bold text-sm transition-colors hover:bg-deep-blue/90"
+            >
+              {t('happenings.view_all')}
+            </Link>
           </div>
-          {!isEventsLoading &&
-            events
-              .filter((event) => event.featured)
-              .filter(isEventVisible)
-              .map((event) => ({
-                ...event,
-                nextOccurrence: getEventNextOccurrence(event)
-              }))
-              .filter((event) => event.nextOccurrence).length === 0 && (
-              <p className="text-center text-midnight-navy/70 mt-6">
-                {t('happenings.no_event')}
-              </p>
-            )}
         </div>
       </section>
 
