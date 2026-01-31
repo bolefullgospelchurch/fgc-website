@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { sanityClient } from '../sanity'
 import { useLanguage } from '../context/LanguageContext'
-import Navbar from './Navbar'
+import Navbar from '../components/Navbar'
 
 function Ministries() {
   const { language: lang } = useLanguage()

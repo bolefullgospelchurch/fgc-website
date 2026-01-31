@@ -59,18 +59,52 @@ export default function Navbar({ transparent = false }) {
                 </Link>
               ))}
               
-              <div 
-                className={`relative inline-flex items-center h-6 rounded-full w-14 cursor-pointer transition-colors duration-200 ease-in-out ml-4 border ${transparent ? 'bg-off-white/15 border-off-white/30' : 'bg-off-white border-midnight-navy/20'}`}
+              <div
+                className={`relative inline-flex items-center h-7 w-16 rounded-full cursor-pointer transition-all duration-300 ease-out ml-4 border overflow-hidden ${
+                  transparent
+                    ? 'bg-linear-to-r from-off-white/10 to-off-white/20 border-off-white/30'
+                    : 'bg-linear-to-r from-off-white to-sky-blue/20 border-midnight-navy/20'
+                }`}
                 onClick={toggleLanguage}
               >
-                <span className={`
-                  ${language === 'en' ? 'translate-x-1' : 'translate-x-8'} 
-                  inline-block w-4 h-4 transform bg-off-white rounded-full transition duration-200 ease-in-out z-10 shadow-sm
-                `} />
-                <span className={`absolute left-1.5 text-[10px] font-bold ${language === 'en' ? (transparent ? 'text-off-white' : 'text-midnight-navy') : (transparent ? 'text-off-white/50' : 'text-midnight-navy/40')}`}>
+                <span
+                  className={`absolute inset-0 opacity-0 transition-opacity duration-300 ${
+                    transparent ? 'bg-off-white/10' : 'bg-sky-blue/20'
+                  } group-hover:opacity-100`}
+                />
+                <span
+                  className={`
+                    ${language === 'en' ? 'translate-x-1' : 'translate-x-9'}
+                    inline-flex items-center justify-center w-5 h-5 transform rounded-full transition-all duration-300 ease-out z-10 shadow-md
+                    ${transparent ? 'bg-off-white text-midnight-navy' : 'bg-deep-blue text-off-white'}
+                  `}
+                >
+                  <span className="text-[10px] font-black">{language === 'en' ? 'EN' : 'AM'}</span>
+                </span>
+                <span
+                  className={`absolute left-2 text-[10px] font-bold transition-colors ${
+                    language === 'en'
+                      ? transparent
+                        ? 'text-off-white'
+                        : 'text-midnight-navy'
+                      : transparent
+                        ? 'text-off-white/40'
+                        : 'text-midnight-navy/40'
+                  }`}
+                >
                   EN
                 </span>
-                <span className={`absolute right-1.5 text-[10px] font-bold ${language === 'am' ? (transparent ? 'text-off-white' : 'text-midnight-navy') : (transparent ? 'text-off-white/50' : 'text-midnight-navy/40')}`}>
+                <span
+                  className={`absolute right-2 text-[10px] font-bold transition-colors ${
+                    language === 'am'
+                      ? transparent
+                        ? 'text-off-white'
+                        : 'text-midnight-navy'
+                      : transparent
+                        ? 'text-off-white/40'
+                        : 'text-midnight-navy/40'
+                  }`}
+                >
                   AM
                 </span>
               </div>

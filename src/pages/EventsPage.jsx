@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Navbar from "./Navbar";
-import EventsSection from "./EventsSection";
+import Navbar from "../components/Navbar";
+import EventsSection from "../components/EventsSection";
 
 export default function EventsPage() {
   const { t } = useTranslation();

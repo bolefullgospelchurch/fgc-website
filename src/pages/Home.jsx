@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import {
   FaPlay,
 } from "react-icons/fa";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { sanityClient } from "../sanity";
 import { useLanguage } from "../context/LanguageContext";
-import EventsSection from "./EventsSection";
+import EventsSection from "../components/EventsSection";
 // import stage from "../assets/stage.jpeg";
 import stage from "../assets/girl.jpg";
 import ministriesBg from "../assets/bible.jpg";
