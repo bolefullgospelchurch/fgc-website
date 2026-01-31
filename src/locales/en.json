@@ -38,15 +38,19 @@
     "wait": "WAIT, THERE'S MORE!",
     "title": "Looking For More Ministries?",
     "description": "Discover new ways to connect with our faith community, grow spiritually, and make a meaningful impact in service.",
-    "community": "Community Life",
-    "community_desc": "Small groups and fellowships",
+    "worship": "Worship Team",
+    "worship_desc": "Leading the church in praise, worship, and music ministry.",
     "view_all": "View All Ministries",
-    "prayer": "Ministry: Prayer & Worship",
-    "prayer_desc": "Experience spiritual growth",
-    "service": "Sunday Service Times",
-    "service_desc": "Join us in person or online",
+    "diakon": "Diakon Team",
+    "diakon_desc": "Serving with care, hospitality, and practical support.",
+    "media": "Media & Communication",
+    "media_desc": "Sharing the message through media, design, and communications.",
     "view_schedule": "View Schedule",
     "view_events": "View More Events"
+  },
+  "schedule": {
+    "title": "Weekly Schedule",
+    "description": "Plan your week and join the ministries that fit your season and calling."
   },
   "happenings": {
     "label": "LATEST HAPPENINGS",
@@ -67,7 +71,7 @@
     "series_desc": "Browse all our sermons",
     "podcast": "Podcast",
     "podcast_desc": "Listen on the go",
-    "listen_now": "Listen Now"
+    "listen_now": "Watch Now"
   },
   "footer": {
     "about_title": "Ethiopian Full Gospel Believers Church, Bole Local",

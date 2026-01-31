@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import {
   FaMobileAlt,
@@ -7,11 +7,203 @@ import {
   FaPlay,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
+import { sanityClient } from "../sanity";
+import { useLanguage } from "../context/LanguageContext";
 // import stage from "../assets/stage.jpeg";
 import stage from "../assets/girl.jpg";
+import ministriesBg from "../assets/bible.jpg";
 
 export default function Home() {
   const { t } = useTranslation();
+  const { language: lang } = useLanguage();
+  const dayMap = {
+    sunday: { en: 'Sunday', am: 'እሁድ' },
+    monday: { en: 'Monday', am: 'ሰኞ' },
+    tuesday: { en: 'Tuesday', am: 'ማክሰኞ' },
+    wednesday: { en: 'Wednesday', am: 'ረቡዕ' },
+    thursday: { en: 'Thursday', am: 'ሐሙስ' },
+    friday: { en: 'Friday', am: 'አርብ' },
+    saturday: { en: 'Saturday', am: 'ቅዳሜ' }
+  };
+  const dayOrder = {
+    monday: 0,
+    tuesday: 1,
+    wednesday: 2,
+    thursday: 3,
+    friday: 4,
+    saturday: 5,
+    sunday: 6
+  };
+  const moreSectionRef = useRef(null);
+  const moreBgRef = useRef(null);
+  const [weeklyPrograms, setWeeklyPrograms] = useState([]);
+  const [isWeeklyLoading, setIsWeeklyLoading] = useState(true);
+  const [events, setEvents] = useState([]);
+  const [isEventsLoading, setIsEventsLoading] = useState(true);
+  const [now, setNow] = useState(() => new Date());
+  const NEW_BADGE_DAYS = 7;
+  const normalizeDay = (day) => String(day || '').toLowerCase();
+  const getProgramDayIndex = (schedule = []) => {
+    if (!schedule.length) return 99;
+    return Math.min(
+      ...schedule.map((slot) => dayOrder[normalizeDay(slot.day)] ?? 99)
+    );
+  };
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    const handleScroll = () => {
+      if (!moreSectionRef.current || !moreBgRef.current) return;
+      const rect = moreSectionRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      const sectionTop = scrollY + rect.top;
+      const offset = (scrollY - sectionTop) * 0.15;
+      moreBgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsWeeklyLoading(true);
+    sanityClient
+      .fetch(`*[_type == "weeklyProgram"]{
+        _id,
+        "name": name.${lang},
+        "ageGroup": ageGroup.${lang},
+        schedule[]{
+          day,
+          "time": time.${lang}
+        }
+      }`)
+      .then(setWeeklyPrograms)
+      .finally(() => setIsWeeklyLoading(false));
+  }, [lang]);
+
+  useEffect(() => {
+    setIsEventsLoading(true);
+    sanityClient
+      .fetch(`*[_type == "event"]{
+        _id,
+        _createdAt,
+        "title": title.${lang},
+        "description": description.${lang},
+        startDate,
+        endDate,
+        type,
+        featured
+      }`)
+      .then(setEvents)
+      .finally(() => setIsEventsLoading(false));
+  }, [lang]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const parseDate = (value) => (value ? new Date(value) : null);
+  const getNextWeeklyOccurrence = (startDateValue) => {
+    const start = parseDate(startDateValue);
+    if (!start) return null;
+    const target = new Date(now);
+    target.setHours(
+      start.getHours(),
+      start.getMinutes(),
+      start.getSeconds(),
+      start.getMilliseconds()
+    );
+    const dayDiff = (start.getDay() - target.getDay() + 7) % 7;
+    target.setDate(target.getDate() + dayDiff);
+    if (target <= now) {
+      target.setDate(target.getDate() + 7);
+    }
+    return target;
+  };
+  const isEventVisible = (event) => {
+    if (!event?.startDate) return false;
+    const start = parseDate(event.startDate);
+    const end = parseDate(event.endDate);
+    if (event.type === 'weekly') return true;
+    if (now < start) return true;
+    if (end && now <= end) return true;
+    return false;
+  };
+  const getEventNextOccurrence = (event) => {
+    if (!event?.startDate) return null;
+    if (event.type === 'weekly') return getNextWeeklyOccurrence(event.startDate);
+    const start = parseDate(event.startDate);
+    if (!start) return null;
+    if (now < start) return start;
+    if (event.endDate && now <= parseDate(event.endDate)) return now;
+    return null;
+  };
+  const getCountdownText = (event) => {
+    const nextTime = getEventNextOccurrence(event);
+    if (!nextTime) return 'Ended';
+    if (event.type !== 'weekly') {
+      const start = parseDate(event.startDate);
+      if (start && now >= start) {
+        const end = parseDate(event.endDate);
+        if (end && now <= end) return lang === 'am' ? 'በአሁኑ ጊዜ' : 'Live now';
+      }
+    }
+    const diffMs = Math.max(0, nextTime - now);
+    const totalMinutes = Math.floor(diffMs / 60000);
+    const days = Math.floor(totalMinutes / 1440);
+    const hours = Math.floor((totalMinutes % 1440) / 60);
+    const minutes = totalMinutes % 60;
+    if (days > 0) {
+      return lang === 'am'
+        ? `በ${days} ቀን ${hours} ሰዓት ይጀምራል`
+        : `Starts in ${days} day${days === 1 ? '' : 's'} ${hours} hour${hours === 1 ? '' : 's'}`;
+    }
+    if (hours > 0) {
+      return lang === 'am'
+        ? `በ${hours} ሰዓት ${minutes} ደቂቃ ይጀምራል`
+        : `Starts in ${hours} hour${hours === 1 ? '' : 's'} ${minutes} min`;
+    }
+    return lang === 'am'
+      ? `በ${minutes} ደቂቃ ይጀምራል`
+      : `Starts in ${minutes} min`;
+  };
+  const getBadges = (event) => {
+    const badges = [];
+    const createdAt = parseDate(event._createdAt);
+    if (createdAt && now - createdAt <= NEW_BADGE_DAYS * 24 * 60 * 60 * 1000) {
+      badges.push({
+        label: lang === 'am' ? 'አዲስ' : 'NEW',
+        tone: 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30'
+      });
+    }
+    if (event.type === 'weekly') {
+      badges.push({
+        label: lang === 'am' ? 'ሳምንታዊ' : 'WEEKLY',
+        tone: 'bg-sky-blue/15 text-deep-blue border-sky-blue/30'
+      });
+    }
+    if (event.type === 'special') {
+      badges.push({
+        label: lang === 'am' ? 'ልዩ መርሃ ግብር' : 'SPECIAL',
+        tone: 'bg-coral-red/15 text-coral-red border-coral-red/30'
+      });
+    }
+    return badges;
+  };
+  const getCardClassName = (event) => {
+    if (event.type === 'special') {
+      return 'bg-coral-red/10 border border-coral-red/30 shadow-sm';
+    }
+    return 'bg-off-white border border-midnight-navy/10';
+  };
+  const sortedWeeklyPrograms = weeklyPrograms
+    .slice()
+    .sort((a, b) => getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule));
+
   return (
     <main className="min-h-screen bg-off-white">
       <Navbar transparent />
@@ -201,57 +393,129 @@ export default function Home() {
       </section>
 
       {/* Wait, There's More Section */}
-      <section className="bg-sky-blue/10 text-midnight-navy px-4 py-16 md:py-24">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-center text-sm font-bold text-sky-blue mb-4">
+      <section
+        ref={moreSectionRef}
+        className="relative overflow-hidden bg-black text-off-white px-4 py-16 md:py-24"
+      >
+        <div className="absolute inset-0 z-0">
+          <img
+            ref={moreBgRef}
+            src={ministriesBg}
+            alt="Ministries background"
+            className="w-full h-full object-cover opacity-80 transition-transform duration-700 ease-out"
+          />
+          <div className="absolute inset-0 bg-black/80"></div>
+        </div>
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <p className="text-center text-sm font-bold text-white/70 mb-4">
             {t('more.wait')}
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-center mb-6">
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
             {t('more.title')}
           </h2>
-          <p className="text-center text-midnight-navy/70 mb-8 max-w-2xl mx-auto text-lg">
+          <p className="text-center text-white/80 mb-8 max-w-2xl mx-auto text-lg">
             {t('more.description')}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-sky-blue/10 rounded-lg p-6 text-center hover:bg-sky-blue/15 transition-colors cursor-pointer border border-sky-blue/30">
-              <h3 className="text-2xl font-black mb-2 text-deep-blue">{t('more.community')}</h3>
-              <p className="text-sm text-deep-blue/80 mb-4">
-                {t('more.community_desc')}
+            <div className="bg-white/5 rounded-lg p-6 text-center hover:bg-white/10 transition-colors cursor-pointer border border-white/10 backdrop-blur-sm">
+              <h3 className="text-2xl font-black mb-2 text-white">{t('more.worship')}</h3>
+              <p className="text-sm text-white/80 mb-4">
+                {t('more.worship_desc')}
               </p>
-              <button className="text-deep-blue font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
-                {t('more.view_all')} <span>→</span>
-              </button>
-            </div>
-            <div className="bg-off-white rounded-lg p-6 text-center hover:bg-off-white/80 transition-colors cursor-pointer border border-midnight-navy/10">
-              <h3 className="text-2xl font-black mb-2 text-midnight-navy">
-                {t('more.prayer')}
-              </h3>
-              <p className="text-sm text-midnight-navy/70 mb-4">
-                {t('more.prayer_desc')}
-              </p>
-              <button className="text-deep-blue font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
+              <button className="text-white font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
                 {t('cards.learn_more')} <span>→</span>
               </button>
             </div>
-            <div className="bg-coral-red/10 rounded-lg p-6 text-center hover:bg-coral-red/15 transition-colors cursor-pointer border border-coral-red/30">
-              <h3 className="text-2xl font-black mb-2 text-coral-red">{t('more.service')}</h3>
-              <p className="text-sm text-coral-red/90 mb-4">
-                {t('more.service_desc')}
+            <div className="bg-white/5 rounded-lg p-6 text-center hover:bg-white/10 transition-colors cursor-pointer border border-white/10 backdrop-blur-sm">
+              <h3 className="text-2xl font-black mb-2 text-white">
+                {t('more.diakon')}
+              </h3>
+              <p className="text-sm text-white/80 mb-4">
+                {t('more.diakon_desc')}
               </p>
-              <button className="text-coral-red font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
-                {t('more.view_schedule')} <span>→</span>
+              <button className="text-white font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
+                {t('cards.learn_more')} <span>→</span>
+              </button>
+            </div>
+            <div className="bg-white/5 rounded-lg p-6 text-center hover:bg-white/10 transition-colors cursor-pointer border border-white/10 backdrop-blur-sm">
+              <h3 className="text-2xl font-black mb-2 text-white">{t('more.media')}</h3>
+              <p className="text-sm text-white/80 mb-4">
+                {t('more.media_desc')}
+              </p>
+              <button className="text-white font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
+                {t('cards.learn_more')} <span>→</span>
               </button>
             </div>
           </div>
           <div className="text-center mt-8">
-            <button className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors">
-              {t('more.view_events')}
+            <button className="bg-white hover:bg-white/90 text-black px-8 py-3 rounded-lg font-bold transition-colors">
+              {t('more.view_all')}
             </button>
           </div>
         </div>
       </section>
 
-      {/* Latest Happenings */}
+      {/* Weekly Schedule */}
+      <section className="bg-sky-blue/10 px-4 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-midnight-navy">
+            {t('schedule.title')}
+          </h2>
+          <p className="text-center text-midnight-navy/70 mb-12 max-w-3xl mx-auto text-lg">
+            {t('schedule.description')}
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {isWeeklyLoading &&
+              Array.from({ length: 4 }).map((_, index) => (
+                <div
+                  key={`weekly-skeleton-${index}`}
+                  className="rounded-lg p-6 border border-midnight-navy/10 bg-off-white animate-pulse"
+                >
+                  <div className="h-5 w-2/3 bg-midnight-navy/10 rounded mb-3"></div>
+                  <div className="h-4 w-1/3 bg-midnight-navy/10 rounded mb-4"></div>
+                  <div className="space-y-2">
+                    <div className="h-3 w-3/4 bg-midnight-navy/10 rounded"></div>
+                    <div className="h-3 w-2/3 bg-midnight-navy/10 rounded"></div>
+                  </div>
+                </div>
+              ))}
+            {!isWeeklyLoading &&
+              sortedWeeklyPrograms.map((program) => (
+                <div
+                  key={program._id}
+                  className="bg-off-white rounded-lg p-6 border border-midnight-navy/10"
+                >
+                  <h3 className="text-2xl font-black mb-2 text-midnight-navy">
+                    {program.name}{" "}
+                    {program.ageGroup && (
+                      <span className="text-sm text-midnight-navy/70 mb-3">
+                        ({program.ageGroup})
+                      </span>
+                    )}
+                  </h3>
+                  <ul className="text-sm text-midnight-navy/80 space-y-1">
+                    {(program.schedule || [])
+                      .slice()
+                      .sort((a, b) => (dayOrder[normalizeDay(a.day)] ?? 99) - (dayOrder[normalizeDay(b.day)] ?? 99))
+                      .map((slot, index) => (
+                        <li key={`${program._id}-${index}`}>
+                          {lang == "am" ? dayMap[normalizeDay(slot.day)]?.am : dayMap[normalizeDay(slot.day)]?.en} - {slot.time}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+          </div>
+          {!isWeeklyLoading && sortedWeeklyPrograms.length === 0 && (
+            <p className="text-center text-midnight-navy/70 mt-6">
+              There are no weekly schedules set.
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* Upcoming Events */}
       <section className="bg-sky-blue/10 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-sm font-bold text-midnight-navy/60 mb-4">
@@ -261,59 +525,75 @@ export default function Home() {
             {t('happenings.title')}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Event Card 1 */}
-            <div className="bg-off-white rounded-lg p-6 border-4 border-sky-blue hover:shadow-lg transition-shadow">
-              <div className="h-40 bg-sky-blue/15 rounded-lg mb-4 flex items-center justify-center">
-                <FaMobileAlt className="text-5xl text-sky-blue" />
-              </div>
-              <h3 className="text-2xl font-black mb-2">
-                {t('happenings.app_title')}
-              </h3>
-              <p className="text-midnight-navy/70 text-sm mb-4">
-                {t('happenings.app_desc')}
-              </p>
-              <button className="text-sky-blue font-bold text-sm hover:underline">
-                {t('cards.learn_more')} →
-              </button>
-            </div>
-
-            {/* Event Card 2 */}
-            <div className="bg-off-white rounded-lg p-6 border-4 border-midnight-navy/10 hover:shadow-lg transition-shadow">
-              <div className="h-40 bg-off-white rounded-lg mb-4 flex items-center justify-center border border-midnight-navy/10">
-                <FaPrayingHands className="text-5xl text-midnight-navy/40" />
-              </div>
-              <h3 className="text-2xl font-black mb-2 text-midnight-navy">
-                {t('happenings.prayer_title')}
-              </h3>
-              <p className="text-midnight-navy/70 text-sm mb-4">
-                {t('happenings.prayer_desc')}
-              </p>
-              <button className="text-deep-blue font-bold text-sm hover:underline">
-                {t('cards.learn_more')} →
-              </button>
-            </div>
-
-            {/* Event Card 3 */}
-            <div className="bg-deep-blue text-off-white rounded-lg p-6 border-4 border-deep-blue hover:shadow-lg transition-shadow">
-              <div className="h-40 bg-sky-blue/40 rounded-lg mb-4 flex items-center justify-center">
-                <FaBookOpen className="text-5xl text-off-white" />
-              </div>
-              <h3 className="text-2xl font-black mb-2">{t('happenings.service_title')}</h3>
-              <p className="text-off-white/80 text-sm mb-4">
-                {t('happenings.service_desc')}
-              </p>
-              <button className="text-off-white font-bold text-sm hover:underline">
-                {t('cards.learn_more')} →
-              </button>
-            </div>
+          <div className="flex flex-col gap-6">
+            {isEventsLoading &&
+              Array.from({ length: 2 }).map((_, index) => (
+                <div
+                  key={`event-skeleton-${index}`}
+                  className="rounded-lg p-6 bg-off-white border border-midnight-navy/10 animate-pulse"
+                >
+                  <div className="flex gap-2 mb-3">
+                    <div className="h-5 w-16 bg-midnight-navy/10 rounded-full"></div>
+                    <div className="h-5 w-20 bg-midnight-navy/10 rounded-full"></div>
+                  </div>
+                  <div className="h-6 w-2/3 bg-midnight-navy/10 rounded mb-3"></div>
+                  <div className="space-y-2 mb-4">
+                    <div className="h-3 w-full bg-midnight-navy/10 rounded"></div>
+                    <div className="h-3 w-5/6 bg-midnight-navy/10 rounded"></div>
+                  </div>
+                  <div className="h-4 w-40 bg-midnight-navy/10 rounded"></div>
+                </div>
+              ))}
+            {!isEventsLoading &&
+              events
+                .filter((event) => event.featured)
+                .filter(isEventVisible)
+                .map((event) => ({
+                  ...event,
+                  nextOccurrence: getEventNextOccurrence(event)
+                }))
+                .filter((event) => event.nextOccurrence)
+                .sort((a, b) => a.nextOccurrence - b.nextOccurrence)
+                .map((event) => (
+                  <div
+                    key={event._id}
+                    className={`rounded-lg p-6 transition-shadow ${getCardClassName(event)}`}
+                  >
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {getBadges(event).map((badge, index) => (
+                        <span
+                          key={`${event._id}-badge-${index}`}
+                          className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full border ${badge.tone}`}
+                        >
+                          {badge.label}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="text-2xl font-black mb-2 text-midnight-navy">
+                      {event.title}
+                    </h3>
+                    <p className="text-midnight-navy/70 text-sm mb-4">
+                      {event.description}
+                    </p>
+                    <div className="text-sm font-semibold text-midnight-navy">
+                      {getCountdownText(event)}
+                    </div>
+                  </div>
+                ))}
           </div>
-
-          <div className="text-center mt-10">
-            <button className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors">
-              {t('more.view_events')}
-            </button>
-          </div>
+          {!isEventsLoading &&
+            events
+              .filter((event) => event.featured)
+              .filter(isEventVisible)
+              .map((event) => ({
+                ...event,
+                nextOccurrence: getEventNextOccurrence(event)
+              }))
+              .filter((event) => event.nextOccurrence).length === 0 && (
+              <p className="text-center text-midnight-navy/70 mt-6">
+                There are no upcoming events.
+              </p>
+            )}
         </div>
       </section>
 
