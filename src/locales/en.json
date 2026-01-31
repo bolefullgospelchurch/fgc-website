@@ -50,7 +50,8 @@
   },
   "schedule": {
     "title": "Weekly Schedule",
-    "description": "Plan your week and join the ministries that fit your season and calling."
+    "description": "Plan your week and join the ministries that fit your season and calling.",
+    "no_schedule": "There are no weekly schedules set."
   },
   "happenings": {
     "label": "LATEST HAPPENINGS",
@@ -60,7 +61,8 @@
     "prayer_title": "Midweek Prayer & Worship",
     "prayer_desc": "Join us for prayer, worship, and community connection every Wednesday at 7:00 PM.",
     "service_title": "Sunday Service Times",
-    "service_desc": "Join us on Sunday at 9:00 AM or 10:30 AM for worship, community, and spiritual growth."
+    "service_desc": "Join us on Sunday at 9:00 AM or 10:30 AM for worship, community, and spiritual growth.",
+    "no_event": "There are no upcoming events."
   },
   "sermons": {
     "label": "WATCH & LISTEN",

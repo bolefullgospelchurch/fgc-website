@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { convertToEthiopianDate, toEthiopianTime, parseFullDateParts } from '../utils/ethiopianDate';
+import { getEthiopianTimeOfDay } from '../utils/ethiopianTimeOfDay';
 import { useTranslation } from 'react-i18next';
 import {
   FaMobileAlt,
@@ -149,7 +151,7 @@ export default function Home() {
       const start = parseDate(event.startDate);
       if (start && now >= start) {
         const end = parseDate(event.endDate);
-        if (end && now <= end) return lang === 'am' ? 'በአሁኑ ጊዜ' : 'Live now';
+        if (end && now <= end) return lang === 'am' ? 'በመካሄድ ላይ' : 'Live now';
       }
     }
     const diffMs = Math.max(0, nextTime - now);
@@ -200,6 +202,89 @@ export default function Home() {
     }
     return 'bg-off-white border border-midnight-navy/10';
   };
+
+  // Helper to format event date/time for display
+  const [ethiopianDates, setEthiopianDates] = useState({});
+  // Fetch and cache Ethiopian dates for all visible events
+  useEffect(() => {
+    if (lang !== 'am' || isEventsLoading) return;
+    const fetchDates = async () => {
+      const toConvert = events
+        .filter((event) => event.featured && isEventVisible(event))
+        .flatMap((event) => [event.startDate, event.endDate].filter(Boolean));
+      const uniqueDates = Array.from(new Set(toConvert));
+      const results = {};
+      await Promise.all(uniqueDates.map(async (iso) => {
+        if (!iso) return;
+        const d = new Date(iso);
+        const eth = await convertToEthiopianDate(d);
+        if (eth) results[iso] = eth;
+      }));
+      setEthiopianDates((prev) => ({ ...prev, ...results }));
+    };
+    fetchDates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang, isEventsLoading, events]);
+
+  function getDateParts(dateStr) {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    if (lang === 'am' && ethiopianDates[dateStr]) {
+      return ethiopianDates[dateStr];
+    }
+    return parseFullDateParts(date, lang);
+  }
+
+  function formatEventDateOnly(dateStr) {
+    const parts = getDateParts(dateStr);
+    if (!parts) return '';
+    return `${parts.weekday} ${parts.month} ${parts.day}, ${parts.year}`;
+  }
+
+  function formatEventTime(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    if (lang === 'am') {
+      const time = toEthiopianTime(date);
+      const tod = getEthiopianTimeOfDay(date);
+      return `${time} ${tod}`.trim();
+    }
+    return date.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function formatEventDateTime(dateStr, showTime = true) {
+    if (!dateStr) return '';
+    const dateText = formatEventDateOnly(dateStr);
+    if (!showTime) return dateText;
+    const timeText = formatEventTime(dateStr);
+    return `${dateText}${timeText ? ' ' + timeText : ''}`;
+  }
+
+  function isSameCalendarDay(startStr, endStr) {
+    if (!startStr || !endStr) return false;
+    const startParts = getDateParts(startStr);
+    const endParts = getDateParts(endStr);
+    if (startParts && endParts) {
+      return (
+        startParts.year === endParts.year &&
+        startParts.month === endParts.month &&
+        startParts.day === endParts.day
+      );
+    }
+    const start = new Date(startStr);
+    const end = new Date(endStr);
+    return (
+      start.getFullYear() === end.getFullYear() &&
+      start.getMonth() === end.getMonth() &&
+      start.getDate() === end.getDate()
+    );
+  }
+
+  function shouldShowTime(dateStr) {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    return d.getHours() !== 0 || d.getMinutes() !== 0;
+  }
   const sortedWeeklyPrograms = weeklyPrograms
     .slice()
     .sort((a, b) => getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule));
@@ -217,7 +302,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/80 z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy via-transparent to-transparent z-10"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-midnight-navy via-transparent to-transparent z-10"></div>
         </div>
 
         {/* Content */}
@@ -232,13 +317,13 @@ export default function Home() {
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-off-white mb-8 leading-tight tracking-tight drop-shadow-2xl">
                 {t('hero.jesus_prefix')} <br className="hidden md:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-blue to-coral-red">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-sky-blue to-coral-red">
                   {t('hero.jesus_suffix')}
                 </span>
             </h1>
 
             {/* Subtext / Verse */}
-             <p className="text-xl md:text-2xl text-off-white/85 max-w-3xl mx-auto mb-10 leading-relaxed font-bold drop-shadow-md">
+             <p className="text-xl md:text-2xl text-off-white/85 max-w-3xl mx-auto mb-10 leading-relaxed drop-shadow-md">
                 "{t('hero.verse')}" <br />
                <span className="text-sky-blue font-semibold text-lg mt-3 block">{t('hero.verse_ref')}</span>
               </p>
@@ -509,7 +594,7 @@ export default function Home() {
           </div>
           {!isWeeklyLoading && sortedWeeklyPrograms.length === 0 && (
             <p className="text-center text-midnight-navy/70 mt-6">
-              There are no weekly schedules set.
+              {t('schedules.no_schedule')}
             </p>
           )}
         </div>
@@ -554,32 +639,67 @@ export default function Home() {
                 }))
                 .filter((event) => event.nextOccurrence)
                 .sort((a, b) => a.nextOccurrence - b.nextOccurrence)
-                .map((event) => (
-                  <div
-                    key={event._id}
-                    className={`rounded-lg p-6 transition-shadow ${getCardClassName(event)}`}
-                  >
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {getBadges(event).map((badge, index) => (
-                        <span
-                          key={`${event._id}-badge-${index}`}
-                          className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full border ${badge.tone}`}
-                        >
-                          {badge.label}
-                        </span>
-                      ))}
+                .map((event) => {
+                  // Date display logic
+                  const hasEnd = Boolean(event.endDate);
+                  const sameDay = hasEnd && isSameCalendarDay(event.startDate, event.endDate);
+                  const showEnd = hasEnd && !sameDay;
+                  const showStartTime = shouldShowTime(event.startDate);
+                  const showEndTime = hasEnd && shouldShowTime(event.endDate);
+                  const dateOnlyText = formatEventDateOnly(event.startDate);
+                  const startTimeText = showStartTime ? formatEventTime(event.startDate) : '';
+                  const endTimeText = showEndTime ? formatEventTime(event.endDate) : '';
+                  const timeRangeText =
+                    startTimeText && endTimeText
+                      ? `${startTimeText} – ${endTimeText}`
+                      : startTimeText || endTimeText;
+                  return (
+                    <div
+                      key={event._id}
+                      className={`rounded-lg p-6 transition-shadow ${getCardClassName(event)}`}
+                    >
+                      <div className="flex flex-wrap gap-2 mb-3 items-center justify-between">
+                        <div className="flex flex-wrap gap-2">
+                          {getBadges(event).map((badge, index) => (
+                            <span
+                              key={`${event._id}-badge-${index}`}
+                              className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full border ${badge.tone}`}
+                            >
+                              {badge.label}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="text-xs font-semibold text-midnight-navy/80">
+                          {sameDay ? (
+                            <>
+                              {dateOnlyText}
+                              {timeRangeText && <span> {timeRangeText}</span>}
+                            </>
+                          ) : (
+                            <>
+                              {formatEventDateTime(event.startDate, showStartTime)}
+                              {showEnd && (
+                                <>
+                                  <span className="mx-1">–</span>
+                                  {formatEventDateTime(event.endDate, showEndTime)}
+                                </>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <h3 className="text-2xl font-black mb-2 text-midnight-navy">
+                        {event.title}
+                      </h3>
+                      <p className="text-midnight-navy/70 text-sm mb-4">
+                        {event.description}
+                      </p>
+                      <div className="text-sm font-semibold text-midnight-navy">
+                        {getCountdownText(event)}
+                      </div>
                     </div>
-                    <h3 className="text-2xl font-black mb-2 text-midnight-navy">
-                      {event.title}
-                    </h3>
-                    <p className="text-midnight-navy/70 text-sm mb-4">
-                      {event.description}
-                    </p>
-                    <div className="text-sm font-semibold text-midnight-navy">
-                      {getCountdownText(event)}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
           </div>
           {!isEventsLoading &&
             events
@@ -591,7 +711,7 @@ export default function Home() {
               }))
               .filter((event) => event.nextOccurrence).length === 0 && (
               <p className="text-center text-midnight-navy/70 mt-6">
-                There are no upcoming events.
+                {t('happenings.no_event')}
               </p>
             )}
         </div>

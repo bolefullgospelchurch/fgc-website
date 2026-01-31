@@ -19,6 +19,14 @@
 
 @font-face {
 	font-family: "Nokia Pureheadline";
+	src: url("./assets/fonts/Nokia%20Pureheadline%20Regular.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Nokia Pureheadline";
 	src: url("./assets/fonts/Nokia%20Pureheadline%20Bold.ttf") format("truetype");
 	font-weight: 700;
 	font-style: normal;
