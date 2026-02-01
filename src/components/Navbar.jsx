@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function Navbar({ transparent = false }) {
+export default function Navbar({ transparent = false, contained = true }) {
   const { language, toggleLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,8 +29,8 @@ export default function Navbar({ transparent = false }) {
   const mobileLinkColor = transparent ? 'text-off-white/80 hover:text-off-white' : 'text-midnight-navy hover:text-deep-blue';
 
   return (
-    <nav className={`absolute w-full z-50 ${bgColor} border-b transition-all duration-300`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className={`absolute w-full z-50 ${bgColor} ${contained ? 'border-b' : null} transition-all duration-300`}>
+      <div className={`${contained ? 'max-w-7xl' : null} mx-auto px-4 sm:px-6 lg:px-8`}>
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
             <div className="shrink-0">

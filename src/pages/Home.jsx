@@ -11,6 +11,7 @@ import EventsSection from "../components/EventsSection";
 // import stage from "../assets/stage.jpeg";
 import stage from "../assets/girl.jpg";
 import ministriesBg from "../assets/bible.jpg";
+import MediaSection from "../components/MediaSection";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -212,14 +213,14 @@ export default function Home() {
           <p className="text-lg mb-8 text-off-white/80 leading-relaxed">
             {t('mission.description')}
           </p>
-          <button className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors">
+          <Link to="/about" className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors">
             {t('mission.button')}
-          </button>
+          </Link>
         </div>
       </section>
 
       {/* Get Connected Section */}
-      <section className="bg-sky-blue/10 px-4 py-16 md:py-24">
+      <section className="bg-sky-blue/20 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black text-center text-midnight-navy mb-4">
             {t('connect.title')}
@@ -326,15 +327,15 @@ export default function Home() {
             </div>
           </div>
           <div className="text-center mt-8">
-            <button className="bg-white hover:bg-white/90 text-black px-8 py-3 rounded-lg font-bold transition-colors">
+            <Link to="/ministries" className="bg-white hover:bg-white/90 text-black px-8 py-3 rounded-lg font-bold transition-colors">
               {t('more.view_all')}
-            </button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Weekly Schedule */}
-      <section className="bg-sky-blue/10 px-4 py-16 md:py-24">
+      <section className="bg-sky-blue/20 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-midnight-navy">
             {t('schedule.title')}
@@ -394,7 +395,7 @@ export default function Home() {
       </section>
 
       {/* Events Section */}
-      <section className="bg-sky-blue/10 px-4 py-16 md:py-24">
+      <section className="bg-sky-blue/20 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-sm font-bold text-midnight-navy/60 mb-4">
             {t('happenings.label')}
@@ -415,7 +416,7 @@ export default function Home() {
       </section>
 
       {/* Latest Sermons */}
-      <section className="bg-sky-blue/10 text-midnight-navy px-4 py-16 md:py-24">
+      <section className="bg-sky-blue/20 text-midnight-navy px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-sm font-bold text-sky-blue mb-4">
             {t('sermons.label')}
@@ -424,40 +425,12 @@ export default function Home() {
             {t('sermons.title')}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-off-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border border-midnight-navy/10">
-              <div className="h-48 bg-deep-blue flex items-center justify-center">
-                <FaPlay className="text-6xl text-off-white/90" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-black mb-2 text-midnight-navy">{t('sermons.recent')}</h3>
-                <p className="text-midnight-navy/70 text-sm">{t('sermons.recent_desc')}</p>
-              </div>
-            </div>
-            <div className="bg-off-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border border-midnight-navy/10">
-              <div className="h-48 bg-deep-blue flex items-center justify-center">
-                <FaPlay className="text-6xl text-off-white/90" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-black mb-2 text-midnight-navy">{t('sermons.series')}</h3>
-                <p className="text-midnight-navy/70 text-sm">{t('sermons.series_desc')}</p>
-              </div>
-            </div>
-            <div className="bg-off-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border border-midnight-navy/10">
-              <div className="h-48 bg-deep-blue flex items-center justify-center">
-                <FaPlay className="text-6xl text-off-white/90" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-black mb-2 text-midnight-navy">{t('sermons.podcast')}</h3>
-                <p className="text-midnight-navy/70 text-sm">{t('sermons.podcast_desc')}</p>
-              </div>
-            </div>
-          </div>
+          <MediaSection /> 
 
           <div className="text-center mt-10">
-            <button className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors shadow-sm">
+            <Link to="/sermons" className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors shadow-sm">
               {t('sermons.listen_now')}
-            </button>
+            </Link>
           </div>
         </div>
       </section>

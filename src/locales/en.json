@@ -65,6 +65,24 @@
     "service_desc": "Join us on Sunday at 9:00 AM or 10:30 AM for worship, community, and spiritual growth.",
     "no_event": "There are no upcoming events."
   },
+  "about": {
+    "label": "About Us",
+    "title": "Who We Are",
+    "description": "We are a church family committed to worship, discipleship, and serving our community. Our mission is to share the gospel of Jesus Christ and grow together in faith, love, and service."
+  },
+  "contact": {
+    "label": "Contact Us",
+    "title": "Get in Touch",
+    "description": "We'd love to hear from you. Reach out for prayer requests, questions, or ways to connect.",
+    "email": "Email: info@gracechurch.com",
+    "phone": "Phone: (555) 123-4567",
+    "address": "Address: 123 Faith Avenue, Blessed City"
+  },
+  "ministries": {
+    "label": "Our Ministries",
+    "title": "Get Connected",
+    "meets": "Meets:"
+  },
   "sermons": {
     "label": "WATCH & LISTEN",
     "title": "Latest Sermons",
