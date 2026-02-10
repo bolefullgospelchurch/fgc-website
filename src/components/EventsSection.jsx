@@ -30,6 +30,7 @@ export default function EventsSection({
         _createdAt,
         "title": title.${lang},
         "description": description.${lang},
+        "imageUrl": image.asset->url,
         startDate,
         endDate,
         type,
@@ -240,13 +241,14 @@ export default function EventsSection({
 
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {isEventsLoading &&
-          Array.from({ length: 2 }).map((_, index) => (
+          Array.from({ length: 3 }).map((_, index) => (
             <div
               key={`event-skeleton-${index}`}
               className="rounded-lg p-6 bg-off-white border border-midnight-navy/10 animate-pulse"
             >
+              <div className="h-40 w-full bg-midnight-navy/10 rounded-lg mb-4"></div>
               <div className="flex gap-2 mb-3">
                 <div className="h-5 w-16 bg-midnight-navy/10 rounded-full"></div>
                 <div className="h-5 w-20 bg-midnight-navy/10 rounded-full"></div>

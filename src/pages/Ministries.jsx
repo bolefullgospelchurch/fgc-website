@@ -23,7 +23,7 @@ function Ministries() {
   return (
     <main className="min-h-screen bg-sky-blue/20">
       <Navbar transparent />
-      <section className="bg-linear-to-r from-deep-blue to-midnight-navy text-off-white px-4 py-16 pt-32 md:py-20 md:pt-32">
+      <section className="bg-midnight-navy text-off-white px-4 py-16 pt-32 md:py-20 md:pt-32">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm font-bold text-sky-blue/80 mb-4">
             {t('ministries.label')}

@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import {
-  FaPlay,
-} from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { FaPlay } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import { sanityClient } from "../sanity";
 import { useLanguage } from "../context/LanguageContext";
 import EventsSection from "../components/EventsSection";
-// import stage from "../assets/stage.jpeg";
-import stage from "../assets/girl.jpg";
+import stage from "../assets/churchstage.jpg";
+import logo from "../assets/logo.png";
+import placeholderBg from "../assets/wetatoch.jpeg";
 import ministriesBg from "../assets/bible.jpg";
 import MediaSection from "../components/MediaSection";
 
@@ -17,13 +16,13 @@ export default function Home() {
   const { t } = useTranslation();
   const { language: lang } = useLanguage();
   const dayMap = {
-    sunday: { en: 'Sunday', am: 'እሁድ' },
-    monday: { en: 'Monday', am: 'ሰኞ' },
-    tuesday: { en: 'Tuesday', am: 'ማክሰኞ' },
-    wednesday: { en: 'Wednesday', am: 'ረቡዕ' },
-    thursday: { en: 'Thursday', am: 'ሐሙስ' },
-    friday: { en: 'Friday', am: 'አርብ' },
-    saturday: { en: 'Saturday', am: 'ቅዳሜ' }
+    sunday: { en: "Sunday", am: "እሁድ" },
+    monday: { en: "Monday", am: "ሰኞ" },
+    tuesday: { en: "Tuesday", am: "ማክሰኞ" },
+    wednesday: { en: "Wednesday", am: "ረቡዕ" },
+    thursday: { en: "Thursday", am: "ሐሙስ" },
+    friday: { en: "Friday", am: "አርብ" },
+    saturday: { en: "Saturday", am: "ቅዳሜ" },
   };
   const dayOrder = {
     monday: 0,
@@ -32,17 +31,17 @@ export default function Home() {
     thursday: 3,
     friday: 4,
     saturday: 5,
-    sunday: 6
+    sunday: 6,
   };
   const moreSectionRef = useRef(null);
   const moreBgRef = useRef(null);
   const [weeklyPrograms, setWeeklyPrograms] = useState([]);
   const [isWeeklyLoading, setIsWeeklyLoading] = useState(true);
-  const normalizeDay = (day) => String(day || '').toLowerCase();
+  const normalizeDay = (day) => String(day || "").toLowerCase();
   const getProgramDayIndex = (schedule = []) => {
     if (!schedule.length) return 99;
     return Math.min(
-      ...schedule.map((slot) => dayOrder[normalizeDay(slot.day)] ?? 99)
+      ...schedule.map((slot) => dayOrder[normalizeDay(slot.day)] ?? 99),
     );
   };
 
@@ -67,7 +66,8 @@ export default function Home() {
   useEffect(() => {
     setIsWeeklyLoading(true);
     sanityClient
-      .fetch(`*[_type == "weeklyProgram"]{
+      .fetch(
+        `*[_type == "weeklyProgram"]{
         _id,
         "name": name.${lang},
         "ageGroup": ageGroup.${lang},
@@ -75,13 +75,16 @@ export default function Home() {
           day,
           "time": time.${lang}
         }
-      }`)
+      }`,
+      )
       .then(setWeeklyPrograms)
       .finally(() => setIsWeeklyLoading(false));
   }, [lang]);
   const sortedWeeklyPrograms = weeklyPrograms
     .slice()
-    .sort((a, b) => getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule));
+    .sort(
+      (a, b) => getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule),
+    );
 
   return (
     <main className="min-h-screen bg-off-white">
@@ -100,95 +103,101 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-16">
-            {/* Badge */}
-            <div className="inline-block bg-off-white/10 backdrop-blur-sm border border-off-white/20 rounded-full px-6 py-2 mb-8 animate-fade-in shadow-lg">
-              <span className="text-sky-blue font-bold text-sm tracking-widest uppercase">
-                  {t('hero.invited')}
-                </span>
-            </div>
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-80 pb-16 md:pb-44">
+          {/* Badge */}
+          {/* <div className="inline-block bg-off-white/10 backdrop-blur-sm border border-off-white/20 rounded-full px-6 py-2 mb-8 animate-fade-in shadow-lg">
+            <span className="text-sky-blue font-bold text-sm tracking-widest uppercase">
+              {t("hero.invited")}
+            </span>
+          </div> */}
 
-            {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-off-white mb-8 leading-tight tracking-tight drop-shadow-2xl">
+          {/* Main Heading */}
+          {/* <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-off-white mb-8 leading-tight tracking-tight drop-shadow-2xl">
                 {t('hero.jesus_prefix')} <br className="hidden md:block" />
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-sky-blue to-coral-red">
                   {t('hero.jesus_suffix')}
                 </span>
-            </h1>
+            </h1> */}
 
-            {/* Subtext / Verse */}
-             <p className="text-xl md:text-2xl text-off-white/85 max-w-3xl mx-auto mb-10 leading-relaxed drop-shadow-md">
-                "{t('hero.verse')}" <br />
-               <span className="text-sky-blue font-semibold text-lg mt-3 block">{t('hero.verse_ref')}</span>
-              </p>
+          {/* Subtext / Verse */}
+          <div className="relative mb-10">
+            <img
+              src={logo}
+              alt=""
+              className="pointer-events-none absolute left-1/2 bottom-2/3 h-40 w-40 -translate-x-1/2 -translate-y-1/2 opacity-80 md:h-40 md:w-40"
+              aria-hidden="true"
+            />
+            <p className="relative z-10 text-4xl md:text-5xl font-bold text-off-white/85 max-w-xs sm:max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+              {t("hero.verse")} <br />
+              <span className="text-sky-blue font-semibold text-lg mt-3 block">
+                {t("hero.verse_ref")}
+              </span>
+            </p>
+          </div>
 
-            {/* Buttons */}
-             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button className="bg-deep-blue hover:bg-deep-blue/90 text-off-white px-10 py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-deep-blue/30 hover:scale-105 flex items-center gap-2">
-                  <FaPlay className="text-sm" /> {t('hero.watch_message')}
-                </button>
-                <button className="bg-off-white/10 hover:bg-off-white/20 backdrop-blur-md border border-off-white/30 text-off-white px-10 py-4 rounded-full font-bold text-lg transition-all hover:scale-105">
-                  {t('hero.new_here')}
-                </button>
-             </div>
-
-             {/* Service Time Footer */}
-             <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-off-white/80 border-t border-off-white/10 pt-8 max-w-2xl mx-auto">
-                 <div className="text-center">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-sky-blue mb-1">{t('hero.join_live')}</p>
-                  <p className="text-lg text-off-white font-medium">{t('hero.service_time')}</p>
-                 </div>
-                <div className="hidden md:block w-px h-12 bg-off-white/20"></div>
-                  <div className="text-center">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-sky-blue mb-1">{t('hero.prayer_request')}</p>
-                  <p className="text-lg text-off-white font-medium">{t('hero.here_for_you')}</p>
-                 </div>
-             </div>
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button className="bg-deep-blue hover:bg-deep-blue/90 text-off-white px-10 py-4 rounded-full font-bold text-lg transition-all shadow-lg shadow-deep-blue/30 hover:scale-105 flex items-center gap-2">
+              <FaPlay className="text-sm" /> {t("hero.watch_message")}
+            </button>
+            <button className="bg-off-white/10 hover:bg-off-white/20 backdrop-blur-md border border-off-white/30 text-off-white px-10 py-4 rounded-full font-bold text-lg transition-all hover:scale-105">
+              {t("hero.new_here")}
+            </button>
+          </div>
         </div>
 
         {/* Three Card Preview Section */}
         <div className="relative z-20 max-w-6xl mx-auto px-4 w-full">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Card 1 */}
-              <div className="relative h-56 md:h-64 bg-linear-to-br from-coral-red to-sky-blue rounded-lg overflow-hidden group cursor-pointer transition-transform hover:-translate-y-2">
-                <div className="absolute inset-0 bg-midnight-navy/40 group-hover:bg-midnight-navy/50 transition-colors z-10"></div>
-                <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                  <h3 className="text-3xl font-black text-off-white mb-2">
-                    {t('cards.know_us')}
-                  </h3>
-                  <button className="text-off-white font-bold text-sm hover:underline flex items-center gap-1">
-                    {t('cards.learn_more')} <span>→</span>
-                  </button>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Card 1 */}
+            <div
+              className="relative h-56 md:h-64 rounded-lg overflow-hidden group cursor-pointer transition-transform hover:-translate-y-2 bg-cover bg-center"
+              style={{ backgroundImage: `url(${stage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/85 via-midnight-navy/40 to-transparent transition-colors z-10 group-hover:from-midnight-navy/95 group-hover:via-midnight-navy/50"></div>
+              <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
+                <h3 className="text-3xl font-black text-off-white mb-2">
+                  {t("cards.know_us")}
+                </h3>
+                <button className="text-off-white font-bold text-sm hover:underline flex items-center gap-1">
+                  {t("cards.learn_more")} <span>→</span>
+                </button>
               </div>
+            </div>
 
-              {/* Card 2 */}
-              <div className="relative h-56 md:h-64 bg-linear-to-br from-deep-blue to-midnight-navy rounded-lg overflow-hidden group cursor-pointer transition-transform hover:-translate-y-2">
-                <div className="absolute inset-0 bg-midnight-navy/40 group-hover:bg-midnight-navy/50 transition-colors z-10"></div>
-                <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                  <h3 className="text-3xl font-black text-off-white mb-2">
-                    {t('cards.events')}
-                  </h3>
-                  <button className="text-off-white font-bold text-sm hover:underline flex items-center gap-1">
-                    {t('cards.learn_more')} <span>→</span>
-                  </button>
-                </div>
+            {/* Card 2 */}
+            <div
+              className="relative h-56 md:h-64 rounded-lg overflow-hidden group cursor-pointer transition-transform hover:-translate-y-2 bg-cover bg-center"
+              style={{ backgroundImage: `url(${stage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/85 via-midnight-navy/40 to-transparent transition-colors z-10 group-hover:from-midnight-navy/95 group-hover:via-midnight-navy/50"></div>
+              <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
+                <h3 className="text-3xl font-black text-off-white mb-2">
+                  {t("cards.events")}
+                </h3>
+                <button className="text-off-white font-bold text-sm hover:underline flex items-center gap-1">
+                  {t("cards.learn_more")} <span>→</span>
+                </button>
               </div>
+            </div>
 
-              {/* Card 3 */}
-              <div className="relative h-56 md:h-64 bg-linear-to-br from-sky-blue to-deep-blue rounded-lg overflow-hidden group cursor-pointer transition-transform hover:-translate-y-2">
-                <div className="absolute inset-0 bg-midnight-navy/40 group-hover:bg-midnight-navy/50 transition-colors z-10"></div>
-                <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                  <h3 className="text-3xl font-black text-off-white mb-2">
-                    {t('cards.next_steps')}
-                  </h3>
-                  <button className="text-off-white font-bold text-sm hover:underline flex items-center gap-1">
-                    {t('cards.learn_more')} <span>→</span>
-                  </button>
-                </div>
+            {/* Card 3 */}
+            <div
+              className="relative h-56 md:h-64 rounded-lg overflow-hidden group cursor-pointer transition-transform hover:-translate-y-2 bg-cover bg-center"
+              style={{ backgroundImage: `url(${stage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/85 via-midnight-navy/40 to-transparent transition-colors z-10 group-hover:from-midnight-navy/95 group-hover:via-midnight-navy/50"></div>
+              <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
+                <h3 className="text-3xl font-black text-off-white mb-2">
+                  {t("cards.next_steps")}
+                </h3>
+                <button className="text-off-white font-bold text-sm hover:underline flex items-center gap-1">
+                  {t("cards.learn_more")} <span>→</span>
+                </button>
               </div>
             </div>
           </div>
+        </div>
       </section>
 
       {/* Welcome Home Section */}
@@ -196,74 +205,85 @@ export default function Home() {
         <div className="max-w-full mx-auto relative overflow-hidden">
           <div className="marquee-track flex items-center gap-x-28 py-2 uppercase font-black text-2xl md:text-4xl text-midnight-navy">
             {[...Array(13)].map((_, i) => (
-              <span key={i}>
-                {t('welcome.text')}
-              </span>
+              <span key={i}>{t("welcome.text")}</span>
             ))}
           </div>
         </div>
       </section>
 
       {/* Mission Statement Section */}
-      <section className="bg-linear-to-r from-deep-blue from-0% to-midnight-navy to-100% text-off-white px-4 py-16 md:py-24">
+      <section className="bg-midnight-navy text-off-white px-4 py-16 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-4 leading-tight">
-            {t('mission.statement')}
-          </h2>
-          <p className="text-lg mb-8 text-off-white/80 leading-relaxed">
-            {t('mission.description')}
+          <p className="text-center text-sm font-bold text-off-white mb-4">
+            {t("mission.label")}
           </p>
-          <Link to="/about" className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors">
-            {t('mission.button')}
+          <p className="text-3xl mb-8 text-off-white/80 leading-relaxed">
+            {t("mission.description")}
+          </p>
+          <Link
+            to="/about"
+            className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors"
+          >
+            {t("mission.button")}
           </Link>
         </div>
       </section>
 
       {/* Get Connected Section */}
-      <section className="bg-sky-blue/20 px-4 py-16 md:py-24">
+      <section className="bg-faded-blue/80 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black text-center text-midnight-navy mb-4">
-            {t('connect.title')}
+            {t("connect.title")}
           </h2>
           <p className="text-center text-midnight-navy/80 mb-12 max-w-2xl mx-auto text-lg">
-            {t('connect.description')}
+            {t("connect.description")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Kids Ministry */}
-            <div className="relative h-80 rounded-lg overflow-hidden group cursor-pointer">
-              <div className="absolute inset-0 bg-linear-to-b from-sky-blue to-deep-blue z-0"></div>
-              <div className="absolute inset-0 bg-midnight-navy/30 group-hover:bg-midnight-navy/40 transition-colors z-10"></div>
+            <div
+              className="relative h-80 rounded-lg overflow-hidden group cursor-pointer bg-cover bg-center"
+              style={{ backgroundImage: `url(${stage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/85 via-midnight-navy/40 to-transparent transition-colors z-10 group-hover:from-midnight-navy/95 group-hover:via-midnight-navy/50"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                <h3 className="text-4xl font-black text-off-white mb-3">{t('connect.kids')}</h3>
+                <h3 className="text-4xl font-black text-off-white mb-3">
+                  {t("connect.kids")}
+                </h3>
                 <button className="bg-deep-blue hover:bg-deep-blue/90 text-off-white px-6 py-2 rounded-lg font-bold transition-colors w-fit">
-                  {t('cards.learn_more')}
+                  {t("cards.learn_more")}
                 </button>
               </div>
             </div>
 
             {/* Youth Ministry */}
-            <div className="relative h-80 rounded-lg overflow-hidden group cursor-pointer">
-              <div className="absolute inset-0 bg-linear-to-b from-deep-blue to-midnight-navy z-0"></div>
-              <div className="absolute inset-0 bg-midnight-navy/30 group-hover:bg-midnight-navy/40 transition-colors z-10"></div>
+            <div
+              className="relative h-80 rounded-lg overflow-hidden group cursor-pointer bg-cover bg-center"
+              style={{ backgroundImage: `url(${stage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/85 via-midnight-navy/40 to-transparent transition-colors z-10 group-hover:from-midnight-navy/95 group-hover:via-midnight-navy/50"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                <h3 className="text-4xl font-black text-off-white mb-3">{t('connect.youth')}</h3>
+                <h3 className="text-4xl font-black text-off-white mb-3">
+                  {t("connect.youth")}
+                </h3>
                 <button className="bg-deep-blue hover:bg-deep-blue/90 text-off-white px-6 py-2 rounded-lg font-bold transition-colors w-fit">
-                  {t('cards.learn_more')}
+                  {t("cards.learn_more")}
                 </button>
               </div>
             </div>
 
             {/* Young Adults Ministry */}
-            <div className="relative h-80 rounded-lg overflow-hidden group cursor-pointer">
-              <div className="absolute inset-0 bg-linear-to-b from-coral-red to-sky-blue z-0"></div>
-              <div className="absolute inset-0 bg-midnight-navy/30 group-hover:bg-midnight-navy/40 transition-colors z-10"></div>
+            <div
+              className="relative h-80 rounded-lg overflow-hidden group cursor-pointer bg-cover bg-center"
+              style={{ backgroundImage: `url(${placeholderBg})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/85 via-midnight-navy/40 to-transparent transition-colors z-10 group-hover:from-midnight-navy/95 group-hover:via-midnight-navy/50"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
                 <h3 className="text-4xl font-black text-off-white mb-3">
-                  {t('connect.young_adults')}
+                  {t("connect.young_adults")}
                 </h3>
                 <button className="bg-deep-blue hover:bg-deep-blue/90 text-off-white px-6 py-2 rounded-lg font-bold transition-colors w-fit">
-                  {t('cards.learn_more')}
+                  {t("cards.learn_more")}
                 </button>
               </div>
             </div>
@@ -287,61 +307,68 @@ export default function Home() {
         </div>
         <div className="relative z-10 max-w-6xl mx-auto">
           <p className="text-center text-sm font-bold text-white/70 mb-4">
-            {t('more.wait')}
+            {t("more.wait")}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
-            {t('more.title')}
+            {t("more.title")}
           </h2>
           <p className="text-center text-white/80 mb-8 max-w-2xl mx-auto text-lg">
-            {t('more.description')}
+            {t("more.description")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white/5 rounded-lg p-6 text-center hover:bg-white/10 transition-colors cursor-pointer border border-white/10 backdrop-blur-sm">
-              <h3 className="text-2xl font-black mb-2 text-white">{t('more.worship')}</h3>
+              <h3 className="text-2xl font-black mb-2 text-white">
+                {t("more.worship")}
+              </h3>
               <p className="text-sm text-white/80 mb-4">
-                {t('more.worship_desc')}
+                {t("more.worship_desc")}
               </p>
               <button className="text-white font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
-                {t('cards.learn_more')} <span>→</span>
+                {t("cards.learn_more")} <span>→</span>
               </button>
             </div>
             <div className="bg-white/5 rounded-lg p-6 text-center hover:bg-white/10 transition-colors cursor-pointer border border-white/10 backdrop-blur-sm">
               <h3 className="text-2xl font-black mb-2 text-white">
-                {t('more.diakon')}
+                {t("more.diakon")}
               </h3>
               <p className="text-sm text-white/80 mb-4">
-                {t('more.diakon_desc')}
+                {t("more.diakon_desc")}
               </p>
               <button className="text-white font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
-                {t('cards.learn_more')} <span>→</span>
+                {t("cards.learn_more")} <span>→</span>
               </button>
             </div>
             <div className="bg-white/5 rounded-lg p-6 text-center hover:bg-white/10 transition-colors cursor-pointer border border-white/10 backdrop-blur-sm">
-              <h3 className="text-2xl font-black mb-2 text-white">{t('more.media')}</h3>
+              <h3 className="text-2xl font-black mb-2 text-white">
+                {t("more.media")}
+              </h3>
               <p className="text-sm text-white/80 mb-4">
-                {t('more.media_desc')}
+                {t("more.media_desc")}
               </p>
               <button className="text-white font-bold text-sm hover:underline flex items-center justify-center gap-1 mx-auto">
-                {t('cards.learn_more')} <span>→</span>
+                {t("cards.learn_more")} <span>→</span>
               </button>
             </div>
           </div>
           <div className="text-center mt-8">
-            <Link to="/ministries" className="bg-white hover:bg-white/90 text-black px-8 py-3 rounded-lg font-bold transition-colors">
-              {t('more.view_all')}
+            <Link
+              to="/ministries"
+              className="bg-white hover:bg-white/90 text-black px-8 py-3 rounded-lg font-bold transition-colors"
+            >
+              {t("more.view_all")}
             </Link>
           </div>
         </div>
       </section>
 
       {/* Weekly Schedule */}
-      <section className="bg-sky-blue/20 px-4 py-16 md:py-24">
+      <section className="bg-faded-blue/80 px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-midnight-navy">
-            {t('schedule.title')}
+            {t("schedule.title")}
           </h2>
           <p className="text-center text-midnight-navy/70 mb-12 max-w-3xl mx-auto text-lg">
-            {t('schedule.description')}
+            {t("schedule.description")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -376,10 +403,17 @@ export default function Home() {
                   <ul className="text-sm text-midnight-navy/80 space-y-1">
                     {(program.schedule || [])
                       .slice()
-                      .sort((a, b) => (dayOrder[normalizeDay(a.day)] ?? 99) - (dayOrder[normalizeDay(b.day)] ?? 99))
+                      .sort(
+                        (a, b) =>
+                          (dayOrder[normalizeDay(a.day)] ?? 99) -
+                          (dayOrder[normalizeDay(b.day)] ?? 99),
+                      )
                       .map((slot, index) => (
                         <li key={`${program._id}-${index}`}>
-                          {lang == "am" ? dayMap[normalizeDay(slot.day)]?.am : dayMap[normalizeDay(slot.day)]?.en} - {slot.time}
+                          {lang == "am"
+                            ? dayMap[normalizeDay(slot.day)]?.am
+                            : dayMap[normalizeDay(slot.day)]?.en}{" "}
+                          - {slot.time}
                         </li>
                       ))}
                   </ul>
@@ -388,48 +422,51 @@ export default function Home() {
           </div>
           {!isWeeklyLoading && sortedWeeklyPrograms.length === 0 && (
             <p className="text-center text-midnight-navy/70 mt-6">
-              {t('schedules.no_schedule')}
+              {t("schedules.no_schedule")}
             </p>
           )}
         </div>
       </section>
 
       {/* Events Section */}
-      <section className="bg-sky-blue/20 px-4 py-16 md:py-24">
+      <section className="bg-faded-blue/80 px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <p className="text-center text-sm font-bold text-midnight-navy/60 mb-4">
-            {t('happenings.label')}
+            {t("happenings.label")}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-center mb-12">
-            {t('happenings.title')}
+            {t("happenings.title")}
           </h2>
-          <EventsSection limit={4} onlyFeatured />
+          <EventsSection limit={3} onlyFeatured />
           <div className="text-center mt-10">
             <Link
               to="/events"
-              className="inline-flex items-center justify-center bg-deep-blue text-off-white px-6 py-3 rounded-full font-bold text-sm transition-colors hover:bg-deep-blue/90"
+              className="inline-flex items-center justify-center bg-deep-blue text-off-white px-6 py-3 rounded-lg font-bold text-sm transition-colors hover:bg-deep-blue/90"
             >
-              {t('happenings.view_all')}
+              {t("happenings.view_all")}
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Latest Sermons */}
-      <section className="bg-sky-blue/20 text-midnight-navy px-4 py-16 md:py-24">
+      {/* Latest Media */}
+      <section className="bg-faded-blue/80 text-midnight-navy px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
-          <p className="text-center text-sm font-bold text-sky-blue mb-4">
-            {t('sermons.label')}
+          <p className="text-center text-sm font-bold text-midnight-navy/60 mb-4">
+            {t("media.label")}
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-center mb-12 text-midnight-navy">
-            {t('sermons.title')}
+            {t("media.title")}
           </h2>
 
-          <MediaSection /> 
+          <MediaSection />
 
           <div className="text-center mt-10">
-            <Link to="/sermons" className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors shadow-sm">
-              {t('sermons.listen_now')}
+            <Link
+              to="/media"
+              className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors shadow-sm"
+            >
+              {t("media.listen_now")}
             </Link>
           </div>
         </div>
@@ -440,17 +477,19 @@ export default function Home() {
         <div className="max-w-6xl mx-auto mb-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-black mb-4">{t('footer.about_title')}</h3>
+              <h3 className="text-xl font-black mb-4">
+                {t("footer.about_title")}
+              </h3>
               <p className="text-off-white/70 text-sm">
-                {t('footer.about_desc')}
+                {t("footer.about_desc")}
               </p>
             </div>
             <div>
-              <h3 className="font-bold mb-4">{t('footer.email')}</h3>
+              <h3 className="font-bold mb-4">{t("footer.email")}</h3>
               <p className="text-off-white/80 text-sm">info@gracechurch.com</p>
             </div>
             <div>
-              <h3 className="font-bold mb-4">{t('footer.find_us')}</h3>
+              <h3 className="font-bold mb-4">{t("footer.find_us")}</h3>
               <p className="text-off-white/80 text-sm">
                 123 Faith Avenue
                 <br />
@@ -458,7 +497,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h3 className="font-bold mb-4">{t('footer.call_us')}</h3>
+              <h3 className="font-bold mb-4">{t("footer.call_us")}</h3>
               <p className="text-off-white/80 text-sm">(555) 123-4567</p>
             </div>
           </div>
@@ -486,7 +525,7 @@ export default function Home() {
             </a>
           </div>
           <p className="text-center text-off-white/50 text-xs">
-            {t('footer.rights', { year: new Date().getFullYear() })}
+            {t("footer.rights", { year: new Date().getFullYear() })}
           </p>
         </div>
       </footer>

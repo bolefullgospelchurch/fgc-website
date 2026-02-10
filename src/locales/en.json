@@ -13,6 +13,30 @@
     "prayer_request": "Prayer Request?",
     "here_for_you": "We are here for you"
   },
+  "navbar": {
+    "home": "Home",
+    "about": "About Us",
+    "ministries": "Ministries",
+    "give": "Give",
+    "give_asrat": "Asrat",
+    "give_meba": "Meba",
+    "give_bekurat": "Bekurat",
+    "give_donate": "Donate",
+    "events": "Events",
+    "media": "Media",
+    "resources": "Resources",
+    "holy_bible": "Holy Bible",
+    "registrations": "Registrations",
+    "reg_home_church": "Home Church",
+    "reg_choose_ministry": "Choose Ministry",
+    "reg_membership": "Membership Registration",
+    "contact": "Contact Us",
+    "language": "Language",
+    "amharic": "Amharic",
+    "english": "English",
+    "open_main_menu": "Open main menu",
+    "toggle_menu": "Toggle {{item}} menu"
+  },
   "cards": {
     "know_us": "Get To Know Us",
     "events": "Events",
@@ -23,7 +47,7 @@
     "text": "Welcome Home"
   },
   "mission": {
-    "statement": "To comprehend transformed society by the gospel of Jesus Christ",
+    "label": "Mission Statement",
     "description": "To comprehend transformed society by the gospel of Jesus Christ, growing up skilled, healthy and productive and get out of poverty, committed to change and development.",
     "button": "What We Believe"
   },
@@ -83,23 +107,51 @@
     "title": "Get Connected",
     "meets": "Meets:"
   },
-  "sermons": {
+  "media": {
     "label": "WATCH & LISTEN",
-    "title": "Latest Sermons",
-    "recent": "Recent Message",
-    "recent_desc": "Watch our latest sermon",
-    "series": "Series Archive",
-    "series_desc": "Browse all our sermons",
+    "title": "Latest Media",
+    "description": "Worship, teaching, sermons, and more media to help you grow.",
+    "recent": "Recent Media",
+    "recent_desc": "Watch our latest media",
+    "series": "Media Archive",
+    "series_desc": "Browse all our media",
     "podcast": "Podcast",
     "podcast_desc": "Listen on the go",
-    "listen_now": "Watch Now"
+    "listen_now": "Explore Media",
+    "watch_live": "Watch Live"
+  },
+  "give": {
+    "label": "GIVE",
+    "title": "Give",
+    "description": "Your generosity helps us serve, care, and reach more people.",
+    "prompt": "Choose a giving option from the menu above.",
+    "selected": "You selected {{type}} giving."
+  },
+  "resources": {
+    "label": "RESOURCES",
+    "title": "Resources",
+    "description": "Helpful materials, guides, and downloads for your walk of faith.",
+    "body": "We are preparing resources that will be available here soon."
+  },
+  "registrations": {
+    "label": "REGISTRATIONS",
+    "title": "Registrations",
+    "description": "Select a registration option below.",
+    "home_church": "Home Church",
+    "home_church_desc": "Register for a home church group and get connected.",
+    "membership_form": "Membership Form",
+    "membership_form_desc": "Complete the membership form to join the church family.",
+    "choose_ministry": "Choose Ministry",
+    "choose_ministry_desc": "Select a ministry area where you want to serve.",
+    "view_form": "Open registration",
+    "page_description": "Complete the form below and we will follow up with you."
   },
   "footer": {
-    "about_title": "Ethiopian Full Gospel Believers Church, Bole Local",
+    "about_title": "Ethiopian Full Gospel Believers Church Bole Local church",
     "about_desc": "Growing together in faith, love, and service",
     "email": "Email",
     "find_us": "Find Us",
     "call_us": "Call Us",
-    "rights": "© {{year}} Ethiopian Full Gospel Believers Church, Bole Local. All rights reserved."
+    "rights": "© {{year}} Ethiopian Full Gospel Believers Church Bole Local church. All rights reserved."
   }
 }

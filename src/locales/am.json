@@ -13,6 +13,30 @@
     "prayer_request": "የጸሎት ጥያቄ አለዎት?",
     "here_for_you": "እኛ ለእርስዎ እዚሁ አለን"
   },
+  "navbar": {
+    "home": "መነሻ",
+    "about": "ስለ እኛ",
+    "ministries": "አገልግሎቶች",
+    "give": "መስጠት",
+    "give_asrat": "አሥራት",
+    "give_meba": "መባ",
+    "give_bekurat": "በኩራት",
+    "give_donate": "ልገሳ",
+    "events": "ዝግጅቶች",
+    "media": "ሚዲያ",
+    "resources": "መረጃዎች",
+    "holy_bible": "መጽሐፍ ቅዱስ",
+    "registrations": "ምዝገባዎች",
+    "reg_home_church": "የቤት ለቤት ጥናት ቡድን",
+    "reg_choose_ministry": "አገልግሎት ምርጫ",
+    "reg_membership": "የአባልነት ምዝገባ",
+    "contact": "ያግኙን",
+    "language": "ቋንቋ",
+    "amharic": "አማርኛ",
+    "english": "እንግሊዝኛ",
+    "open_main_menu": "ዋና ምናሌን ክፈት",
+    "toggle_menu": "የ{{item}} ምናሌ አቀናብር"
+  },
   "cards": {
     "know_us": "ስለ እኛ ይወቁ",
     "events": "ዝግጅቶች",
@@ -23,16 +47,16 @@
     "text": "እንኳን ደህና መጡ"
   },
   "mission": {
-    "statement": "በክርስቶስ እየሱስ ወንጌል የተለወጠ ትዉልድን ማፍራት",
+    "label": "ራዕይ",
     "description": "በክርስቶስ እየሱስ ወንጌል የተለወጠ ትዉልድን በማፍራት ፤ በክህሎት ፣ በጤና እና በፍሬያማነት እያደጉ ከድህነት እንዲወጡ ለለውጥ እና ለእድገት እንተጋለን።",
     "button": "የምናምነውን ይወቁ"
   },
   "connect": {
     "title": "ይቀላቀሉ",
     "description": "አገልግሎቶቻችንን ያስሱ እና በእግዚኣብሄር መንግስት ውስጥ ለማደግ፣ እና ለማገልገል መንገዶችን ያግኙ።",
-    "kids": "ህፃናት",
-    "youth": "ወጣቶች",
-    "young_adults": "ጎልማሶች"
+    "kids": "ልጆች",
+    "youth": "ታዳጊዎች",
+    "young_adults": "ወጣቶች"
   },
   "more": {
     "wait": "ቆይ፣ ሌሎችም አሉ!",
@@ -83,23 +107,51 @@
     "title": "ይቀላቀሉ",
     "meets": "ጊዜ:"
   },
-  "sermons": {
+  "media": {
     "label": "ይመልከቱ እና ያዳምጡ",
-    "title": "የቅርብ ጊዜ ስብከቶች",
-    "recent": "የቅርብ ጊዜ መልዕክት",
-    "recent_desc": "የቅርብ ጊዜ ስብከታችንን ይመልከቱ",
-    "series": "የተከታታይ ስብከቶች ማህደር",
-    "series_desc": "ሁሉንም ስብከቶቻችንን ያስሱ",
+    "title": "የቅርብ ጊዜ ሚዲያ",
+    "description": "አምልኮ፣ ትምህርት፣ ስብከቶች እና ሌሎች ሚዲያዎች።",
+    "recent": "የቅርብ ጊዜ ሚዲያ",
+    "recent_desc": "የቅርብ ጊዜ ሚዲያችንን ይመልከቱ",
+    "series": "የሚዲያ ማህደር",
+    "series_desc": "ሁሉንም ሚዲያችንን ያስሱ",
     "podcast": "ፖድካስት",
     "podcast_desc": "በጉዞ ላይ ያዳምጡ",
-    "listen_now": "አሁን ይመልከቱ"
+    "listen_now": "ሚዲያን ይመልከቱ",
+    "watch_live": "ቀጥታ ይመልከቱ"
+  },
+  "give": {
+    "label": "መስጠት",
+    "title": "መስጠት",
+    "description": "ልግስናዎ ለማገልገል እና ተጨማሪ ሰዎችን ለማግኘት ያግዛል።",
+    "prompt": "ከላይ ካለው ምናሌ የመስጠት አማራጭ ይምረጡ።",
+    "selected": "{{type}} የመስጠት አማራጭ መርጠዋል።"
+  },
+  "resources": {
+    "label": "መረጃዎች",
+    "title": "መረጃዎች",
+    "description": "ለመንፈሳዊ ጉዞዎ ጠቃሚ መረጃዎች፣ መመሪያዎች እና ፋይሎች።",
+    "body": "በቅርብ ጊዜ ተጨማሪ መረጃዎች እዚህ ላይ እናካትታለን።"
+  },
+  "registrations": {
+    "label": "ምዝገባዎች",
+    "title": "ምዝገባዎች",
+    "description": "ከታች ያሉትን የምዝገባ አማራጮች ይምረጡ።",
+    "home_church": "የቤት እምነት ቡድን",
+    "home_church_desc": "የቤት እምነት ቡድን ምዝገባ ያድርጉ እና ይገናኙ።",
+    "membership_form": "የአባልነት ፎርም",
+    "membership_form_desc": "የአባልነት ፎርምን ሙሉ እና ይግቡ።",
+    "choose_ministry": "አገልግሎት ምርጫ",
+    "choose_ministry_desc": "መካከላችን ለመገልገል የሚፈልጉትን አገልግሎት ይምረጡ።",
+    "view_form": "ምዝገባ ክፈት",
+    "page_description": "ከታች ያለውን ፎርም ሙሉ እና በፍጥነት እንመልሳለን።"
   },
   "footer": {
-    "about_title": "የኢትዮጵያ ሙሉ ወንጌል አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ",
+    "about_title": "በኢትዮጵያ ሙሉ ወንጌል አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ",
     "about_desc": "በእምነት፣ በፍቅር እና በአገልግሎት አብሮ ማደግ",
     "email": "ኢሜይል",
     "find_us": "አድራሻ",
     "call_us": "ይደውሉልን",
-    "rights": "© {{year}} የኢትዮጵያ ሙሉ ወንጌል አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ። መብቱ በህግ የተጠበቀ ነው።"
+    "rights": "© {{year}} በኢትዮጵያ ሙሉ ወንጌል አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ። መብቱ በህግ የተጠበቀ ነው።"
   }
 }
