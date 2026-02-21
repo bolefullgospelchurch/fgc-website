@@ -22,10 +22,22 @@
     "give_meba": "Meba",
     "give_bekurat": "Bekurat",
     "give_donate": "Donate",
+    "give_others": "Others",
     "events": "Events",
     "media": "Media",
+    "media_teaching": "Teaching",
+    "media_sermon": "Sermon",
+    "media_podcast": "Podcast",
+    "media_testimony": "Testimony",
+    "media_worship": "Worship",
+    "media_gallery": "Gallery",
     "resources": "Resources",
     "holy_bible": "Holy Bible",
+    "resources_followup": "Follow-up Study",
+    "resources_discipleship": "Discipleship Study",
+    "resources_ministry": "Ministry Training",
+    "resources_marriage": "Marriage Teaching",
+    "resources_pentecostalism": "Classical Pentecostalism",
     "registrations": "Registrations",
     "reg_home_church": "Home Church",
     "reg_choose_ministry": "Choose Ministry",
@@ -48,7 +60,7 @@
   },
   "mission": {
     "label": "Mission Statement",
-    "description": "To comprehend transformed society by the gospel of Jesus Christ, growing up skilled, healthy and productive and get out of poverty, committed to change and development.",
+    "description": "To strive to produce disciples of Jesus Christ whose lives are transformed and who are filled with the Holy Spirit in Ethiopia and beyond Ethiopia.",
     "button": "What We Believe"
   },
   "connect": {
@@ -92,20 +104,193 @@
   "about": {
     "label": "About Us",
     "title": "Who We Are",
-    "description": "We are a church family committed to worship, discipleship, and serving our community. Our mission is to share the gospel of Jesus Christ and grow together in faith, love, and service."
+    "description": "We are a church family committed to worship, discipleship, and serving our community. Our mission is to share the gospel of Jesus Christ and grow together in faith, love, and service.",
+    "background": {
+      "badge": "Church History",
+      "title": "Background of Local Church",
+      "body": "Ethiopian Full Gospel Believers' Church is a Pentecostal church in Ethiopia. It originated in the mid-1960s (around 1965) from a prayer meeting held at Addis Ababa University. The church was officially established in 1967. Bole Full Gospel Believers' Church is one of the local congregations under the Ethiopian Full Gospel Believers' Church, located in southeastern Addis Ababa and its surrounding area. The congregation began in 1989 as a prayer house (a developing church) and became an established parish in 2000. Guided by the Holy Bible and empowered by the Holy Spirit, and by receiving leadership direction under the Ethiopian Full Gospel Believers' Church, the congregation continues working to advance the Kingdom of God."
+    },
+    "faithHeading": "Vision, Mission, Purpose & Values",
+    "faithSections": [
+      {
+        "title": "Vision",
+        "paragraphs": [
+          "To see disciples of Jesus Christ whose lives are transformed and who are filled with the Holy Spirit in Ethiopia and beyond Ethiopia."
+        ]
+      },
+      {
+        "title": "Mission",
+        "paragraphs": [
+          "To strive to produce disciples of Jesus Christ whose lives are transformed and who are filled with the Holy Spirit in Ethiopia and beyond Ethiopia."
+        ]
+      },
+      {
+        "title": "Purpose",
+        "ordered": true,
+        "items": [
+          "Preaching the gospel of our Lord Jesus Christ. (Mark 16; 15)",
+          "Making disciples who are baptized in the Holy Spirit who believe in the gospel. (Matt. 28: 19)",
+          "Perform activities to provide comprehensive service (James 1: 26)"
+        ]
+      },
+      {
+        "title": "Values",
+        "ordered": true,
+        "items": [
+          {
+            "title": "Loving",
+            "desc": "Everything that is done without true love is futile, because God is love that everyone should have love for God, for his friends, and even for those who hate him (I Cor. 13 Matt. 22: 35-40)."
+          },
+          {
+            "title": "Unity/Synergy",
+            "desc": "The Lord Jesus Christ prayed for the unity of the Church today. All worship and service without the unity of spirit and heart have no effect. Therefore, the Ethiopian Full Gospel Believers Church believes in the unity of believers, evangelical churches and teaches this (John 17: 21, 21; Eph). I Corinthians 12 ;4-31; Phil 2.11-10 Acts 9 : 31; Acts 2 : 4)"
+          },
+          {
+            "title": "Universal Service",
+            "desc": "the physical, social and spiritual of human beingsServe to meet needs (Luke 2:52; James 1: 27)."
+          },
+          {
+            "title": "Early Pentecostalism",
+            "desc": "The Pentecostalism as prophesied by the prophet Joel from the early church, as evidenced by the book of Acts. It is a sacred practice that has been in the lives of believers ever since. Therefore, first and foremost to be baptized in the Holy Spirit and she admit that the sign is to speak in tongues (Acts 10, 44-45 (Acts 19: 1)."
+          },
+          {
+            "title": "Holiness",
+            "desc": "holiness is a sign that we are dedicated to God. It is impossible to see and enjoy. Therefore, Ethiopian Full Gospel Believer Church believes that believers must be dedicated in all thoughts and actions. (Colossians 3: 5-10; I Peter 1: 1515; Hebrews 12: 14); Galatians 5: 22)"
+          },
+          {
+            "title": "Partnership",
+            "desc": "The kingdom of God is one kingdom. The Ethiopian Full Gospel Believers Church appeared in every form and language of the born-again believer. Respectfully, regardless of geography; from the other sharing and supporting the gospel of Christ with the community and she believes based on (Ephesians 1: 4; Ephesians 4:1; 1 Corinthians 12: 14: 14-31; Romans 15: 26: 26-27)."
+          },
+          {
+            "title": "Fasting and Prayer",
+            "desc": "She received the power of the Holy Spirit to help them. When the Church began preaching Gospel, God did many wonderful things. She endured persecution and suffering through fasting and prayer. Therefore Ethiopian Full Gospel Believers Church became a special place for fasting and prayer according to (Acts 1; 14; 2; Acts 4; 29) that she values it."
+          },
+          {
+            "title": "Ministry of Service",
+            "desc": "The Lord Jesus Christ said,Let him teach, as he said, and teach in his ministry Ethiopian Full Gospel Believers Church. Every servant should have the heart of ministry, following the example of Christ and she believes and deserves it (John 13: 13); Mark 10:44 – 45; Philippians 2: 1)"
+          },
+          {
+            "title": "Righteousness and Justice",
+            "desc": "Justices are the foundations of the Kingdom of Christ in Ethiopian Full Gospel Believers Church, works to make righteousness and Justice for all mankind based on (Matthew 5: 20; Luke 3)"
+          },
+          {
+            "title": "Loyalty",
+            "desc": "We believe in biblical devotion, soundness of mind, and morality."
+          },
+          {
+            "title": "Accountability",
+            "desc": "The quality of work and communication at all levels of the Church is exemplary and we emphasize accountability by believing that it exists according to (Exodus 18, 19-21)."
+          },
+          {
+            "title": "Transcendence",
+            "desc": "Ethiopian Full Gospel Believers Church believes that everything is naked and exposed before the eyes of God. The work that the church does in God’s house is clear. She believed in Him (John 3: 20), II Corinthians 4: 2, 2, 13)."
+          },
+          {
+            "title": "Excellency",
+            "desc": "the ultimate goal of the mission is to make believers Disciples of Christ. Education is also important for making disciples and the theological study to help believers grow into Christ likeness. It is important to provide quality, supportive education. Therefore,we struggle to maintain academic excellence by providing quality of education based on (Matthew 28: 19-20)"
+          }
+        ]
+      }
+    ],
+    "statement": {
+      "title": "Statement of Faith",
+      "description": "Core beliefs and doctrinal foundations of the church.",
+      "items": [
+        "ስድሳ ስድቱን የብሉይና የሐዲስ ኪዳን መጻህፍት የያዘውን መጽሐፍ ቅዱስ የእግዚአብሔር እስትንፋሳ ቃል፣ ምንም ስህተት የማይገኝበት ፣ እምነትን እና ተግባርን በሚመለከት ሁሉ የመጨረሻው ሥልጣን ያለው ፣ህያው እና ዛሬም የሚሰራ ፣ እንደ ሆነ እናምናለን፡፡",
+        "በእግዚአብሔር አብ፣ በእግዚአብሔር ወልድ፣ በእግዚአብሔር መንፈስ ቅዱስ፣ አንድ አምላክ ፣እናምናለን፡፡",
+        "በመፍጠር ስራ፣ ፍጥረትን በመጠበቅ ፣ በመገለጥ ፣በመዋጀት እና በመጨረሻው ፍርድ የእግዚአብሔርን ፍፁም ሥልጣን እና የበላይነት እናምናለን፡፡",
+        "ጌታችን ኢየሱስ ክርስቶስ ከአብ የተላከ መሆኑን ፣ በመንፈስ ቅዱስ መፀነሱን ፣ ከድንግል ማርያም መወለዱን ፣ፍፁም ሰው ፍፁም አምላክ መሆኑን ፣ ለሰው ልጃች ቤዛ ሆኖ በመስቀል ላይ መሞቱን ፣ መቀበሩን፣ በሶስተኛው ቀን በአካል ከሙታን መነሳቱን፣ ወደ አብ ማረጉን እና አሁንም በአብ ቀኝ ሆኖ ስለ እኛ እንደሚማልድ ፣ ደግሞም በህያዋንና በሙታን ላይ ሊፈርድ በክብርና በግርማ እንደሚመለስ እናምናለን፡፡",
+        "መንፈስ ቅዱስ የመለኮት ባሕርያት ሁሉ ያሉት ፍጹም አምላክ እንደሆነ እና አምልኮ እና ስግደት እንድሚገባው እናምናለን፡:",
+        "ሰው በእግዚአብሔር አምሳል መፈጠሩን ፣ በኃጥያት መውደቁን እና በዚህም ምክንያት የእግዚአብሔር ቁጣና ፍርድ ያለበት በደለኛ መሆኑን እናምናለን፡፡",
+        "ሰው ከኃጢአት ዕዳ ፣ ኃይልና ቅጣት ፣ ሊድን የሚችለው ኃጥያት የለለበት የእግዚአብሔር ልጅ ኢየሱስ ክርስቶስ የሰው ምትክ ሆኖ በፈጸመው የቤዛነት ስራ ብቻ በመሆኑ ኃጥያተኛ በእግዚአብሔር ፀጋ በኢየሱስ ክርስቶስ በማመን ብቻ እንደሚጽድቅ እናምናል፡፡",
+        "ኃጥያተኛ በኃጥያቱ ተፀጽቶ ንሰሐ እንዲገባ ፣ በኢየሱስ ክርስቶስ አምኖ ዳግመኛ በመወለድ አዲስ ፍጥረት እንዲሆን መንፈስ ቅዱስ በህይወቱ እንሚሰራ እናምናልን፡፡",
+        "መንፈስ ቅዱስ በአማኝ ህይወት ውስጥ እንደሚኖር ፣ አማኙ በመንፈስ ቅዱስ ሲጠመቅ ኃይልን እንደሚቀበልና በልሳን እንደምናገር በየጊዜውም በመንፈስ ቅዱስ እንደሚሞላ እናምናለን፡፡",
+        "መንፈስ ቅዱስ ዛሬም ቤተ ክርስቲያንን ለማነጽ ለአማኞች ልዩ ልዩ የጸጋ ስጦታዎችን በማካፈል፣ድውዮችን በመፈወስ ፣ አጋንትን በማውጣትና ፣እና ተዐምራትን በማድረግ እንመድሰራ እናምናለን፡፡",
+        "ቤተ ክርስቲያን በክርስቶስ የተሰጣትን የታላቁን ተልዕኮ አደራ በመወጣት ወንጌልን ለሰዎች ሁሉ እንድትሰብክ እና አማኞች ደቀ መዛሙርት በማድረግ ለክርስቶስ አካል መታነጽ አስፈላጊውን ሁሉ መፈጸም እንደምትችል መንፈስ ቅዱስም ሐዋርያትን፣ ነቢያትን፣ ወንጌል ሰባኪዎችን ፣እረኞችን እና አስተማሪዎችን እንዲሁም ሌሎች የአገልግሎት ስጦታዎችን እንደሚሰጥ እናምናለን፡፡",
+        "ከእግዚአብሔር መንፈስ ዳግም የተወለዱ ሁሉ በሚገኙባት፣ የክርስቶስ አካል በሆነች፣ በአንዲት ቅድስት ቤተክርስቲያን እናምናለን፡፡",
+        "ጌታችን እና መድኅንታችን ኢየሱስ ክርስቶስ ባዘዘው መሰረት ፣ዳግም የተወለደ አማኝ ከክርስቶስ ሞት እና ትንሳኤ ጋር መተባበሩን እንዲሁም ለኃጥያት መሞቱን እና ለጽድቅ መነሳቱን ለመግለጽ በአብ፣ በወልድ፣ እና በመንፈስ ቅዱስ ስም በውኃ ውስጥ በመጥለቅ እንዲጠመቅ እንዲሁም ጌታ ዳግም እስኪመጣ ሞቱን ለመናገርና ፣ ከጌታ እና ለአማኞች ጋር ያለውን ኅብረት ለመግለጽ የጌታ እራት እንደሚካፈል እናምናለን፡፡",
+        "በሙታን ትንሳኤ፣ በኃጥያተኞች ላይ በሚደርሰው የዘላለም ፍርድና አማኞች በሚቀበሉት የዘላለም ህይወት እናምናለን፡፡"
+      ]
+    }
   },
   "contact": {
     "label": "Contact Us",
     "title": "Get in Touch",
-    "description": "We'd love to hear from you. Reach out for prayer requests, questions, or ways to connect.",
-    "email": "Email: info@gracechurch.com",
-    "phone": "Phone: (555) 123-4567",
-    "address": "Address: 123 Faith Avenue, Blessed City"
+    "items": [
+      {
+        "id": "email",
+        "label": "Email",
+        "value": "Bolefullgbc1989@gmail.com",
+        "href": "mailto:Bolefullgbc1989@gmail.com"
+      },
+      {
+        "id": "telegram",
+        "label": "Telegram",
+        "value": "t.me/yourchurch",
+        "href": "https://t.me/yourchurch"
+      },
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "value": "instagram.com/yourchurch",
+        "href": "https://instagram.com/yourchurch"
+      },
+      {
+        "id": "tiktok",
+        "label": "TikTok",
+        "value": "tiktok.com/@yourchurch",
+        "href": "https://tiktok.com/@yourchurch"
+      },
+      {
+        "id": "facebook",
+        "label": "Facebook",
+        "value": "facebook.com/yourchurch",
+        "href": "https://facebook.com/yourchurch"
+      },
+      {
+        "id": "youtube",
+        "label": "YouTube",
+        "value": "youtube.com/@yourchurch",
+        "href": "https://youtube.com/@yourchurch"
+      },
+      {
+        "id": "telephones",
+        "label": "Telephones",
+        "value": "+251116622968"
+      },
+      {
+        "id": "posta",
+        "label": "Posta",
+        "value": "P.O. Box 12345"
+      },
+      {
+        "id": "location",
+        "label": "Location",
+        "value": "123 Faith Avenue, Blessed City"
+      }
+    ],
+    "map": {
+      "title": "Find Us",
+      "description": "Visit the church or use the map for directions.",
+      "imageAlt": "Church building",
+      "iframeTitle": "Church location map",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2033.6290939093703!2d38.77861433148785!3d8.991098311157714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b859a42d74a7b%3A0x6db92443d960c37f!2sBole%20Full%20Gospel%20Believers%20Church!5e0!3m2!1sen!2set!4v1770973775139!5m2!1sen!2set",
+      "placeholder": "Map coming soon."
+    }
   },
   "ministries": {
     "label": "Our Ministries",
     "title": "Get Connected",
-    "meets": "Meets:"
+    "meets": "Meets:",
+    "location": "Location:",
+    "meetingInfoTitle": "Meeting Info",
+    "meetingDayAndTime": "Meeting Day & Time",
+    "leadersTitle": "Leaders",
+    "gallery": "Gallery",
+    "loading": "Loading ministry...",
+    "empty": "No ministries found.",
+    "notFoundTitle": "Ministry not found",
+    "notFoundBody": "We couldn’t find that ministry. Please check the link and try again."
   },
   "media": {
     "label": "WATCH & LISTEN",

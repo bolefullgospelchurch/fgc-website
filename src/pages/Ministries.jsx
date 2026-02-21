@@ -3,22 +3,30 @@ import { useTranslation } from 'react-i18next'
 import { sanityClient } from '../sanity'
 import { useLanguage } from '../context/LanguageContext'
 import Navbar from '../components/Navbar'
+import MinistryGrid from '../components/ministries/MinistryGrid'
 
 function Ministries() {
   const { t } = useTranslation()
   const { language: lang } = useLanguage()
   const [ministries, setMinistries] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    setIsLoading(true)
     sanityClient
-      .fetch(`*[_type == "ministry"]{
+      .fetch(`*[_type == "ministry" && coalesce(isActive, true) == true] | order(order asc){
         _id,
-        "title": title.${lang},
-        "description": description.${lang},
-        "meetingTime": meetingTime.${lang}
+        title,
+        description,
+        meetingDayAndTime,
+        location,
+        "slug": slug.current,
+        "heroImageUrl": heroImage.asset->url,
+        "galleryUrls": gallery[].asset->url
       }`)
-      .then(setMinistries)
-  }, [lang])
+      .then((data) => setMinistries(data || []))
+      .finally(() => setIsLoading(false))
+  }, [])
 
   return (
     <main className="min-h-screen bg-sky-blue/20">
@@ -35,31 +43,17 @@ function Ministries() {
       </section>
       <section className="px-4 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {ministries.map((m) => (
-              <div
-                key={m._id}
-                className="bg-off-white rounded-2xl shadow-sm hover:shadow-md transition-all p-6 flex flex-col border border-midnight-navy/10"
-              >
-                <h3 className="text-xl font-semibold mb-3 text-midnight-navy">
-                  {m.title}
-                </h3>
-
-                <p className="text-midnight-navy/70 grow">
-                  {m.description}
-                </p>
-
-                {m.meetingTime && (
-                  <div className="mt-4 text-sm text-midnight-navy/60 pt-4 border-t border-midnight-navy/10">
-                    <span className="font-medium text-midnight-navy/80">
-                      {t('ministries.meets')}
-                    </span>{" "}
-                    {m.meetingTime}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="text-center text-midnight-navy/70">
+              {t('ministries.loading')}
+            </div>
+          ) : ministries.length > 0 ? (
+            <MinistryGrid ministries={ministries} lang={lang} />
+          ) : (
+            <div className="text-center text-midnight-navy/70">
+              {t('ministries.empty')}
+            </div>
+          )}
         </div>
       </section>
     </main>

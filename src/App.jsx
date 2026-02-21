@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import EventsPage from './pages/EventsPage'
 import Ministries from './pages/Ministries'
+import MinistryDetail from './pages/MinistryDetail'
 import Media from './pages/Media'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -21,6 +22,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/ministries" element={<Ministries />} />
+          <Route path="/ministries/:slug" element={<MinistryDetail />} />
           <Route path="/media" element={<Media />} />
           <Route path="/give" element={<Give />} />
           <Route path="/resources" element={<Resources />} />

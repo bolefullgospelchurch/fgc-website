@@ -22,11 +22,73 @@ export default function Navbar({ transparent = false, contained = true }) {
     {
       key: "give",
       label: t("navbar.give"),
-      href: "https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header",
-      newTab: true
+      href: "",
+      children: [
+        {
+          key: "give_asrat",
+          label: t("navbar.give_asrat"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+        {
+          key: "give_meba",
+          label: t("navbar.give_meba"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+        {
+          key: "give_bekurat",
+          label: t("navbar.give_bekurat"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+        {
+          key: "give_donate",
+          label: t("navbar.give_donate"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+        {
+          key: "give_others",
+          label: t("navbar.give_others"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+      ],
     },
     { key: "events", label: t("navbar.events"), href: "/events" },
-    { key: "media", label: t("navbar.media"), href: "/media" },
+    {
+      key: "media",
+      label: t("navbar.media"),
+      href: "/media",
+      children: [
+        {
+          key: "media_teaching",
+          label: t("navbar.media_teaching"),
+          href: "/media?type=teaching",
+        },
+        {
+          key: "media_sermon",
+          label: t("navbar.media_sermon"),
+          href: "/media?type=sermon",
+        },
+        {
+          key: "media_podcast",
+          label: t("navbar.media_podcast"),
+          href: "/media?type=podcast",
+        },
+        {
+          key: "media_testimony",
+          label: t("navbar.media_testimony"),
+          href: "/media?type=testimony",
+        },
+        {
+          key: "media_worship",
+          label: t("navbar.media_worship"),
+          href: "/media?type=worship",
+        },
+        {
+          key: "media_gallery",
+          label: t("navbar.media_gallery"),
+          href: "/media?type=gallery",
+        },
+      ],
+    },
     {
       key: "resources",
       label: t("navbar.resources"),
@@ -38,12 +100,37 @@ export default function Navbar({ transparent = false, contained = true }) {
           href: "https://www.wordproject.org/bibles/am/",
           newTab: true,
         },
+        {
+          key: "resources_followup",
+          label: t("navbar.resources_followup"),
+          href: "/resources",
+        },
+        {
+          key: "resources_discipleship",
+          label: t("navbar.resources_discipleship"),
+          href: "/resources",
+        },
+        {
+          key: "resources_ministry",
+          label: t("navbar.resources_ministry"),
+          href: "/resources",
+        },
+        {
+          key: "resources_marriage",
+          label: t("navbar.resources_marriage"),
+          href: "/resources",
+        },
+        {
+          key: "resources_pentecostalism",
+          label: t("navbar.resources_pentecostalism"),
+          href: "/resources",
+        },
       ],
     },
     {
       key: "registrations",
       label: t("navbar.registrations"),
-      href: "/registrations",
+      href: "",
       children: [
         {
           key: "reg_home_church",
