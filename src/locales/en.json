@@ -16,6 +16,9 @@
   "navbar": {
     "home": "Home",
     "about": "About Us",
+    "about_mission": "Mission",
+    "about_statement": "Statement of Faith",
+    "about_staff": "Staff",
     "ministries": "Ministries",
     "give": "Give",
     "give_asrat": "Asrat",
@@ -312,9 +315,23 @@
   "give": {
     "label": "GIVE",
     "title": "Give",
+    "instruction": "How It Works",
     "description": "Your generosity helps us serve, care, and reach more people.",
-    "prompt": "Choose a giving option from the menu above.",
-    "selected": "You selected {{type}} giving."
+    "prompt": "Copy the account number by clicking it, then upload your payment receipt via the button provided.",
+    "selected": "You selected {{type}} giving.",
+    "copied": "Copied",
+    "copyAccount": "Click to copy",
+    "sendReceipt": "Send Receipt",
+    "banks": {
+      "cbe": "Commercial Bank of Ethiopia",
+      "awash": "Awash Bank",
+      "birhan": "Birhan Bank"
+    },
+    "categories": {
+      "titheOffering": "For Tithe & Offering",
+      "gift": "For Gift",
+      "mission": "For Mission"
+    }
   },
   "resources": {
     "label": "RESOURCES",

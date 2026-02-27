@@ -16,6 +16,9 @@
   "navbar": {
     "home": "መነሻ",
     "about": "ስለ እኛ",
+    "about_mission": "ተልእኮ",
+    "about_statement": "የእምነት ማፅኛዎች",
+    "about_staff": "አገልጋዮች",
     "ministries": "አገልግሎቶች",
     "give": "መስጠት",
     "give_asrat": "አሥራት",
@@ -312,9 +315,23 @@
   "give": {
     "label": "መስጠት",
     "title": "መስጠት",
+    "instruction": "የአሰራር ስልት",
     "description": "ልግስናዎ ለማገልገል እና ተጨማሪ ሰዎችን ለማግኘት ያግዛል።",
-    "prompt": "ከላይ ካለው ምናሌ የመስጠት አማራጭ ይምረጡ።",
-    "selected": "{{type}} የመስጠት አማራጭ መርጠዋል።"
+    "prompt": "የባንክ ሂሳብ ቁጥሩን በመንካት ኮፒ ያድርጉ እና ከከፈሉ በኋላ የደረሰኙን ምስል ወደ ትክክለኛው ቦታ ይላኩ።",
+    "selected": "{{type}} የመስጠት አማራጭ መርጠዋል።",
+    "copied": "ኮፒ ተደርጓል",
+    "copyAccount": "ኮፒ ለማድረግ ይጫኑ",
+    "sendReceipt": "ደረሰኝ ይላኩ",
+    "banks": {
+      "cbe": "የኢትዮጵያ ንግድ ባንክ",
+      "awash": "አዋሽ ባንክ",
+      "birhan": "ብርሐን ባንክ"
+    },
+    "categories": {
+      "titheOffering": "ለአስራትና መባ",
+      "gift": "ለስጦታ",
+      "mission": "ለሚሽን"
+    }
   },
   "resources": {
     "label": "መረጃዎች",

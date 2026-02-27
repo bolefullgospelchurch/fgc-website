@@ -17,7 +17,28 @@ export default function Navbar({ transparent = false, contained = true }) {
 
   const navLinks = [
     { key: "home", label: t("navbar.home"), href: "/" },
-    { key: "about", label: t("navbar.about"), href: "/about" },
+    {
+      key: "about",
+      label: t("navbar.about"),
+      href: "/about",
+      children: [
+        {
+          key: "about_mission",
+          label: t("navbar.about_mission"),
+          href: "/about#mission",
+        },
+        {
+          key: "about_statement",
+          label: t("navbar.about_statement"),
+          href: "/about#statement-of-faith",
+        },
+        {
+          key: "about_staff",
+          label: t("navbar.about_staff"),
+          href: "/about#staff",
+        },
+      ],
+    },
     {
       key: "media",
       label: t("navbar.media"),
@@ -106,7 +127,7 @@ export default function Navbar({ transparent = false, contained = true }) {
     {
       key: "give",
       label: t("navbar.give"),
-      href: "",
+      href: "/give",
       isCta: true,
       children: [
         {

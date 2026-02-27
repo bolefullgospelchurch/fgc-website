@@ -252,7 +252,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="px-6 sm:px-10 lg:px-16 border-t border-midnight-navy/10 pt-16 md:pt-24">
+      <section id="mission" className="scroll-mt-10 px-6 sm:px-10 lg:px-16 border-t border-midnight-navy/10 pt-16 md:pt-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             {/* Left Column: Vision & Mission (Sticky) */}
@@ -323,7 +323,7 @@ export default function About() {
       </section>
 
       {/* Statement of Faith Section - Full width geometric style */}
-      <section className="bg-midnight-navy text-off-white py-20 md:py-32 my-20 md:my-32 relative overflow-hidden">
+      <section id="statement-of-faith" className="bg-midnight-navy text-off-white py-20 md:py-32 my-20 md:my-32 relative overflow-hidden">
         {/* Subtle geometric background element */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-off-white/5 skew-x-12 translate-x-32 pointer-events-none" />
         
@@ -354,7 +354,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+      <section id="staff" className="scroll-mt-28 px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
