@@ -84,27 +84,15 @@ export default function About() {
       isGroup: false,
     },
     {
-      name: "Getachew Alemayehu",
-      role: "Member",
-      image: getachew,
-      isGroup: false,
-    },
-    {
-      name: "Afework Mengistu",
-      role: "Diakon Representative",
-      image: afework,
-      isGroup: false,
-    },
-    {
       name: "Mengistu Tufa",
-      role: "የጉባኤው ፀሐፊ",
+      role: "Leader's Assembly Secretry",
       image: mengistu,
       isGroup: false,
     },
     {
-      name: "Almaz Gesese",
-      role: "Member",
-      image: almaz,
+      name: "Mulugeta Wolde",
+      role: "Treasurer",
+      image: mulugeta,
       isGroup: false,
     },
     {
@@ -114,9 +102,21 @@ export default function About() {
       isGroup: false,
     },
     {
-      name: "Mulugeta Wolde",
-      role: "አቃቢ ነዋይ",
-      image: mulugeta,
+      name: "Afework Mengistu",
+      role: "Deacon Representative",
+      image: afework,
+      isGroup: false,
+    },
+    {
+      name: "Getachew Alemayehu",
+      role: "Member",
+      image: getachew,
+      isGroup: false,
+    },
+    {
+      name: "Almaz Gesese",
+      role: "Member",
+      image: almaz,
       isGroup: false,
     },
   ];

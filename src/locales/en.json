@@ -75,10 +75,10 @@
     "wait": "WAIT, THERE'S MORE!",
     "title": "Looking For Ministries?",
     "description": "Discover new ways to connect with our faith community, grow spiritually, and make a meaningful impact in service.",
-    "worship": "Worship Team",
+    "worship": "Worship Ministry",
     "worship_desc": "Leading the church in praise, worship, and music ministry.",
     "view_all": "View All Ministries",
-    "diakon": "Diakon Team",
+    "diakon": "Deaconal Ministry",
     "diakon_desc": "Serving with care, hospitality, and practical support.",
     "media": "Media & Communication",
     "media_desc": "Sharing the message through media, design, and communications.",
@@ -109,7 +109,7 @@
     "background": {
       "badge": "Church History",
       "title": "Background of Local Church",
-      "body": "Ethiopian Full Gospel Believers' Church is a Pentecostal church in Ethiopia. It originated in the mid-1960s (around 1965) from a prayer meeting held at Addis Ababa University. The church was officially established in 1967. Bole Full Gospel Believers' Church is one of the local congregations under the Ethiopian Full Gospel Believers' Church, located in southeastern Addis Ababa and its surrounding area. The congregation began in 1989 as a prayer house (a developing church) and became an established parish in 2000. Guided by the Holy Bible and empowered by the Holy Spirit, and by receiving leadership direction under the Ethiopian Full Gospel Believers' Church, the congregation continues working to advance the Kingdom of God."
+      "body": "Ethiopian Full Gospel Believers' Church is a Pentecostal church in Ethiopia. It originated in the mid-1960s E.T (around 1965 E.T) from a prayer meeting held at Addis Ababa University. The church was officially established in 1967 E.T. Bole Full Gospel Believers' Church is one of the local congregations under the Ethiopian Full Gospel Believers' Church, located in southeastern Addis Ababa and its surrounding area. The congregation began in 1989 E.T as a prayer house (a developing church) and became an established parish in 2000 E.T. Guided by the Holy Bible and empowered by the Holy Spirit, and by receiving leadership direction under the Ethiopian Full Gospel Believers' Church, the congregation continues working to advance the Kingdom of God."
     },
     "faithHeading": "Vision, Mission, Purpose & Values",
     "faithSections": [
@@ -270,7 +270,7 @@
       {
         "id": "location",
         "label": "Location",
-        "value": "123 Faith Avenue, Blessed City"
+        "value": "100 meters behind Oromia Bank near Bole Rwanda Bridge."
       }
     ],
     "map": {

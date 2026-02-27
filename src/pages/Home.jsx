@@ -141,7 +141,7 @@ export default function Home() {
               <p className="font-bold tracking-[0.25em] uppercase text-sky-blue mb-6">
                 {t("hero.verse_ref")}
               </p>
-              <h1 className="text-5xl md:text-7xl font-black text-off-white leading-none tracking-tight mb-8">
+              <h1 className="text-5xl md:text-7xl font-black text-off-white leading-none mb-8">
                 {t("hero.verse")}
               </h1>
               <div className="flex flex-col sm:flex-row gap-3 mt-2">
@@ -203,12 +203,12 @@ export default function Home() {
             <p className="text-sm font-bold text-sky-blue tracking-widest uppercase mb-8 flex items-center gap-4">
               <span className="w-12 h-px bg-sky-blue"></span>
             </p>
-            <h2 className="text-5xl md:text-7xl font-black mb-8 text-off-white leading-[0.9] tracking-tighter">
+            <h2 className="text-5xl md:text-7xl font-black mb-8 text-off-white leading-[0.9]">
               <span className="text-outline">{t("mission.label")}</span>
             </h2>
           </div>
           <div className="md:col-span-7">
-            <p className="text-2xl md:text-4xl lg:text-5xl mb-12 text-off-white/90 font-black leading-tight tracking-tight">
+            <p className="text-2xl md:text-4xl lg:text-5xl mb-12 text-off-white/90 font-black leading-tight">
               {t("mission.description")}
             </p>
             <div>
@@ -385,7 +385,7 @@ export default function Home() {
               <p className="text-sm font-bold text-sky-blue tracking-widest uppercase mb-4 flex items-center gap-4">
                 <span className="w-12 h-px bg-sky-blue"></span> {t("connect.title")}
               </p>
-              <h2 className="text-5xl md:text-7xl font-black mb-6 text-white tracking-tighter leading-none">
+              <h2 className="text-5xl md:text-7xl font-black mb-6 text-white leading-none">
                 {t("more.title")}
               </h2>
             </div>
@@ -405,7 +405,7 @@ export default function Home() {
                 key={idx}
                 className="bg-white/5 backdrop-blur-xl border-t border-white/10 p-10 md:p-14 hover:bg-white/10 transition-colors cursor-pointer flex flex-col justify-between h-[400px]"
               >
-                <h3 className="text-4xl lg:text-5xl font-black text-white tracking-tighter">
+                <h3 className="text-4xl lg:text-5xl font-black text-white">
                   {item.title}
                 </h3>
                 <div>
