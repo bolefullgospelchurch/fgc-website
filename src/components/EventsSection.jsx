@@ -121,19 +121,19 @@ export default function EventsSection({
     if (createdAt && now - createdAt <= NEW_BADGE_DAYS * 24 * 60 * 60 * 1000) {
       badges.push({
         label: lang === "am" ? "አዲስ" : "NEW",
-        tone: "bg-emerald-500/15 text-emerald-700 border-emerald-500/30"
+        tone: "bg-[#ECFDF5] text-emerald-700 border-emerald-500/30"
       });
     }
     if (event.type === "weekly") {
       badges.push({
         label: lang === "am" ? "ሳምንታዊ" : "WEEKLY",
-        tone: "bg-sky-blue/15 text-deep-blue border-sky-blue/30"
+        tone: "bg-[#E0F2FE] text-deep-blue border-sky-blue/30"
       });
     }
     if (event.type === "special") {
       badges.push({
         label: lang === "am" ? "ልዩ መርሃ ግብር" : "SPECIAL",
-        tone: "bg-coral-red/15 text-coral-red border-coral-red/30"
+        tone: "bg-[#D8F0FB] text-midnight-navy border-[#D8F0FB]/30"
       });
     }
     return badges;
@@ -141,7 +141,7 @@ export default function EventsSection({
 
   const getCardClassName = (event) => {
     if (event.type === "special") {
-      return "bg-coral-red/10 border border-coral-red/30 shadow-sm";
+      return "bg-[#AFE5FF] border border-coral-red/40 shadow-sm";
     }
     return "bg-white border border-midnight-navy/10";
   };

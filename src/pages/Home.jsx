@@ -18,6 +18,11 @@ import churchBldg from "../assets/churchBldg.jpeg";
 import wetat from "../assets/wetat.jpg";
 import eventsBg from "../assets/events.jpg"
 
+import gubae1 from "../assets/gubae1.jpeg";
+import gubae2 from "../assets/gubae2.jpeg";
+import gubae3 from "../assets/gubae3.jpeg";
+import gubae4 from "../assets/gubae4.jpeg";
+
 
 export default function Home() {
   const { t } = useTranslation();
@@ -45,7 +50,7 @@ export default function Home() {
   const [weeklyPrograms, setWeeklyPrograms] = useState([]);
   const [isWeeklyLoading, setIsWeeklyLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const heroImages = [stage, choir, placeholderBg, churchBldg];
+  const heroImages = [stage, gubae1, churchBldg, gubae2, gubae3, gubae4];
 
   useEffect(() => {
     const timer = setInterval(() => {
