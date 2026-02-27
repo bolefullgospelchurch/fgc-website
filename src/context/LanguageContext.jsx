@@ -17,6 +17,9 @@ export const LanguageProvider = ({ children }) => {
 
   useEffect(() => {
     i18n.changeLanguage(language);
+    // Sync language to document body for CSS targeting (e.g., font switching)
+    document.body.classList.remove('lang-en', 'lang-am');
+    document.body.classList.add(`lang-${language}`);
   }, [language]);
 
   useEffect(() => {

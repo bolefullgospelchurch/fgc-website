@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @theme {
 	--color-off-white: #ECF0F1;
@@ -7,7 +8,22 @@
 	--color-faded-blue: #7190c5;
 	--color-deep-blue: #014CA9;
 	--color-midnight-navy: #081C3D;
-	--font-sans: "Nokia Pureheadline", system-ui, -apple-system, "Segoe UI", sans-serif;
+	--font-amharic: "Nokia Pureheadline", system-ui, -apple-system, "Segoe UI", sans-serif;
+	--font-english: "Rubik", system-ui, sans-serif;
+	--font-sans: var(--font-amharic);
+}
+
+body.lang-en {
+	font-family: var(--font-english);
+}
+
+body.lang-en .font-extrabold,
+body.lang-en .font-black {
+	font-weight: 700 !important;
+}
+
+body.lang-am {
+	font-family: var(--font-amharic);
 }
 
 @font-face {
