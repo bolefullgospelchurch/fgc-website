@@ -7,6 +7,7 @@ import MinistryHeader from "../components/ministries/MinistryHeader";
 import MinistryDetails from "../components/ministries/MinistryDetails";
 import MinistryLeaders from "../components/ministries/MinistryLeaders";
 import MinistryGallery from "../components/ministries/MinistryGallery";
+import Footer from "../components/Footer";
 import { useTranslation } from "react-i18next";
 
 const ministryBySlugQuery = `*[_type == "ministry" && slug.current == $slug][0]{
@@ -45,11 +46,11 @@ function MinistryDetail() {
   }, [slug]);
 
   return (
-    <main className="min-h-screen bg-sky-blue/20">
+    <main className="min-h-screen bg-off-white">
       <Navbar transparent />
       {isLoading ? (
         <section className="px-4 py-24">
-          <div className="max-w-4xl mx-auto text-center text-midnight-navy/70">
+          <div className="max-w-4xl mx-auto text-center text-midnight-navy/70 min-h-screen">
             {t("ministries.loading")}
           </div>
         </section>
@@ -75,6 +76,7 @@ function MinistryDetail() {
           </div>
         </section>
       )}
+      <Footer />
     </main>
   );
 }

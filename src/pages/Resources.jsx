@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Resources() {
   const { t } = useTranslation();
@@ -26,25 +27,24 @@ export default function Resources() {
   ];
 
   return (
-    <main className="min-h-screen bg-sky-blue/20">
+    <main className="min-h-screen bg-off-white">
       <Navbar transparent />
-      <section className="bg-midnight-navy text-off-white px-4 py-16 pt-32 md:py-20 md:pt-32">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm font-bold text-sky-blue/80 mb-4">
-            {t("resources.label")}
-          </p>
-          <h1 className="text-4xl md:text-5xl font-black mb-4">
-            {t("resources.title")}
-          </h1>
-          {/* <p className="text-off-white/80 text-lg max-w-3xl mx-auto">
-            {t("resources.description")}
-          </p> */}
-          <div className="mt-8">
+      <section className="bg-midnight-navy text-off-white px-6 sm:px-10 lg:px-16 py-16 pt-32 md:py-24 md:pt-40">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+          <div>
+            <p className="text-xs font-bold tracking-[0.25em] uppercase text-sky-blue mb-6">
+              {t("resources.label")}
+            </p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-off-white leading-none tracking-tight">
+              {t("resources.title")}
+            </h1>
+          </div>
+          <div className="md:mb-2">
             <a
               href="https://www.wordproject.org/bibles/am/"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-3 rounded-lg font-bold transition-colors shadow-sm"
+              className="inline-block bg-white hover:bg-off-white text-black px-8 py-4 font-bold text-sm tracking-wide transition-colors"
             >
               {t("navbar.holy_bible")}
             </a>
@@ -88,6 +88,7 @@ export default function Resources() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

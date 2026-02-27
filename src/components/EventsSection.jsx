@@ -143,7 +143,7 @@ export default function EventsSection({
     if (event.type === "special") {
       return "bg-coral-red/10 border border-coral-red/30 shadow-sm";
     }
-    return "bg-off-white border border-midnight-navy/10";
+    return "bg-white border border-midnight-navy/10";
   };
 
   useEffect(() => {
@@ -246,19 +246,19 @@ export default function EventsSection({
           Array.from({ length: 3 }).map((_, index) => (
             <div
               key={`event-skeleton-${index}`}
-              className="rounded-lg p-6 bg-off-white border border-midnight-navy/10 animate-pulse"
+              className="p-8 bg-white border border-midnight-navy/10 animate-pulse"
             >
-              <div className="h-40 w-full bg-midnight-navy/10 rounded-lg mb-4"></div>
-              <div className="flex gap-2 mb-3">
-                <div className="h-5 w-16 bg-midnight-navy/10 rounded-full"></div>
-                <div className="h-5 w-20 bg-midnight-navy/10 rounded-full"></div>
+              <div className="h-48 w-full bg-off-white border-b border-midnight-navy/5 mb-6"></div>
+              <div className="flex gap-2 mb-4">
+                <div className="h-4 w-12 bg-off-white border border-midnight-navy/5"></div>
+                <div className="h-4 w-16 bg-off-white border border-midnight-navy/5"></div>
               </div>
-              <div className="h-6 w-2/3 bg-midnight-navy/10 rounded mb-3"></div>
-              <div className="space-y-2 mb-4">
-                <div className="h-3 w-full bg-midnight-navy/10 rounded"></div>
-                <div className="h-3 w-5/6 bg-midnight-navy/10 rounded"></div>
+              <div className="h-8 w-2/3 bg-off-white border border-midnight-navy/5 mb-4"></div>
+              <div className="space-y-2 mb-8">
+                <div className="h-3 w-full bg-off-white border border-midnight-navy/5"></div>
+                <div className="h-3 w-5/6 bg-off-white border border-midnight-navy/5"></div>
               </div>
-              <div className="h-4 w-40 bg-midnight-navy/10 rounded"></div>
+              <div className="h-4 w-40 bg-off-white border border-midnight-navy/5"></div>
             </div>
           ))}
         {!isEventsLoading &&

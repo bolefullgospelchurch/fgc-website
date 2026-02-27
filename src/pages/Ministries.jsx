@@ -4,6 +4,7 @@ import { sanityClient } from '../sanity'
 import { useLanguage } from '../context/LanguageContext'
 import Navbar from '../components/Navbar'
 import MinistryGrid from '../components/ministries/MinistryGrid'
+import Footer from '../components/Footer'
 
 function Ministries() {
   const { t } = useTranslation()
@@ -29,20 +30,20 @@ function Ministries() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-sky-blue/20">
+    <main className="min-h-screen bg-off-white">
       <Navbar transparent />
-      <section className="bg-midnight-navy text-off-white px-4 py-16 pt-32 md:py-20 md:pt-32">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm font-bold text-sky-blue/80 mb-4">
+      <section className="bg-midnight-navy text-off-white px-6 sm:px-10 lg:px-16 py-16 pt-32 md:py-24 md:pt-40">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase text-sky-blue mb-6">
             {t('ministries.label')}
           </p>
-          <h1 className="text-4xl md:text-5xl font-black">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-off-white leading-none tracking-tight">
             {t('ministries.title')}
           </h1>
         </div>
       </section>
-      <section className="px-4 py-16 md:py-24">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-4 py-16 md:py-24 min-h-screen">
+        <div className="max-w-7xl mx-auto">
           {isLoading ? (
             <div className="text-center text-midnight-navy/70">
               {t('ministries.loading')}
@@ -56,6 +57,7 @@ function Ministries() {
           )}
         </div>
       </section>
+      <Footer />
     </main>
   )
 }

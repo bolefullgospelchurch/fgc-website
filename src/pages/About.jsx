@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import churchImage from "../assets/churchBldg.jpeg";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -210,14 +211,14 @@ export default function About() {
   });
 
   return (
-    <main className="min-h-screen bg-sky-blue/20">
+    <main className="min-h-screen bg-off-white">
       <Navbar transparent />
-      <section className="bg-midnight-navy text-off-white px-4 py-16 pt-32 md:py-20 md:pt-32">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm font-bold text-sky-blue/80 mb-4">
+      <section className="bg-midnight-navy text-off-white px-6 sm:px-10 lg:px-16 py-16 pt-32 md:py-24 md:pt-40">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase text-sky-blue mb-6">
             {t("about.label")}
           </p>
-          <h1 className="text-4xl md:text-5xl font-black">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-off-white leading-none tracking-tight">
             {t("about.title")}
           </h1>
         </div>
@@ -228,203 +229,197 @@ export default function About() {
             {t("about.description")}
           </p>
         </div> */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div className="relative rounded-3xl overflow-hidden shadow-lg h-full">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch border border-midnight-navy/10">
+          <div className="relative overflow-hidden h-full min-h-[300px] md:min-h-full">
             <img
               src={churchImage}
               alt="Church background"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/70 via-midnight-navy/20 to-transparent" />
-            <div className="absolute left-5 bottom-5 inline-flex items-center gap-2 rounded-full bg-off-white/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-midnight-navy shadow-sm">
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/90 via-midnight-navy/40 to-transparent" />
+            <div className="absolute left-6 bottom-6 inline-flex items-center gap-2 bg-coral-red px-4 py-2 text-xs font-bold uppercase tracking-widest text-off-white">
               {t("about.background.badge")}
             </div>
           </div>
-          <div className="bg-off-white rounded-3xl border border-midnight-navy/10 p-8 md:p-10 shadow-sm">
-            <h2 className="text-3xl md:text-4xl font-black text-midnight-navy mb-4">
+          <div className="bg-white p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            <h2 className="text-3xl md:text-5xl font-black text-midnight-navy mb-6">
               {t("about.background.title")}
             </h2>
-            <div className="h-1 w-16 bg-coral-red rounded-full mb-5" />
-            <p className="text-midnight-navy/70 text-lg leading-relaxed text-justify">
+            <div className="h-1 w-20 bg-sky-blue mb-8" />
+            <p className="text-midnight-navy/80 text-lg leading-relaxed text-justify">
               {t("about.background.body")}
             </p>
           </div>
         </div>
       </section>
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-midnight-navy mb-8">
-            {t("about.faithHeading")}
-          </h2>
-          <div className="space-y-4">
-            {faithSections.map((section, index) => (
-              <details
-                key={section.title}
-                open={index === 0}
-                className="group bg-off-white rounded-xl border border-midnight-navy/10 p-6 shadow-sm"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between text-lg font-black text-midnight-navy">
-                  <span className="text-midnight-navy">{section.title}</span>
-                  <span className="text-midnight-navy/50 group-open:rotate-180 transition-transform">
-                    <IoIosArrowDown />
-                  </span>
-                </summary>
-                <div className="grid grid-rows-[0fr] group-open:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out">
-                  <div className="overflow-hidden">
-                    <div className="mt-4 text-midnight-navy/70 text-sm leading-relaxed space-y-4">
-                      {section.paragraphs?.map((paragraph, idx) => (
-                        <p key={`${section.title}-p-${idx}`}>{paragraph}</p>
-                      ))}
-                      {section.items &&
-                        section.items.length > 0 &&
-                        (section.ordered ? (
-                          <ol className="list-decimal pl-5 space-y-2">
-                            {section.items.map((item, idx) => (
-                              <li key={`${section.title}-ol-${idx}`}>
-                                {typeof item === "string" ? (
-                                  item
-                                ) : (
-                                  <>
-                                    <strong className="text-midnight-navy">{item.title}:</strong> {item.desc}
-                                  </>
-                                )}
-                              </li>
-                            ))}
-                          </ol>
-                        ) : (
-                          <ul className="list-disc pl-5 space-y-2">
-                            {section.items.map((item, idx) => (
-                              <li key={`${section.title}-ul-${idx}`}>
-                                {typeof item === "string" ? (
-                                  item
-                                ) : (
-                                  <>
-                                    <strong className="text-midnight-navy">{item.title}:</strong> {item.desc}
-                                  </>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-                        ))}
-                    </div>
-                  </div>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-off-white rounded-2xl border border-midnight-navy/10 p-8 md:p-10 shadow-sm">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <section className="px-6 sm:px-10 lg:px-16 border-t border-midnight-navy/10 pt-16 md:pt-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+            {/* Left Column: Vision & Mission (Sticky) */}
+            <div className="lg:col-span-4 space-y-12 lg:sticky lg:top-32 self-start">
               <div>
-                <h2 className="text-3xl md:text-4xl font-black text-midnight-navy">
-                  {t("about.statement.title")}
+                <h2 className="text-sm font-bold uppercase tracking-widest text-coral-red mb-4">
+                  {faithSections[0]?.title || "Vision"}
                 </h2>
-                <p className="text-midnight-navy/70 text-sm mt-2">
-                  {t("about.statement.description")}
-                </p>
+                <div className="text-2xl md:text-3xl font-light text-midnight-navy leading-snug">
+                  {faithSections[0]?.paragraphs?.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
               </div>
-              <div className="h-12 w-12 rounded-xl bg-linear-to-br from-sky-blue/60 to-deep-blue/60 flex items-center justify-center text-off-white text-xl font-black">
-                ✝
+              <div className="h-px bg-midnight-navy/10 w-full" />
+              <div>
+                <h2 className="text-sm font-bold uppercase tracking-widest text-sky-blue mb-4">
+                  {faithSections[1]?.title || "Mission"}
+                </h2>
+                <div className="text-xl md:text-2xl font-light text-midnight-navy/80 leading-relaxed">
+                  {faithSections[1]?.paragraphs?.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
               </div>
             </div>
-            <ol className="list-decimal pl-6 space-y-3 text-midnight-navy/80 text-base leading-relaxed">
-              {statementOfFaith.map((item, idx) => (
-                <li key={`statement-${idx}`}>{item}</li>
-              ))}
-            </ol>
+
+            {/* Right Column: Purpose & Values */}
+            <div className="lg:col-span-8 lg:pl-12 lg:border-l border-midnight-navy/10">
+              {/* Purpose section */}
+              <div className="mb-20">
+                <h2 className="text-3xl md:text-4xl font-black text-midnight-navy mb-10 pb-4 border-b-2 border-midnight-navy/10 inline-block">
+                  {faithSections[2]?.title || "Purpose"}
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {faithSections[2]?.items?.map((item, idx) => (
+                    <div key={idx} className="bg-white p-6 md:p-8 border border-midnight-navy/10 hover:border-coral-red/50 transition-colors group">
+                      <div className="text-3xl font-black text-midnight-navy/10 group-hover:text-coral-red/20 transition-colors mb-4">0{idx + 1}</div>
+                      <p className="text-midnight-navy/80 text-sm md:text-base leading-relaxed">
+                        {typeof item === "string" ? item : item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Values section */}
+              <div>
+                <h2 className="text-3xl md:text-4xl font-black text-midnight-navy mb-10 pb-4 border-b-2 border-midnight-navy/10 inline-block">
+                  {faithSections[3]?.title || "Core Values"}
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+                  {faithSections[3]?.items?.map((item, idx) => (
+                    <div key={idx} className="relative pl-6 border-l-2 border-midnight-navy/10 hover:border-sky-blue transition-colors">
+                      <h3 className="text-lg font-bold text-midnight-navy mb-3 uppercase tracking-wide">
+                        {item.title}
+                      </h3>
+                      <p className="text-midnight-navy/70 text-sm leading-relaxed text-justify">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-midnight-navy mb-8">
-            Assembly of Leaders
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {elders.map((member) => (
-              <div
-                key={member.name}
-                className="group relative overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="relative mx-auto mb-4 h-36 w-36 rounded-full bg-linear-to-br from-sky-blue/60 via-off-white to-coral-red/40 p-1">
-                  <div className="h-full w-full overflow-hidden rounded-full bg-off-white">
-                    <img
-                      src={getImageSrc(member.image)}
-                      alt={member.name}
-                      className="h-full w-full object-cover object-top"
-                      loading="lazy"
-                    />
-                  </div>
+
+      {/* Statement of Faith Section - Full width geometric style */}
+      <section className="bg-midnight-navy text-off-white py-20 md:py-32 my-20 md:my-32 relative overflow-hidden">
+        {/* Subtle geometric background element */}
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-off-white/5 skew-x-12 translate-x-32 pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-sky-blue mb-4">
+                {t("about.statement.description")}
+              </h2>
+              <h3 className="text-4xl md:text-6xl font-black text-off-white">
+                {t("about.statement.title")}
+              </h3>
+            </div>
+            <div className="w-16 h-1 bg-coral-red" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-off-white/10 border border-off-white/10">
+            {statementOfFaith.map((item, idx) => (
+              <div key={`statement-${idx}`} className="bg-midnight-navy p-8 md:p-10 group hover:bg-off-white/5 transition-colors duration-300">
+                <div className="font-mono text-sky-blue/50 text-xl md:text-2xl mb-6 group-hover:text-sky-blue transition-colors">
+                  {String(idx + 1).padStart(2, '0')}.
                 </div>
-                <h3 className="text-lg font-black text-midnight-navy">
-                  {member.name}
-                </h3>
-                <p className="text-midnight-navy/60 text-sm">{member.role}</p>
-                <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-coral-red/70" />
+                <p className="text-off-white/80 text-sm md:text-base leading-relaxed">
+                  {item}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
-      {/* <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-midnight-navy mb-8">
-            Assembly of Elders
-          </h2>
+      <section className="px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
+              Leaders
+            </p>
+            <h2 className="text-4xl md:text-5xl font-black text-left text-midnight-navy leading-none tracking-tight">
+              Assembly of Leaders
+            </h2>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {elders.map((member) => (
               <div
                 key={member.name}
-                className="group overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-coral-red/50 hover:-translate-y-1"
               >
-                <div className="relative h-80 w-full">
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
                   <img
                     src={getImageSrc(member.image)}
                     alt={member.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                     loading="lazy"
                   />
                 </div>
-                <div className="p-6 text-center">
+                <div className="p-6 text-center flex-1 flex flex-col justify-center">
                   <h3 className="text-lg font-black text-midnight-navy">
                     {member.name}
                   </h3>
-                  <p className="text-midnight-navy/60 text-sm">{member.role}</p>
-                  <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-sky-blue/70" />
+                  <p className="text-midnight-navy/60 text-sm mt-1">{member.role}</p>
+                  <div className="mx-auto mt-5 h-[2px] w-8 bg-coral-red/70 group-hover:w-16 transition-all duration-300" />
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section> */}
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-midnight-navy mb-8">
-            Full Time Ministers
-          </h2>
+      </section>
+
+      <section className="px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
+              Ministers
+            </p>
+            <h2 className="text-4xl md:text-5xl font-black text-left text-midnight-navy leading-none tracking-tight">
+              Full Time Ministers
+            </h2>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {fullTimeBigSize.map((member) => (
               <div
                 key={member.name}
-                className="group overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-sky-blue/50 hover:-translate-y-1"
               >
-                <div className="relative h-80 w-full">
+                <div className="relative h-64 sm:h-80 w-full overflow-hidden">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-center grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                     loading="lazy"
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-black text-midnight-navy">
+                  <h3 className="text-xl font-black text-midnight-navy">
                     {member.name}
                   </h3>
-                  {/* <p className="text-midnight-navy/60 text-sm">{member.role}</p> */}
-                  <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-sky-blue/70" />
+                  <div className="mx-auto mt-5 h-[2px] w-8 bg-sky-blue/70 group-hover:w-16 transition-all duration-300" />
                 </div>
               </div>
             ))}
@@ -433,53 +428,57 @@ export default function About() {
             {fullTime.map((member) => (
               <div
                 key={member.name}
-                className="group relative overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-coral-red/50 hover:-translate-y-1"
               >
-                <div className="relative mx-auto mb-4 h-36 w-36 rounded-full bg-linear-to-br from-sky-blue/60 via-off-white to-coral-red/40 p-1">
-                  <div className="h-full w-full overflow-hidden rounded-full bg-off-white">
-                    <img
-                      src={getImageSrc(member.image)}
-                      alt={member.name}
-                      className="h-full w-full object-cover object-top"
-                      loading="lazy"
-                    />
-                  </div>
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
+                  <img
+                    src={getImageSrc(member.image)}
+                    alt={member.name}
+                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    loading="lazy"
+                  />
                 </div>
-                <h3 className="text-lg font-black text-midnight-navy">
-                  {member.name}
-                </h3>
-                <p className="text-midnight-navy/60 text-sm">{member.role}</p>
-                <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-coral-red/70" />
+                <div className="p-6 text-center flex-1 flex flex-col justify-center">
+                  <h3 className="text-lg font-black text-midnight-navy">
+                    {member.name}
+                  </h3>
+                  <p className="text-midnight-navy/60 text-sm mt-1">{member.role}</p>
+                  <div className="mx-auto mt-5 h-[2px] w-8 bg-coral-red/70 group-hover:w-16 transition-all duration-300" />
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-midnight-navy mb-8">
-            Admin Staff
-          </h2>
+      <section className="px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
+              Staff
+            </p>
+            <h2 className="text-4xl md:text-5xl font-black text-midnight-navy leading-none tracking-tight">
+              Admin Staff
+            </h2>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 mb-8">
             {adminStaffBigSize.map((member) => (
               <div
                 key={member.name}
-                className="group overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-sky-blue/50 hover:-translate-y-1"
               >
-                <div className="relative h-120 w-full">
+                <div className="relative h-64 md:h-96 xl:h-[32rem] w-full overflow-hidden">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="h-full w-full object-cover object-top"
+                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                     loading="lazy"
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-black text-midnight-navy">
+                  <h3 className="text-xl font-black text-midnight-navy">
                     {member.name}
                   </h3>
-                  {/* <p className="text-midnight-navy/60 text-sm">{member.role}</p> */}
-                  <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-sky-blue/70" />
+                  <div className="mx-auto mt-5 h-[2px] w-8 bg-sky-blue/70 group-hover:w-16 transition-all duration-300" />
                 </div>
               </div>
             ))}
@@ -488,28 +487,29 @@ export default function About() {
             {adminStaff.map((member) => (
               <div
                 key={member.name}
-                className="group relative overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-coral-red/50 hover:-translate-y-1"
               >
-                <div className="relative mx-auto mb-4 h-36 w-36 rounded-full bg-linear-to-br from-sky-blue/60 via-off-white to-coral-red/40 p-1">
-                  <div className="h-full w-full overflow-hidden rounded-full bg-off-white">
-                    <img
-                      src={getImageSrc(member.image)}
-                      alt={member.name}
-                      className="h-full w-full object-cover object-top"
-                      loading="lazy"
-                    />
-                  </div>
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
+                  <img
+                    src={getImageSrc(member.image)}
+                    alt={member.name}
+                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    loading="lazy"
+                  />
                 </div>
-                <h3 className="text-lg font-black text-midnight-navy">
-                  {member.name}
-                </h3>
-                <p className="text-midnight-navy/60 text-sm">{member.role}</p>
-                <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-coral-red/70" />
+                <div className="p-6 text-center flex-1 flex flex-col justify-center">
+                  <h3 className="text-lg font-black text-midnight-navy">
+                    {member.name}
+                  </h3>
+                  <p className="text-midnight-navy/60 text-sm mt-1">{member.role}</p>
+                  <div className="mx-auto mt-5 h-[2px] w-8 bg-coral-red/70 group-hover:w-16 transition-all duration-300" />
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

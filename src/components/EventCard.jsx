@@ -13,39 +13,39 @@ export default function EventCard({
   return (
     <div
       key={event._id}
-      className={`rounded-2xl overflow-hidden border transition-shadow flex h-full flex-col ${cardClassName}`}
+      className={`overflow-hidden border border-midnight-navy/10 transition-all hover:-translate-y-1 flex h-full flex-col ${cardClassName}`}
     >
-      <div className="relative bg-midnight-navy/10">
+      <div className="relative bg-off-white overflow-hidden">
         <img
           src={imageSrc}
           alt={event.title || "Event image"}
-          className="h-52 w-full object-cover sm:h-56"
+          className="h-64 w-full object-cover transition-transform duration-700 hover:scale-110"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-midnight-navy/70 via-midnight-navy/10 to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-2">
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
           {badges.map((badge, index) => (
             <span
               key={`${event._id}-badge-${index}`}
-              className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full border ${badge.tone}`}
+              className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 border ${badge.tone}`}
             >
               {badge.label}
             </span>
           ))}
         </div>
       </div>
-      <div className="p-6 flex flex-col flex-1">
-        <div className="text-xs font-semibold text-midnight-navy/70 mb-2">
+      <div className="p-8 flex flex-col flex-1">
+        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy/40 mb-4 flex items-center gap-3">
           {dateText}
         </div>
-        <h3 className="text-2xl font-black mb-2 text-midnight-navy">
+        <h3 className="text-2xl md:text-3xl font-black mb-4 text-midnight-navy leading-none tracking-tight">
           {event.title}
         </h3>
-        <p className="text-midnight-navy/70 text-sm mb-4">
+        <p className="text-midnight-navy/60 text-sm leading-relaxed mb-8">
           {event.description}
         </p>
-        <div className="text-sm font-semibold text-midnight-navy mt-auto">
-          {countdownText}
+        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy mt-auto pt-6 border-t border-midnight-navy/5 flex items-center justify-between">
+          <span>{countdownText}</span>
+          <span className="text-midnight-navy/20">→</span>
         </div>
       </div>
     </div>

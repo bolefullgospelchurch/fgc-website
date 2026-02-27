@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import churchImage from "../assets/churchBldg.jpeg";
 import {
   FaEnvelope,
@@ -35,96 +36,125 @@ export default function Contact() {
       "text-white bg-linear-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af]",
     tiktok: "bg-[#000000] text-white",
     facebook: "bg-[#1877F2] text-white",
-    youtube: "bg-[#FF0000] text-white",
   };
 
+  const coreIds = ["email", "telephones", "posta", "location"];
+  const socialIds = ["telegram", "instagram", "tiktok", "facebook", "youtube"];
+
+  const coreItems = Array.isArray(contactItems)
+    ? contactItems.filter((item) => coreIds.includes(item.id?.toLowerCase()) && item.value)
+    : [];
+
+  const socialItems = Array.isArray(contactItems)
+    ? contactItems.filter((item) => socialIds.includes(item.id?.toLowerCase()) && item.value)
+    : [];
+
   return (
-    <main className="min-h-screen bg-sky-blue/20">
+    <main className="min-h-screen bg-off-white">
       <Navbar transparent />
-      <section className="bg-midnight-navy text-off-white px-4 py-16 pt-32 md:py-20 md:pt-32">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm font-bold text-sky-blue/80 mb-4">
+      <section className="bg-midnight-navy text-off-white px-6 sm:px-10 lg:px-16 py-16 pt-32 md:py-24 md:pt-40">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase text-sky-blue mb-6">
             {t("contact.label")}
           </p>
-          <h1 className="text-4xl md:text-5xl font-black">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-off-white leading-none tracking-tight">
             {t("contact.title")}
           </h1>
         </div>
       </section>
-      <section className="px-4 py-16 md:py-24">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.isArray(contactItems) &&
-              contactItems
-                .filter((item) => Boolean(item?.value))
-                .map((item) => {
-                  const iconKey = String(item.id || "")
-                    .toLowerCase()
-                    .replace(/\s+/g, "");
+      <section className="px-6 sm:px-10 lg:px-16 py-16 md:py-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32">
+            {/* Left Column: Core Contact Info */}
+            <div>
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy/30 mb-10 border-b border-midnight-navy/10 pb-4">
+                {t("contact.coreTitle")}
+              </h3>
+              <div className="space-y-12">
+                {coreItems.map((item) => {
+                  const iconKey = String(item.id || "").toLowerCase();
                   const Icon = iconMap[iconKey] || FaMapMarkerAlt;
-                  const iconStyle =
-                    iconStyleMap[iconKey] ||
-                    "bg-linear-to-br from-sky-blue/60 to-deep-blue/60 text-off-white";
-                  const content = (
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="text-left">
-                        <p className="text-xs font-bold uppercase tracking-widest text-midnight-navy/50">
+                  return (
+                    <div key={item.id} className="flex gap-6 group">
+                      <div className="h-12 w-12 shrink-0 border border-midnight-navy/10 flex items-center justify-center text-midnight-navy/40 group-hover:bg-midnight-navy group-hover:text-off-white transition-colors">
+                        <Icon size={20} />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-midnight-navy/40 mb-1">
                           {item.label}
                         </p>
-                        <p className="mt-1 text-lg font-semibold text-midnight-navy">
-                          {item.value}
-                        </p>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            className="text-xl md:text-2xl font-black text-midnight-navy hover:text-sky-blue transition-colors break-all leading-tight"
+                            target={item.href.startsWith("http") ? "_blank" : undefined}
+                            rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                          >
+                            {item.value}
+                          </a>
+                        ) : (
+                          <p className="text-xl md:text-2xl font-black text-midnight-navy leading-tight">
+                            {item.value}
+                          </p>
+                        )}
                       </div>
-                      <div
-                        className={`h-12 w-12 shrink-0 rounded-2xl flex items-center justify-center text-xl ${iconStyle}`}
-                      >
-                        <Icon aria-hidden="true" />
-                      </div>
-                    </div>
-                  );
-
-                  return item.href ? (
-                    <a
-                      key={item.id || item.label}
-                      href={item.href}
-                      className="group relative overflow-hidden rounded-3xl border border-midnight-navy/10 bg-off-white/95 p-6 text-midnight-navy shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                    >
-                      <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-br from-sky-blue/10 via-transparent to-coral-red/10" />
-                      <div className="relative">{content}</div>
-                    </a>
-                  ) : (
-                    <div
-                      key={item.id || item.label}
-                      className="relative overflow-hidden rounded-3xl border border-midnight-navy/10 bg-off-white/95 p-6 text-midnight-navy shadow-sm"
-                    >
-                      <div className="absolute inset-0 opacity-0 bg-linear-to-br from-sky-blue/10 via-transparent to-coral-red/10" />
-                      <div className="relative">{content}</div>
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* Right Column: Social Media */}
+            <div>
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy/30 mb-10 border-b border-midnight-navy/10 pb-4">
+                {t("contact.socialTitle")}
+              </h3>
+              <div className="grid grid-cols-1 gap-8">
+                {socialItems.map((item) => {
+                  const iconKey = String(item.id || "").toLowerCase();
+                  const Icon = iconMap[iconKey] || FaMapMarkerAlt;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex items-center justify-between border-b border-midnight-navy/5 pb-6 hover:border-midnight-navy/20 transition-colors"
+                    >
+                      <div className="flex items-center gap-6">
+                        <div className="text-midnight-navy/20 group-hover:text-sky-blue transition-colors">
+                          <Icon size={24} />
+                        </div>
+                        <span className="text-lg font-black text-midnight-navy uppercase tracking-tight">
+                          {item.label}
+                        </span>
+                      </div>
+                      <span className="text-xs font-bold text-midnight-navy/20 group-hover:text-midnight-navy group-hover:translate-x-2 transition-all uppercase tracking-widest">
+                        {t("contact.follow")} →
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-off-white rounded-3xl border border-midnight-navy/10 p-6 md:p-10 shadow-sm">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-black text-midnight-navy">
+      <section className="px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white border border-midnight-navy/10 p-0">
+            <div className="border-b border-midnight-navy/10">
+              <div className="p-10 md:p-10">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-midnight-navy/40 mb-4">
                   {t("contact.map.title")}
-                </h2>
-                <p className="text-midnight-navy/70 text-sm mt-2">
-                  {t("contact.map.description")}
                 </p>
-              </div>
-              <div className="h-12 w-12 rounded-xl bg-linear-to-br from-sky-blue/60 to-deep-blue/60 flex items-center justify-center text-off-white text-xl font-black">
-                <FaMapMarkerAlt />
+                <h2 className="text-xl md:text-3xl font-black text-midnight-navy leading-tight">
+                  {t("contact.map.description")}
+                </h2>
               </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="relative overflow-hidden rounded-2xl border border-midnight-navy/10">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="relative aspect-video lg:aspect-auto overflow-hidden">
                 <img
                   src={churchImage}
                   alt={t("contact.map.imageAlt")}
@@ -132,18 +162,18 @@ export default function Contact() {
                   loading="lazy"
                 />
               </div>
-              <div className="overflow-hidden rounded-2xl border border-midnight-navy/10 bg-slate-100">
+              <div className="aspect-video lg:aspect-auto bg-slate-100 border-t lg:border-t-0 lg:border-l border-midnight-navy/10">
                 {mapEmbedUrl ? (
                   <iframe
                     title={t("contact.map.iframeTitle")}
                     src={mapEmbedUrl}
-                    className="h-80 w-full md:h-100"
+                    className="h-full w-full min-h-[400px]"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     allowFullScreen
                   />
                 ) : (
-                  <div className="h-80 w-full md:h-full flex items-center justify-center text-midnight-navy/60 text-sm">
+                  <div className="h-full w-full min-h-[400px] flex items-center justify-center text-midnight-navy/60 text-sm">
                     {t("contact.map.placeholder")}
                   </div>
                 )}
@@ -152,6 +182,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

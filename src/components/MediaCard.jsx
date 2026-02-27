@@ -17,7 +17,7 @@ export default function MediaCard({ item }) {
   });
 
   return (
-    <div className="bg-off-white rounded-2xl border border-midnight-navy/10 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
+    <div className="bg-white border border-midnight-navy/10 hover:-translate-y-1 transition-transform overflow-hidden cursor-pointer flex flex-col">
       {item.youtube?.videoId ? (
         <div className="relative w-full pt-[56.25%] bg-black">
           <iframe
@@ -34,22 +34,23 @@ export default function MediaCard({ item }) {
           Media coming soon
         </div>
       )}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
+        <div className="h-[2px] w-6 bg-sky-blue mb-4" />
         <div className="flex items-center justify-between mb-3">
-          <span className="inline-flex items-center text-xs font-bold px-2.5 py-1 rounded-full bg-sky-blue/15 text-deep-blue border border-sky-blue/30">
+          <span className="inline-flex items-center text-xs font-bold px-2 py-0.5 bg-sky-blue/10 text-deep-blue border border-sky-blue/20 uppercase tracking-wide">
             {badgeLabel}
           </span>
-          <span className="text-xs font-semibold text-midnight-navy/60">
+          <span className="text-xs font-semibold text-midnight-navy/50">
             {dateText}
           </span>
         </div>
-        <h3 className="text-xl font-black text-midnight-navy mb-2">
+        <h3 className="text-lg font-black text-midnight-navy mb-2">
           {item.title}
         </h3>
-        <p className="text-sm text-midnight-navy/70 mb-4">
+        <p className="text-sm text-midnight-navy/70 mb-4 flex-1">
           {item.description}
         </p>
-        <div className="text-sm font-semibold text-midnight-navy">
+        <div className="text-sm font-semibold text-midnight-navy/80">
           {item.speaker}
         </div>
       </div>

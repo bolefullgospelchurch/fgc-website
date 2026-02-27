@@ -8,28 +8,36 @@ export default function MinistryHeader({ ministry, lang }) {
   const heroImage = ministry?.heroImageUrl || ministry?.galleryUrls?.[0] || "";
 
   return (
-    <section className="relative px-4 py-16 pt-32 md:py-24 md:pt-36 text-off-white bg-midnight-navy">
-      <div
-        className="absolute inset-0 bg-center bg-cover"
-        style={
-          heroImage
-            ? { backgroundImage: `url(${heroImage})` }
-            : undefined
-        }
-      />
-      <div className="absolute inset-0 bg-midnight-navy/70" />
-      <div className="relative max-w-5xl mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-black mb-4">{title}</h1>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-off-white/90">
+    <section className="bg-midnight-navy text-off-white px-6 sm:px-10 lg:px-16 py-16 pt-32 md:py-24 md:pt-40 border-b border-white/5">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+        <div className="max-w-4xl">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase text-sky-blue mb-6">
+            Ministry Detail
+          </p>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-off-white leading-none tracking-tight">
+            {title}
+          </h1>
+        </div>
+        <div className="flex flex-col sm:flex-row items-start md:items-end gap-10 md:mb-2">
           {meeting && (
-            <span className="rounded-full border border-off-white/40 px-4 py-2">
-              {meeting}
-            </span>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-off-white/30 mb-2">
+                Meets
+              </p>
+              <p className="text-sm font-bold text-off-white">
+                {meeting}
+              </p>
+            </div>
           )}
           {location && (
-            <span className="rounded-full border border-off-white/40 px-4 py-2">
-              {location}
-            </span>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-off-white/30 mb-2">
+                Location
+              </p>
+              <p className="text-sm font-bold text-off-white">
+                {location}
+              </p>
+            </div>
           )}
         </div>
       </div>

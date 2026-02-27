@@ -47,7 +47,8 @@
     "amharic": "Amharic",
     "english": "English",
     "open_main_menu": "Open main menu",
-    "toggle_menu": "Toggle {{item}} menu"
+    "toggle_menu": "Toggle {{item}} menu",
+    "more": "More"
   },
   "cards": {
     "know_us": "Get To Know Us",
@@ -65,14 +66,14 @@
   },
   "connect": {
     "title": "Get Connected",
-    "description": "Explore our ministries and discover meaningful ways to grow, and serve the kingdom of God.",
+    "description": "Explore our ministries and discover",
     "kids": "Kids",
     "youth": "Youth",
     "young_adults": "Young Adults"
   },
   "more": {
     "wait": "WAIT, THERE'S MORE!",
-    "title": "Looking For More Ministries?",
+    "title": "Looking For Ministries?",
     "description": "Discover new ways to connect with our faith community, grow spiritually, and make a meaningful impact in service.",
     "worship": "Worship Team",
     "worship_desc": "Leading the church in praise, worship, and music ministry.",
@@ -86,7 +87,7 @@
   },
   "schedule": {
     "title": "Weekly Schedule",
-    "description": "Plan your week and join the ministries that fit your season and calling.",
+    "description": "Join our weekly programs.",
     "no_schedule": "There are no weekly schedules set."
   },
   "happenings": {
@@ -216,6 +217,9 @@
   "contact": {
     "label": "Contact Us",
     "title": "Get in Touch",
+    "coreTitle": "Core Information",
+    "socialTitle": "Social Connect",
+    "follow": "Follow",
     "items": [
       {
         "id": "email",

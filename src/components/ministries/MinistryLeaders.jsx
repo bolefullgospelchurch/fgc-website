@@ -10,12 +10,17 @@ export default function MinistryLeaders({ leaders, lang }) {
   if (!Array.isArray(leaders) || leaders.length === 0) return null;
 
   return (
-    <section className="px-4 pb-12 md:pb-16">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-black text-center text-midnight-navy mb-8">
-          {t("ministries.leadersTitle")}
-        </h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-16">
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
+            People
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-midnight-navy leading-none tracking-tight">
+            {t("ministries.leadersTitle")}
+          </h2>
+        </div>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {leaders.map((leader, idx) => {
             const name = getLocalizedField(leader?.name, lang);
             const role = getLocalizedField(leader?.role, lang);
@@ -24,25 +29,25 @@ export default function MinistryLeaders({ leaders, lang }) {
             return (
               <div
                 key={`${name}-${idx}`}
-                className="group relative overflow-hidden rounded-2xl border border-midnight-navy/10 bg-off-white/95 p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-sky-blue/50"
               >
-                <div className="relative mx-auto mb-4 h-36 w-36 rounded-full bg-linear-to-br from-sky-blue/60 via-off-white to-coral-red/40 p-1">
-                  <div className="h-full w-full overflow-hidden rounded-full bg-off-white">
-                    <img
-                      src={photoUrl}
-                      alt={name}
-                      className="h-full w-full object-cover object-top"
-                      loading="lazy"
-                    />
-                  </div>
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
+                  <img
+                    src={photoUrl}
+                    alt={name}
+                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    loading="lazy"
+                  />
                 </div>
-                <h3 className="text-lg font-black text-midnight-navy">
-                  {name}
-                </h3>
-                {role && (
-                  <p className="text-midnight-navy/60 text-sm">{role}</p>
-                )}
-                <div className="mx-auto mt-4 h-1 w-12 rounded-full bg-coral-red/70" />
+                <div className="p-8 text-center flex-1 flex flex-col justify-center">
+                  <h3 className="text-xl font-black text-midnight-navy group-hover:text-sky-blue transition-colors">
+                    {name}
+                  </h3>
+                  {role && (
+                    <p className="text-midnight-navy/60 text-sm mt-2">{role}</p>
+                  )}
+                  <div className="mx-auto mt-6 h-[2px] w-8 bg-coral-red/60 group-hover:w-16 transition-all duration-300" />
+                </div>
               </div>
             );
           })}

@@ -18,40 +18,6 @@ export default function Navbar({ transparent = false, contained = true }) {
   const navLinks = [
     { key: "home", label: t("navbar.home"), href: "/" },
     { key: "about", label: t("navbar.about"), href: "/about" },
-    { key: "ministries", label: t("navbar.ministries"), href: "/ministries" },
-    {
-      key: "give",
-      label: t("navbar.give"),
-      href: "",
-      children: [
-        {
-          key: "give_asrat",
-          label: t("navbar.give_asrat"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
-        },
-        {
-          key: "give_meba",
-          label: t("navbar.give_meba"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
-        },
-        {
-          key: "give_bekurat",
-          label: t("navbar.give_bekurat"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
-        },
-        {
-          key: "give_donate",
-          label: t("navbar.give_donate"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
-        },
-        {
-          key: "give_others",
-          label: t("navbar.give_others"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
-        },
-      ],
-    },
-    { key: "events", label: t("navbar.events"), href: "/events" },
     {
       key: "media",
       label: t("navbar.media"),
@@ -127,30 +93,49 @@ export default function Navbar({ transparent = false, contained = true }) {
         },
       ],
     },
+    { key: "contact", label: t("navbar.contact"), href: "/contact" },
     {
-      key: "registrations",
-      label: t("navbar.registrations"),
+      key: "more",
+      label: t("navbar.more"),
       href: "",
       children: [
+        { key: "ministries", label: t("navbar.ministries"), href: "/ministries" },
+        { key: "events", label: t("navbar.events"), href: "/events" },
+      ],
+    },
+    {
+      key: "give",
+      label: t("navbar.give"),
+      href: "",
+      isCta: true,
+      children: [
         {
-          key: "reg_home_church",
-          label: t("navbar.reg_home_church"),
-          href: "/registrations/home-church",
+          key: "give_asrat",
+          label: t("navbar.give_asrat"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
         },
         {
-          key: "reg_choose_ministry",
-          label: t("navbar.reg_choose_ministry"),
-          href: "/registrations/choose-ministry",
+          key: "give_meba",
+          label: t("navbar.give_meba"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
         },
         {
-          key: "reg_membership",
-          label: t("navbar.reg_membership"),
-          href: "https://docs.google.com/forms/d/e/1FAIpQLSfgZ1WEG_FzLMFCmH7eVrIGoCWoZvRQNEahLvgXAsl-zq014A/viewform?usp=publish-editor",
-          newTab: true,
+          key: "give_bekurat",
+          label: t("navbar.give_bekurat"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+        {
+          key: "give_donate",
+          label: t("navbar.give_donate"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+        },
+        {
+          key: "give_others",
+          label: t("navbar.give_others"),
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
         },
       ],
     },
-    { key: "contact", label: t("navbar.contact"), href: "/contact" },
   ];
 
   const languageOptions = [
@@ -187,7 +172,7 @@ export default function Navbar({ transparent = false, contained = true }) {
 
   const isExternalLink = (href = "") => /^https?:\/\//i.test(href);
 
-  const renderNavLink = ({ href, label, newTab, className, onClick }) => {
+  const renderNavLink = ({ href, label, newTab, className, onClick, rightIcon }) => {
     if (newTab || isExternalLink(href)) {
       return (
         <a
@@ -198,6 +183,7 @@ export default function Navbar({ transparent = false, contained = true }) {
           onClick={onClick}
         >
           {label}
+          {rightIcon && rightIcon}
         </a>
       );
     }
@@ -205,16 +191,62 @@ export default function Navbar({ transparent = false, contained = true }) {
     return (
       <Link to={href} className={className} onClick={onClick}>
         {label}
+        {rightIcon && rightIcon}
       </Link>
     );
   };
 
   return (
-    <nav
-      className={`absolute w-full z-50 ${bgColor} ${contained ? "border-b" : null} transition-all duration-300`}
-    >
+    <>
+      {/* Floating Language Selector - always visible and isolated from Navbar flow */}
+      <div className="fixed bottom-4 left-4 z-[60] group">
+        <button
+          type="button"
+          className={`px-3 py-1.5 rounded-full text-[13px] font-bold transition-all shadow-lg border inline-flex items-center gap-1 ${
+            transparent
+              ? "bg-midnight-navy text-off-white border-white/20 hover:bg-deep-blue"
+              : "bg-white text-midnight-navy border-midnight-navy/20 hover:bg-off-white"
+          }`}
+        >
+          {t("navbar.language")}
+          <span className="text-[10px]">▲</span>
+        </button>
+        <span
+          className="absolute left-0 right-0 bottom-full h-2"
+          aria-hidden="true"
+        />
+        <div
+          className={`absolute left-0 bottom-full mb-2 min-w-[140px] rounded-xl border shadow-2xl opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${
+            transparent ? "bg-midnight-navy border-white/20" : "bg-white border-midnight-navy/20"
+          }`}
+        >
+          <div className="py-2">
+            {languageOptions.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => {
+                  setLanguage(option.value);
+                  setIsOpen(false);
+                }}
+                className={`block w-full text-left px-4 py-2 text-sm font-semibold transition-colors ${dropdownText} ${
+                  language === option.value
+                    ? "opacity-100"
+                    : "opacity-80"
+                }`}
+              >
+                {option.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <nav
+        className={`absolute w-full z-50 ${bgColor} ${contained ? "border-b" : null} transition-all duration-300`}
+      >
       <div
-        className={`${contained ? "max-w-7xl" : null} mx-auto px-4 sm:px-6 lg:px-8`}
+        className={`mx-auto px-4 sm:px-8 lg:px-16`}
       >
         <div className="flex items-center justify-between h-20 gap-4">
           <div className="flex items-center min-w-0">
@@ -241,26 +273,30 @@ export default function Navbar({ transparent = false, contained = true }) {
               </Link>
             </div>
           </div>
-          <div className="hidden md:block flex-1">
-            <div className="ml-6 flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
+          <div className="hidden md:flex flex-1 items-center justify-end gap-2 lg:gap-4 ml-6">
+            <div className="flex flex-wrap items-center justify-end gap-x-1 lg:gap-x-2 gap-y-2">
               {navLinks.map((link) =>
                 link.children ? (
-                  <div key={link.key} className="relative group">
-                    <span className="inline-flex items-center gap-1">
-                      {renderNavLink({
-                        href: link.href,
-                        label: link.label,
-                        newTab: link.newTab,
-                        className: `${linkColor} px-2.5 py-2 rounded-md text-[13px] font-bold transition-colors inline-flex items-center gap-1`,
-                      })}
-                      <span className={`${linkColor} text-xs`}>▾</span>
-                    </span>
+                  <div key={link.key} className="relative group shrink-0">
+                    {renderNavLink({
+                      href: link.href,
+                      label: link.label,
+                      newTab: link.newTab,
+                      className: link.isCta
+                        ? `px-4 py-2 rounded-full text-[13px] font-bold transition-all shadow-md inline-flex items-center gap-1 ${
+                            transparent
+                              ? "bg-off-white text-midnight-navy hover:bg-white"
+                              : "bg-midnight-navy text-off-white hover:bg-deep-blue"
+                          }`
+                        : `${linkColor} px-2.5 py-2 rounded-md text-[13px] font-bold transition-colors inline-flex items-center gap-1`,
+                      rightIcon: <span className="text-xs">▾</span>
+                    })}
                     <span
                       className="absolute left-0 right-0 top-full h-2"
                       aria-hidden="true"
                     />
                     <div
-                      className={`absolute left-0 mt-2 min-w-[220px] rounded-lg border shadow-lg opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${dropdownBg}`}
+                      className={`absolute right-0 mt-2 min-w-[220px] rounded-lg border shadow-lg opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${dropdownBg}`}
                     >
                       <div className="py-2">
                         {link.children.map((child) => (
@@ -282,46 +318,19 @@ export default function Navbar({ transparent = false, contained = true }) {
                       href: link.href,
                       label: link.label,
                       newTab: link.newTab,
-                      className: `${linkColor} px-2.5 py-2 rounded-md text-[13px] font-bold transition-colors`,
+                      className: link.isCta
+                        ? `px-4 py-2 rounded-full text-[13px] font-bold transition-all shadow-md inline-flex items-center gap-1 ${
+                            transparent
+                              ? "bg-off-white text-midnight-navy hover:bg-white"
+                              : "bg-midnight-navy text-off-white hover:bg-deep-blue"
+                          }`
+                        : `${linkColor} px-2.5 py-2 rounded-md text-[13px] font-bold transition-colors`,
                     })}
                   </React.Fragment>
                 ),
               )}
-
-              <div className="relative group">
-                <button
-                  type="button"
-                  className={`${linkColor} px-2.5 py-2 rounded-md text-[13px] font-bold transition-colors inline-flex items-center gap-1`}
-                >
-                  {t("navbar.language")}
-                  <span className="text-xs">▾</span>
-                </button>
-                <span
-                  className="absolute left-0 right-0 top-full h-2"
-                  aria-hidden="true"
-                />
-                <div
-                  className={`absolute right-0 mt-2 min-w-[180px] rounded-lg border shadow-lg opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${dropdownBg}`}
-                >
-                  <div className="py-2">
-                    {languageOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        type="button"
-                        onClick={() => setLanguage(option.value)}
-                        className={`block w-full text-left px-4 py-2 text-sm font-semibold transition-colors ${dropdownText} ${
-                          language === option.value
-                            ? "opacity-100"
-                            : "opacity-80"
-                        }`}
-                      >
-                        {option.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
             </div>
+            {/* The language selector was moved outside the main navbar flow */}
           </div>
           <div className="-mr-2 flex md:hidden">
             <button
@@ -353,12 +362,18 @@ export default function Navbar({ transparent = false, contained = true }) {
                       label: link.label,
                       newTab: link.newTab,
                       onClick: () => setIsOpen(false),
-                      className: `${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium`,
+                      className: link.isCta
+                        ? `block px-4 py-2 my-1 rounded-l-md text-base font-bold flex-1 ${
+                            transparent
+                              ? "bg-off-white text-midnight-navy"
+                              : "bg-midnight-navy text-off-white"
+                          }`
+                        : `${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium flex-1`,
                     })}
                     <button
                       type="button"
                       onClick={() => toggleSubmenu(link.key)}
-                      className={`${mobileLinkColor} px-3 py-2 text-base font-medium`}
+                      className={`${link.isCta ? (transparent ? "bg-off-white text-midnight-navy border-l border-midnight-navy/10" : "bg-midnight-navy text-off-white border-l border-white/10") : mobileLinkColor} px-4 py-2 my-1 rounded-r-md text-base font-medium transition-colors`}
                       aria-label={t("navbar.toggle_menu", { item: link.label })}
                     >
                       {openSubmenus[link.key] ? "▴" : "▾"}
@@ -381,56 +396,27 @@ export default function Navbar({ transparent = false, contained = true }) {
                   )}
                 </div>
               ) : (
-                <React.Fragment key={link.key}>
+                <div key={link.key} className="px-1">
                   {renderNavLink({
                     href: link.href,
                     label: link.label,
                     newTab: link.newTab,
                     onClick: () => setIsOpen(false),
-                    className: `${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium`,
+                    className: link.isCta
+                      ? `block px-4 py-2 my-1 rounded-md text-base font-bold text-center ${
+                          transparent
+                            ? "bg-off-white text-midnight-navy"
+                            : "bg-midnight-navy text-off-white"
+                        }`
+                      : `${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium`,
                   })}
-                </React.Fragment>
+                </div>
               ),
             )}
-            <div className="px-1">
-              <div className="flex items-center justify-between">
-                <span
-                  className={`${mobileLinkColor} block px-3 py-2 rounded-md text-base font-medium`}
-                >
-                  {t("navbar.language")}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => toggleSubmenu("language")}
-                  className={`${mobileLinkColor} px-3 py-2 text-base font-medium`}
-                  aria-label={t("navbar.toggle_menu", {
-                    item: t("navbar.language"),
-                  })}
-                >
-                  {openSubmenus.language ? "▴" : "▾"}
-                </button>
-              </div>
-              {openSubmenus.language && (
-                <div className="ml-4 space-y-1 pb-2">
-                  {languageOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => {
-                        setLanguage(option.value);
-                        setIsOpen(false);
-                      }}
-                      className={`${mobileLinkColor} block w-full text-left px-3 py-2 rounded-md text-sm font-semibold`}
-                    >
-                      {option.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
           </div>
         </div>
       )}
     </nav>
+    </>
   );
 }

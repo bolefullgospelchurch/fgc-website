@@ -20,50 +20,57 @@ export default function MinistryCard({ ministry, lang }) {
   return (
     <Link
       to={`/ministries/${ministry?.slug}`}
-      className="group relative overflow-hidden rounded-3xl border border-midnight-navy/10 bg-off-white/95 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className="group relative overflow-hidden border border-midnight-navy/10 bg-white transition-all duration-300 hover:bg-off-white"
     >
       {imageUrl ? (
-        <div className="relative h-44 w-full overflow-hidden">
+        <div className="relative h-64 w-full overflow-hidden border-b border-midnight-navy/10">
           <img
             src={imageUrl}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight-navy/60 via-midnight-navy/10 to-transparent" />
         </div>
       ) : (
-        <div className="h-44 w-full bg-linear-to-br from-sky-blue/30 via-off-white to-coral-red/20" />
+        <div className="h-64 w-full bg-midnight-navy flex items-center justify-center border-b border-white/5">
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-off-white/20">FGC Ministries</span>
+        </div>
       )}
-      <div className="p-6 text-left">
-        <h3 className="text-xl font-bold text-midnight-navy mb-2">
+      <div className="p-8 text-left">
+        <h3 className="text-2xl md:text-3xl font-black text-midnight-navy leading-none tracking-tight mb-4 group-hover:text-sky-blue transition-colors">
           {title}
         </h3>
         {description && (
-          <p className="text-midnight-navy/70 text-sm leading-relaxed">
+          <p className="text-midnight-navy/60 text-sm leading-relaxed mb-8">
             {description}
           </p>
         )}
-        {(meeting || location) && (
-          <div className="mt-4 space-y-1 text-xs text-midnight-navy/70">
-            {meeting && (
-              <p>
-                <span className="font-semibold text-midnight-navy">
-                  {t("ministries.meets")}
-                </span>{" "}
+        <div className="pt-6 border-t border-midnight-navy/5 space-y-4">
+          {meeting && (
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy/30 mb-1">
+                {t("ministries.meets")}
+              </p>
+              <p className="text-sm font-bold text-midnight-navy">
                 {meeting}
               </p>
-            )}
-            {location && (
-              <p>
-                <span className="font-semibold text-midnight-navy">
-                  {t("ministries.location")}
-                </span>{" "}
+            </div>
+          )}
+          {location && (
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy/30 mb-1">
+                {t("ministries.location")}
+              </p>
+              <p className="text-sm font-bold text-midnight-navy">
                 {location}
               </p>
-            )}
-          </div>
-        )}
+            </div>
+          )}
+        </div>
+        <div className="mt-8 pt-6 border-t border-midnight-navy/5 flex items-center justify-between">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-midnight-navy/40">Read More</span>
+          <span className="text-xs font-bold text-midnight-navy/20 group-hover:text-sky-blue group-hover:translate-x-2 transition-all">→</span>
+        </div>
       </div>
     </Link>
   );
