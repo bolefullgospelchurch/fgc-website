@@ -293,6 +293,7 @@
     "selected": "You selected {{type}} giving.",
     "copied": "Copied",
     "copyAccount": "Click to copy",
+    "swiftCode": "Swift Code",
     "sendReceipt": "Send Receipt",
     "banks": {
       "cbe": "Commercial Bank of Ethiopia",

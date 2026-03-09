@@ -36,6 +36,7 @@ export default function Give() {
   const bankAccounts = [
     {
       bankKey: "give.banks.cbe",
+      swiftCode: "CBETETAA",
       logoSrc: "/bank-logos/cbe.png",
       logoFallback: "CBE",
       entries: [
@@ -53,6 +54,7 @@ export default function Give() {
     },
     {
       bankKey: "give.banks.awash",
+      swiftCode: "AWINETAA",
       logoSrc: "/bank-logos/awash.png",
       logoFallback: "AW",
       entries: [
@@ -65,6 +67,7 @@ export default function Give() {
     },
     {
       bankKey: "give.banks.birhan",
+      swiftCode: "BERHETAA",
       logoSrc: "/bank-logos/birhan.png",
       logoFallback: "BR",
       entries: [
@@ -141,6 +144,19 @@ export default function Give() {
                   <h3 className="text-2xl md:text-3xl font-black text-midnight-navy leading-tight">
                     {t(bank.bankKey)}
                   </h3>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(bank.swiftCode)}
+                    className="mt-2 text-xs font-bold tracking-widest uppercase text-midnight-navy/50 hover:text-deep-blue transition-colors"
+                    title={t("give.copyAccount")}
+                  >
+                    {t("give.swiftCode")}: {bank.swiftCode}
+                  </button>
+                  {copiedAccount === bank.swiftCode && (
+                    <p className="text-xs text-sky-blue font-bold mt-1">
+                      {t("give.copied")}
+                    </p>
+                  )}
                 </div>
                 <BankLogo
                   src={bank.logoSrc}
