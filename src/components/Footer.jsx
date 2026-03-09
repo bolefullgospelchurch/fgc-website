@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import logo from "../assets/logo.png";
 import {
+  getContactItem,
+  getItemEntries,
+} from "../data/contactInfo";
+import {
   FaFacebook,
   FaTelegram,
   FaInstagram,
@@ -18,65 +22,9 @@ export default function Footer() {
 
   const currentYear = new Date().getFullYear();
 
-  const contactItems = [
-    {
-      id: "email",
-      values: [
-        {
-          value: "Bolefullgospelchurch@gmail.com",
-          href: "mailto:bolefullgospelchurch@gmail.com",
-        },
-      ],
-    },
-    {
-      id: "telegram",
-      value: "t.me/yourchurch",
-      href: "https://t.me/yourchurch",
-    },
-    {
-      id: "instagram",
-      value: "instagram.com/yourchurch",
-      href: "https://instagram.com/yourchurch",
-    },
-    {
-      id: "tiktok",
-      value: "tiktok.com/@yourchurch",
-      href: "https://tiktok.com/@yourchurch",
-    },
-    {
-      id: "facebook",
-      value: "facebook.com/yourchurch",
-      href: "https://facebook.com/yourchurch",
-    },
-    {
-      id: "youtube",
-      value: "youtube.com/@yourchurch",
-      href: "https://youtube.com/@yourchurch",
-    },
-    {
-      id: "telephones",
-      values: [{ value: "+251116622968" }, { value: "+251995550777" }],
-    },
-    {
-      id: "location",
-      value: "100 meters behind Oromia Bank near Bole Rwanda Bridge.",
-    },
-  ];
-
-  const getContactInfo = (id) => {
-    return contactItems.find((item) => item.id === id) || {};
-  };
-
-  const getItemEntries = (item) => {
-    if (Array.isArray(item?.values) && item.values.length > 0)
-      return item.values;
-    if (item?.value) return [{ value: item.value, href: item.href }];
-    return [];
-  };
-
-  const email = getContactInfo("email");
-  const telephone = getContactInfo("telephones");
-  const location = getContactInfo("location");
+  const email = getContactItem("email");
+  const telephone = getContactItem("telephones");
+  const location = getContactItem("location");
   const emailEntries = getItemEntries(email);
   const telephoneEntries = getItemEntries(telephone);
   const locationEntries = getItemEntries(location);
@@ -85,27 +33,27 @@ export default function Footer() {
     {
       id: "facebook",
       icon: <FaFacebook />,
-      href: getItemEntries(getContactInfo("facebook"))[0]?.href,
+      href: getItemEntries(getContactItem("facebook"))[0]?.href,
     },
     {
       id: "telegram",
       icon: <FaTelegram />,
-      href: getItemEntries(getContactInfo("telegram"))[0]?.href,
+      href: getItemEntries(getContactItem("telegram"))[0]?.href,
     },
     {
       id: "instagram",
       icon: <FaInstagram />,
-      href: getItemEntries(getContactInfo("instagram"))[0]?.href,
+      href: getItemEntries(getContactItem("instagram"))[0]?.href,
     },
     {
       id: "tiktok",
       icon: <FaTiktok />,
-      href: getItemEntries(getContactInfo("tiktok"))[0]?.href,
+      href: getItemEntries(getContactItem("tiktok"))[0]?.href,
     },
     {
       id: "youtube",
       icon: <FaYoutube />,
-      href: getItemEntries(getContactInfo("youtube"))[0]?.href,
+      href: getItemEntries(getContactItem("youtube"))[0]?.href,
     },
   ].filter((link) => link.href);
 

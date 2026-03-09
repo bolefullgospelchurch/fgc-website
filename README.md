@@ -1,16 +1,68 @@
-# React + Vite
+# Church Website Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for the church website built with React + Vite.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1) Prerequisites
+- Node.js 18+
+- npm 9+
 
-## React Compiler
+### 2) Install dependencies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+### 3) Run locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev
+```
+
+Open the local URL shown in the terminal (usually `http://localhost:5173`).
+
+## Useful Scripts
+
+- `npm run dev` → start local development server
+- `npm run build` → production build
+- `npm run preview` → preview built app locally
+- `npm run lint` → run lint checks
+
+## Project Structure (high level)
+
+- `src/pages/` → route-level pages
+- `src/components/` → reusable UI components
+- `src/locales/` → translation strings
+- `src/data/` → shared static app data (for example contact info)
+- `src/context/` → React context providers
+- `src/utils/` → helper utilities
+
+## Development Workflow
+
+### Branching rule
+Work on **feature-based branches** only.
+
+Examples:
+- `feature/media-card-updates`
+- `feature/registrations-redesign`
+- `fix/navbar-dropdown`
+
+### PR rule
+1. Create/update your feature branch
+2. Push your branch
+3. Open a Pull Request to `main`
+4. Project owner reviews and merges PR
+
+> Do not push directly to `main`.
+
+## Deployment Notes
+
+- `main` is the source of truth for deployment.
+- Deployment happens after PR merge into `main`.
+- Keep PRs focused and small where possible.
+
+## Translation Rule
+
+- Keep `src/locales/*.json` for translated labels/messages only.
+- Keep non-translation content (contact links, static structured data, etc.) in `src/data/`.
