@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import logo from "../assets/logo.png";
+import logoNameWhite from "../assets/logo_name_white.png";
+import logoNameBlue from "../assets/logo_name_blue.png";
 import { useLanguage } from "../context/LanguageContext";
 import { useTranslation } from "react-i18next";
 
@@ -205,6 +206,7 @@ export default function Navbar({ transparent = false, contained = true }) {
   const mobileMenuBg = transparent
     ? "bg-midnight-navy/95 border-off-white/10"
     : "bg-off-white border-midnight-navy/10";
+  const navLogo = transparent ? logoNameWhite : logoNameBlue;
   const mobileLinkColor = transparent
     ? "text-off-white/80 hover:text-off-white"
     : "text-midnight-navy hover:text-deep-blue";
@@ -302,23 +304,10 @@ export default function Navbar({ transparent = false, contained = true }) {
             <div className="shrink-0">
               <Link to="/" className="flex items-center gap-3">
                 <img
-                  src={logo}
+                  src={navLogo}
                   alt="Logo"
-                  className="h-12 w-auto rounded-full shadow-sm bg-white"
+                  className="h-12 w-auto"
                 />
-                <div className="flex flex-col gap-0.5 max-w-[280px]">
-                  <span
-                    className={`font-bold tracking-wide leading-tight text-[11px] ${subTextColor}`}
-                  >
-                    በኢትዮጵያ ሙሉ ወንጌል
-                    <br /> አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ
-                  </span>
-                  <span
-                    className={`tracking-tighter leading-tight text-[10px] ${textColor} hidden xl:block`}
-                  >
-                    Ethiopian Full Gospel Believers Church Bole Local church
-                  </span>
-                </div>
               </Link>
             </div>
           </div>

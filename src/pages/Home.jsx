@@ -7,7 +7,7 @@ import { sanityClient } from "../sanity";
 import { useLanguage } from "../context/LanguageContext";
 import EventsSection from "../components/EventsSection";
 import stage from "../assets/churchstage.jpg";
-import logo from "../assets/logo.png";
+import whiteBgLogo from "../assets/logo_white_bg.png";
 import choir from "../assets/ministries/choir.jpeg";
 import placeholderBg from "../assets/wetatoch.jpeg";
 import ministriesBg from "../assets/bible.jpg";
@@ -157,7 +157,7 @@ export default function Home() {
             {/* Right: Verse reference + logo */}
             <div className="flex flex-col justify-end items-end gap-4">
               <img
-                src={logo}
+                src={whiteBgLogo}
                 alt=""
                 className="h-16 w-16 opacity-70"
                 aria-hidden="true"
