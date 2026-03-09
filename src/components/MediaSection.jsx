@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { sanityClient } from "../sanity";
 import { useLanguage } from "../context/LanguageContext";
 import MediaCard from "./MediaCard";
+import { useTranslation } from "react-i18next";
 
 export default function MediaSection({
   limit = 3,
   category = null,
   featuredOnly = false,
 }) {
+  const { t } = useTranslation();
   const { language } = useLanguage();
   const [mediaItems, setMediaItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -76,11 +78,11 @@ export default function MediaSection({
         </div>
       ) : loadError ? (
         <p className="text-center text-midnight-navy/70">
-          Media is unavailable right now.
+          {t("media.error")}
         </p>
       ) : filteredItems.length === 0 ? (
         <p className="text-center text-midnight-navy/70">
-          No media items available yet.
+          {t("media.no_media")}
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

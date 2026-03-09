@@ -295,7 +295,7 @@ export default function EventsSection({
       </div>
 
       {!isEventsLoading && visibleEvents.length === 0 && (
-        <p className="text-center text-midnight-navy/70 mt-6">
+        <p className={`text-center ${onlyFeatured ? 'text-white' : 'text-midnight-navy/70'} mt-6`}>
           {t("happenings.no_event")}
         </p>
       )}

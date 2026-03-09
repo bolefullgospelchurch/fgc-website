@@ -282,7 +282,9 @@
     "watch_live": "ቀጥታ ይመልከቱ",
     "unavailable": "ሚዲያ በቅርቡ ይጨመራል",
     "openAudio": "ድምጽ ክፈት",
-    "openDocument": "ሰነድ ክፈት"
+    "openDocument": "ሰነድ ክፈት",
+    "error": "ይቅርታ ሚዲያ ሊገኝ አልተቻለም።",
+    "no_media": "እስካሁን ምንም ሚዲያ አልተጨመረም።"
   },
   "give": {
     "label": "መስጠት",

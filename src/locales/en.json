@@ -83,7 +83,7 @@
     "view_all": "View All Ministries",
     "diakon": "Deaconal Ministry",
     "diakon_desc": "Serving with care, hospitality, and practical support.",
-    "media": "Media & Communication",
+    "media": "Media & Comm",
     "media_desc": "Sharing the message through media, design, and communications.",
     "view_schedule": "View Schedule",
     "view_events": "View More Events"
@@ -282,7 +282,9 @@
     "watch_live": "Watch Live",
     "unavailable": "Media coming soon",
     "openAudio": "Open Audio",
-    "openDocument": "Open Document"
+    "openDocument": "Open Document",
+    "error": "Media is unavailable right now.",
+    "no_media": "No media items available yet."
   },
   "give": {
     "label": "GIVE",

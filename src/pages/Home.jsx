@@ -345,7 +345,7 @@ export default function Home() {
           </div>
           {!isWeeklyLoading && sortedWeeklyPrograms.length === 0 && (
             <p className="text-center text-midnight-navy/60 mt-6">
-              {t("schedules.no_schedule")}
+              {t("schedule.no_schedule")}
             </p>
           )}
         </div>
