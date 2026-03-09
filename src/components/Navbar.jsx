@@ -114,6 +114,29 @@ export default function Navbar({ transparent = false, contained = true }) {
         },
       ],
     },
+    {
+      key: "registrations",
+      label: t("navbar.registrations"),
+      href: "/registrations",
+      children: [
+        {
+          key: "reg_home_church",
+          label: t("navbar.reg_home_church"),
+          href: "/registrations/home-church",
+        },
+        {
+          key: "reg_choose_ministry",
+          label: t("navbar.reg_choose_ministry"),
+          href: "/registrations/choose-ministry",
+        },
+        {
+          key: "reg_membership",
+          label: t("navbar.reg_membership"),
+          href: "https://docs.google.com/forms/d/e/1FAIpQLSfrqVBgzPGrhk8CQtA6pmO842l8bbADluaKFfn67MNMAu22PA/viewform?usp=publish-editor",
+          newTab: true,
+        },
+      ],
+    },
     { key: "contact", label: t("navbar.contact"), href: "/contact" },
     {
       key: "more",
@@ -133,27 +156,32 @@ export default function Navbar({ transparent = false, contained = true }) {
         {
           key: "give_asrat",
           label: t("navbar.give_asrat"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor`,
+          newTab: true,
         },
         {
           key: "give_meba",
           label: t("navbar.give_meba"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor`,
+          newTab: true,
         },
         {
           key: "give_bekurat",
           label: t("navbar.give_bekurat"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor`,
+          newTab: true,
         },
         {
           key: "give_donate",
           label: t("navbar.give_donate"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+          href: `https://docs.google.com/forms/d/e/1FAIpQLSfJU764pk6A4xxluMYurNfrFOGmKTjcsnaFTonBbE9ocuEFeQ/viewform?usp=publish-editor`,
+          newTab: true,
         },
         {
           key: "give_others",
           label: t("navbar.give_others"),
-          href: `https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header`,
+          href: `https://docs.google.com/forms/d/e/1FAIpQLScggt2_K_Y9xOHxHFm8nsXfbHy__5-qYydA47yjrRdU4YbHCQ/viewform?usp=publish-editor`,
+          newTab: true,
         },
       ],
     },

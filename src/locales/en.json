@@ -217,6 +217,18 @@
       ]
     }
   },
+  "aboutStaff": {
+    "leadersLabel": "Leaders",
+    "assemblyTitle": "Assembly of Leaders",
+    "ministersLabel": "Ministers",
+    "fulltimeTitle": "Full Time Ministers",
+    "staffLabel": "Staff",
+    "adminTitle": "Admin Staff",
+    "fulltimeGroup": "Fulltime ministers",
+    "pastorsGroup": "Pastors",
+    "evangelistsGroup": "Evangelists",
+    "adminGroup": "Admin Staffs"
+  },
   "contact": {
     "label": "Contact Us",
     "title": "Get in Touch",
@@ -310,7 +322,10 @@
     "podcast": "Podcast",
     "podcast_desc": "Listen on the go",
     "listen_now": "Explore Media",
-    "watch_live": "Watch Live"
+    "watch_live": "Watch Live",
+    "unavailable": "Media coming soon",
+    "openAudio": "Open Audio",
+    "openDocument": "Open Document"
   },
   "give": {
     "label": "GIVE",
@@ -336,6 +351,7 @@
   "resources": {
     "label": "RESOURCES",
     "title": "Resources",
+    "comingSoon": "Coming soon",
     "description": "Helpful materials, guides, and downloads for your walk of faith.",
     "body": "We are preparing resources that will be available here soon."
   },

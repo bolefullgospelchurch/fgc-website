@@ -170,29 +170,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── MISSION — two-column split ───────────────────────────────── */}
-      {/* <section className="bg-midnight-navy text-off-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[400px]">
-          <div className="px-6 sm:px-10 lg:px-16 py-16 md:py-24 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-off-white/10 lg:col-span-4">
-            <h2 className="text-3xl md:text-4xl font-black text-off-white/40 leading-tight uppercase tracking-widest">
-              {t("mission.label")}
-            </h2>
-          </div>
-          <div className="px-6 sm:px-10 lg:px-16 py-16 md:py-24 flex flex-col justify-center gap-10 lg:col-span-8">
-            <p className="text-4xl md:text-5xl lg:text-7xl font-black text-off-white leading-[1.1] tracking-tight">
-              {t("mission.description")}
-            </p>
-            <Link
-              to="/about"
-              className="inline-block bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-4 font-bold text-sm tracking-wide transition-colors w-fit"
-            >
-              {t("mission.button")}
-            </Link>
-          </div>
-        </div>
-      </section> */}
-
-            {/* Mission Statement Section */}
+      {/* Mission Statement Section */}
       <section className="bg-midnight-navy text-off-white px-4 pt-32 pb-48 relative overflow-hidden z-20">
         <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-sky-blue/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4"></div>
         <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-coral-red/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
@@ -233,135 +211,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ── GET CONNECTED — ministry image cards ─────────────────────── */}
-      {/* <section className="bg-off-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-xs font-bold tracking-[0.25em] uppercase text-coral-red mb-3">
-                {t("connect.title")}
-              </p>
-              <h2 className="text-4xl md:text-5xl font-black text-midnight-navy leading-tight">
-                {t("connect.description")}
-              </h2>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {[
-              { label: t("connect.kids"), bg: stage },
-              { label: t("connect.youth"), bg: stage },
-              { label: t("connect.young_adults"), bg: placeholderBg },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="relative h-80 overflow-hidden group cursor-pointer bg-cover bg-center"
-                style={{ backgroundImage: `url(${item.bg})` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-colors z-10 group-hover:from-black group-hover:via-black/50" />
-                <div className="absolute inset-0 flex flex-col justify-end p-6 z-20">
-                  <h3 className="text-2xl font-black text-off-white mb-2">
-                    {item.label}
-                  </h3>
-                  <button className="text-off-white/70 group-hover:text-off-white font-bold text-xs tracking-wide hover:underline flex items-center gap-1 transition-colors w-fit">
-                    {t("cards.learn_more")} →
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* ── MINISTRIES — two-column feature rows ─────────────────────── */}
-      {/* <section
-        ref={moreSectionRef}
-        className="relative overflow-hidden bg-[#0a0a0a] text-off-white"
-      >
-        <div className="absolute inset-0 z-0">
-          <img
-            ref={moreBgRef}
-            src={ministriesBg}
-            alt=""
-            className="w-full h-full object-cover opacity-10 transition-transform duration-700 ease-out"
-          />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="px-6 sm:px-10 lg:px-16 pt-16 md:pt-24 pb-12 border-b border-white/10">
-            <p className="text-xs font-bold tracking-[0.25em] uppercase text-white/40 mb-3">
-              {t("more.wait")}
-            </p>
-            <h2 className="text-4xl md:text-5xl font-black text-white">
-              {t("more.title")}
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 border-b border-white/10">
-            <div className="px-6 sm:px-10 lg:px-16 py-14 flex flex-col justify-center gap-4 border-b lg:border-b-0 lg:border-r border-white/10">
-              <h3 className="text-3xl md:text-4xl font-black text-white">
-                {t("more.worship")}
-              </h3>
-              <p className="text-white/60 leading-relaxed">
-                {t("more.worship_desc")}
-              </p>
-              <button className="text-white font-bold text-sm tracking-wide hover:underline flex items-center gap-1 w-fit mt-2">
-                {t("cards.learn_more")} →
-              </button>
-            </div>
-            <div
-              className="h-64 lg:h-auto min-h-[260px] bg-cover bg-center"
-              style={{ backgroundImage: `url(${choir})` }}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 border-b border-white/10">
-            <div
-              className="h-64 lg:h-auto min-h-[260px] bg-cover bg-center order-2 lg:order-1"
-              style={{ backgroundImage: `url(${placeholderBg})` }}
-            />
-            <div className="px-6 sm:px-10 lg:px-16 py-14 flex flex-col justify-center gap-4 order-1 lg:order-2 border-b lg:border-b-0 lg:border-l border-white/10">
-              <h3 className="text-3xl md:text-4xl font-black text-white">
-                {t("more.diakon")}
-              </h3>
-              <p className="text-white/60 leading-relaxed">
-                {t("more.diakon_desc")}
-              </p>
-              <button className="text-white font-bold text-sm tracking-wide hover:underline flex items-center gap-1 w-fit mt-2">
-                {t("cards.learn_more")} →
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="px-6 sm:px-10 lg:px-16 py-14 flex flex-col justify-center gap-4 border-b lg:border-b-0 lg:border-r border-white/10">
-              <h3 className="text-3xl md:text-4xl font-black text-white">
-                {t("more.media")}
-              </h3>
-              <p className="text-white/60 leading-relaxed">
-                {t("more.media_desc")}
-              </p>
-              <button className="text-white font-bold text-sm tracking-wide hover:underline flex items-center gap-1 w-fit mt-2">
-                {t("cards.learn_more")} →
-              </button>
-            </div>
-            <div
-              className="h-64 lg:h-auto min-h-[260px] bg-cover bg-center"
-              style={{ backgroundImage: `url(${ministriesBg})` }}
-            />
-          </div>
-
-          <div className="px-6 sm:px-10 lg:px-16 py-10 border-t border-white/10">
-            <Link
-              to="/ministries"
-              className="inline-block bg-white hover:bg-off-white text-black px-8 py-4 font-bold text-sm tracking-wide transition-colors"
-            >
-              {t("more.view_all")}
-            </Link>
-          </div>
-        </div>
-      </section> */}
 
       {/* Ministries */}
       <section
@@ -412,9 +261,9 @@ export default function Home() {
                   <p className="text-lg text-white/50 mb-8 leading-relaxed font-medium">
                     {item.desc}
                   </p>
-                  <button className="text-sky-blue font-bold tracking-widest hover:text-white transition-colors uppercase flex items-center gap-4 group">
+                  <a href="/ministries" className="text-sky-blue font-bold tracking-widest hover:text-white transition-colors uppercase flex items-center gap-4 group">
                     {t("cards.learn_more")} <span className="group-hover:translate-x-2 transition-transform">→</span>
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -544,7 +393,7 @@ export default function Home() {
               {t("media.listen_now")}
             </Link>
           </div>
-          <MediaSection />
+          <MediaSection featuredOnly limit={3} />
         </div>
       </section>
 

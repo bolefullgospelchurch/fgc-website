@@ -1,54 +1,107 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import churchImage from "../assets/churchBldg.jpeg";
-import { IoIosArrowDown } from "react-icons/io";
+import { sanityClient } from "../sanity";
+import { useLanguage } from "../context/LanguageContext";
 
 import pastors from "../assets/staff/pastors.jpeg";
 import ministers from "../assets/staff/ministers.jpeg";
-import selamawit from "../assets/staff/selamawit.jpeg";
-import geremew from "../assets/staff/geremew.jpeg";
-import ermiyas from "../assets/staff/ermiyas.jpeg";
-import senayit from "../assets/staff/senayit.jpeg";
-import temesgen from "../assets/staff/temesgen.jpeg";
-import abiy from "../assets/staff/abiy.jpeg";
-import tibebe from "../assets/staff/tibebe.jpeg";
-import paulos from "../assets/staff/paulos.jpeg";
-import terefe from "../assets/staff/terefe.jpeg";
-import alemu from "../assets/staff/alemu.jpeg";
-import meseret from "../assets/staff/meseret.jpeg";
-import yohannes from "../assets/staff/yohannes.jpeg";
-import moges from "../assets/staff/moges.jpeg";
 import evangelist from "../assets/staff/evangelist.jpeg";
 import adminStaffPic from "../assets/staff/adminStaff.jpeg";
-import mengistu from "../assets/staff/mengistu.jpeg";
-import afework from "../assets/staff/afework.jpeg";
-import mulugeta from "../assets/staff/mulugeta.jpeg";
-import getachew from "../assets/staff/getachew.jpeg";
-import tliye from "../assets/staff/tliye.jpeg";
-import almaz from "../assets/staff/almaz.jpeg";
+
+const staffMembersQuery = `
+*[_type == "staffMember"]{
+  _id,
+  name,
+  phone,
+  email,
+  "photo": photo.asset->url,
+  roles[]{
+    title,
+    group,
+    order
+  }
+}
+`;
 
 export default function About() {
   const { t } = useTranslation();
+  const { language: lang } = useLanguage();
+  const [staffMembers, setStaffMembers] = useState([]);
+  const [isStaffLoading, setIsStaffLoading] = useState(true);
   const placeholderAvatar =
     "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><rect width='400' height='400' fill='%23e2e8f0'/><circle cx='200' cy='150' r='70' fill='%23cbd5e1'/><path d='M80 340c20-70 100-110 120-110s100 40 120 110' fill='%23cbd5e1'/></svg>";
   const getImageSrc = (image) => image || placeholderAvatar;
+
+  useEffect(() => {
+    let isMounted = true;
+
+    setIsStaffLoading(true);
+    sanityClient
+      .fetch(staffMembersQuery)
+      .then((data) => {
+        if (!isMounted) return;
+        setStaffMembers(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        setStaffMembers([]);
+      })
+      .finally(() => {
+        if (!isMounted) return;
+        setIsStaffLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const getLocalizedText = (value) => {
+    if (!value) return "";
+    if (typeof value === "string") return value;
+    return value?.[lang] || value?.en || value?.am || "";
+  };
+
+  const getStaffByGroup = (staff, group) => {
+    return staff
+      .filter((person) =>
+        person?.roles?.some(
+          (role) => (role?.group || "").toLowerCase() === group
+        )
+      )
+      .map((person) => {
+        const role = person.roles?.find(
+          (r) => (r?.group || "").toLowerCase() === group
+        );
+
+        return {
+          ...person,
+          phone: (person?.phone || "").trim(),
+          email: (person?.email || "").replace(/\s+/g, ""),
+          roleTitle: role?.title,
+          roleOrder: role?.order ?? 999,
+        };
+      })
+      .sort((a, b) => a.roleOrder - b.roleOrder);
+  };
   const fullTimeBigSize = [
     {
-      name: "Fulltime ministers",
+      name: t("aboutStaff.fulltimeGroup"),
       role: "Role Title",
       image: ministers,
       isGroup: true,
     },
     {
-      name: "Pastors",
+      name: t("aboutStaff.pastorsGroup"),
       role: "Role Title",
       image: pastors,
       isGroup: true,
     },
     {
-      name: "Evangelists",
+      name: t("aboutStaff.evangelistsGroup"),
       role: "Evangelism",
       image: evangelist,
       isGroup: true,
@@ -57,158 +110,46 @@ export default function About() {
 
   const adminStaffBigSize = [
     {
-      name: "Admin Staffs",
+      name: t("aboutStaff.adminGroup"),
       role: "Role Title",
       image: adminStaffPic,
       isGroup: true,
     },
   ];
 
-  const elders = [
-    {
-      name: "Professor Tilaye Feyisa",
-      role: "Chair Person",
-      image: tliye,
-      isGroup: false,
-    },
-    {
-      name: "Pastor Geremew Yewogu",
-      role: "Vice Chair Person",
-      image: geremew,
-      isGroup: false,
-    },
-    {
-      name: "Pastor Temesgen Awano",
-      role: "Lead Pastor",
-      image: temesgen,
-      isGroup: false,
-    },
-    {
-      name: "Mengistu Tufa",
-      role: "Leader's Assembly Secretry",
-      image: mengistu,
-      isGroup: false,
-    },
-    {
-      name: "Mulugeta Wolde",
-      role: "Treasurer",
-      image: mulugeta,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Abiy Negussie",
-      role: "Evangelist Representative",
-      image: abiy,
-      isGroup: false,
-    },
-    {
-      name: "Afework Mengistu",
-      role: "Deacon Representative",
-      image: afework,
-      isGroup: false,
-    },
-    {
-      name: "Getachew Alemayehu",
-      role: "Member",
-      image: getachew,
-      isGroup: false,
-    },
-    {
-      name: "Almaz Gesese",
-      role: "Member",
-      image: almaz,
-      isGroup: false,
-    },
-  ];
-
-  const fullTime = [
-    {
-      name: "Pastor Temesgen Awano",
-      role: "Lead Pastor",
-      image: temesgen,
-      isGroup: false,
-    },
-    {
-      name: "Pastor Geremew Yewogu",
-      role: "Vice Chair Person",
-      image: geremew,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Abiy Negussie",
-      role: "Evangelist Representative",
-      image: abiy,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Senayit Belete",
-      role: "Women's ministry leader",
-      image: senayit,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Tibebe Lema",
-      role: "Mission Department Leader",
-      image: tibebe,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Paulos Gebre",
-      role: "Evangelism Department Leader",
-      image: paulos,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Terefe Kebede",
-      role: "Prayer & Healing Department Leader",
-      image: terefe,
-      isGroup: false,
-    },
-    {
-      name: "Ev. Alemu Sitote",
-      role: "Prayer Minister",
-      image: alemu,
-      isGroup: false,
-    },
-    {
-      name: "Yohannes Mulugeta",
-      role: "Worship Department Leader",
-      image: yohannes,
-      isGroup: false,
-    },
-  ];
-
-  const adminStaff = [
-    {
-      name: "Ermias Gebremariam",
-      role: "Admin & Finance Head",
-      image: ermiyas,
-      isGroup: false,
-    },
-    {
-      name: "Meseret Negash",
-      role: "Secretary & Cashier",
-      image: meseret,
-      isGroup: false,
-    },
-    {
-      name: "Selamawit Thomas",
-      role: "Accountant",
-      image: selamawit,
-      isGroup: false,
-    },
-    {
-      name: "Moges Bedase",
-      role: "Office Services Provider",
-      image: moges,
-      isGroup: false,
-    },
-  ];
+  const elders = getStaffByGroup(staffMembers, "elders");
+  const fullTime = getStaffByGroup(staffMembers, "fulltime");
+  const adminStaff = getStaffByGroup(staffMembers, "admin");
 
   const faithSections = t("about.faithSections", { returnObjects: true });
   const statementOfFaith = t("about.statement.items", {
     returnObjects: true,
   });
+
+  const renderContactInfo = (member) => {
+    if (!member.phone && !member.email) return null;
+
+    return (
+      <div className="mt-4 space-y-1 text-sm text-midnight-navy/70">
+        {member.phone && (
+          <a
+            href={`tel:${member.phone.replace(/\s+/g, "")}`}
+            className="block hover:text-deep-blue transition-colors"
+          >
+            {member.phone}
+          </a>
+        )}
+        {member.email && (
+          <a
+            href={`mailto:${member.email}`}
+            className="block break-all hover:text-deep-blue transition-colors"
+          >
+            {member.email}
+          </a>
+        )}
+      </div>
+    );
+  };
 
   return (
     <main className="min-h-screen bg-off-white">
@@ -358,31 +299,34 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
-              Leaders
+              {t("aboutStaff.leadersLabel")}
             </p>
             <h2 className="text-4xl md:text-5xl font-black text-left text-midnight-navy leading-none tracking-tight">
-              Assembly of Leaders
+              {t("aboutStaff.assemblyTitle")}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {elders.map((member) => (
               <div
-                key={member.name}
+                key={member._id}
                 className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-coral-red/50 hover:-translate-y-1"
               >
                 <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
                   <img
-                    src={getImageSrc(member.image)}
-                    alt={member.name}
-                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    src={getImageSrc(member.photo)}
+                    alt={getLocalizedText(member.name)}
+                    className="h-full w-full object-cover object-top group-hover:scale-105 transition-all duration-500"
                     loading="lazy"
                   />
                 </div>
                 <div className="p-6 text-center flex-1 flex flex-col justify-center">
                   <h3 className="text-lg font-black text-midnight-navy">
-                    {member.name}
+                    {getLocalizedText(member.name)}
                   </h3>
-                  <p className="text-midnight-navy/60 text-sm mt-1">{member.role}</p>
+                  <p className="text-midnight-navy/60 text-sm mt-1">
+                    {getLocalizedText(member.roleTitle)}
+                  </p>
+                  {renderContactInfo(member)}
                   <div className="mx-auto mt-5 h-[2px] w-8 bg-coral-red/70 group-hover:w-16 transition-all duration-300" />
                 </div>
               </div>
@@ -395,10 +339,10 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
-              Ministers
+              {t("aboutStaff.ministersLabel")}
             </p>
             <h2 className="text-4xl md:text-5xl font-black text-left text-midnight-navy leading-none tracking-tight">
-              Full Time Ministers
+              {t("aboutStaff.fulltimeTitle")}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -411,7 +355,7 @@ export default function About() {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="h-full w-full object-cover object-center grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    className="h-full w-full object-cover object-center group-hover:scale-105 transition-all duration-700"
                     loading="lazy"
                   />
                 </div>
@@ -427,22 +371,25 @@ export default function About() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {fullTime.map((member) => (
               <div
-                key={member.name}
+                key={member._id}
                 className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-coral-red/50 hover:-translate-y-1"
               >
                 <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
                   <img
-                    src={getImageSrc(member.image)}
-                    alt={member.name}
-                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    src={getImageSrc(member.photo)}
+                    alt={getLocalizedText(member.name)}
+                    className="h-full w-full object-cover object-top group-hover:scale-105 transition-all duration-500"
                     loading="lazy"
                   />
                 </div>
                 <div className="p-6 text-center flex-1 flex flex-col justify-center">
                   <h3 className="text-lg font-black text-midnight-navy">
-                    {member.name}
+                    {getLocalizedText(member.name)}
                   </h3>
-                  <p className="text-midnight-navy/60 text-sm mt-1">{member.role}</p>
+                  <p className="text-midnight-navy/60 text-sm mt-1">
+                    {getLocalizedText(member.roleTitle)}
+                  </p>
+                  {renderContactInfo(member)}
                   <div className="mx-auto mt-5 h-[2px] w-8 bg-coral-red/70 group-hover:w-16 transition-all duration-300" />
                 </div>
               </div>
@@ -454,10 +401,10 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-sky-blue mb-4">
-              Staff
+              {t("aboutStaff.staffLabel")}
             </p>
             <h2 className="text-4xl md:text-5xl font-black text-midnight-navy leading-none tracking-tight">
-              Admin Staff
+              {t("aboutStaff.adminTitle")}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 mb-8">
@@ -470,7 +417,7 @@ export default function About() {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    className="h-full w-full object-cover object-top group-hover:scale-105 transition-all duration-700"
                     loading="lazy"
                   />
                 </div>
@@ -486,22 +433,25 @@ export default function About() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {adminStaff.map((member) => (
               <div
-                key={member.name}
+                key={member._id}
                 className="group flex flex-col border border-midnight-navy/10 bg-white transition-all duration-300 hover:border-coral-red/50 hover:-translate-y-1"
               >
                 <div className="relative w-full aspect-[3/4] overflow-hidden bg-midnight-navy/5">
                   <img
-                    src={getImageSrc(member.image)}
-                    alt={member.name}
-                    className="h-full w-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    src={getImageSrc(member.photo)}
+                    alt={getLocalizedText(member.name)}
+                    className="h-full w-full object-cover object-top group-hover:scale-105 transition-all duration-500"
                     loading="lazy"
                   />
                 </div>
                 <div className="p-6 text-center flex-1 flex flex-col justify-center">
                   <h3 className="text-lg font-black text-midnight-navy">
-                    {member.name}
+                    {getLocalizedText(member.name)}
                   </h3>
-                  <p className="text-midnight-navy/60 text-sm mt-1">{member.role}</p>
+                  <p className="text-midnight-navy/60 text-sm mt-1">
+                    {getLocalizedText(member.roleTitle)}
+                  </p>
+                  {renderContactInfo(member)}
                   <div className="mx-auto mt-5 h-[2px] w-8 bg-coral-red/70 group-hover:w-16 transition-all duration-300" />
                 </div>
               </div>

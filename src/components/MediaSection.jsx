@@ -3,7 +3,11 @@ import { sanityClient } from "../sanity";
 import { useLanguage } from "../context/LanguageContext";
 import MediaCard from "./MediaCard";
 
-export default function MediaSection({ limit = 3, category = null }) {
+export default function MediaSection({
+  limit = 3,
+  category = null,
+  featuredOnly = false,
+}) {
   const { language } = useLanguage();
   const [mediaItems, setMediaItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +28,11 @@ export default function MediaSection({ limit = 3, category = null }) {
         "description": coalesce(description.${langKey}, description),
         language,
         featured,
-        youtube
+        youtube,
+        "audioUrl": audio.asset->url,
+        "audioFileName": audio.asset->originalFilename,
+        "documentUrl": document.asset->url,
+        "documentFileName": document.asset->originalFilename
       }`,
       )
       .then((items) => {
@@ -37,10 +45,17 @@ export default function MediaSection({ limit = 3, category = null }) {
       .finally(() => setIsLoading(false));
   }, [language]);
 
-  const filteredItems = category
-    ? mediaItems.filter((item) => item.category === category)
-    : mediaItems;
-  const visibleItems = filteredItems.slice(0, typeof limit === "number" ? limit : undefined);
+  const filteredItems = mediaItems.filter((item) => {
+    const matchesCategory = category ? item.category === category : true;
+    const matchesFeatured = featuredOnly ? Boolean(item.featured) : true;
+    return matchesCategory && matchesFeatured;
+  });
+
+  const computedLimit = featuredOnly ? 3 : limit;
+  const visibleItems = filteredItems.slice(
+    0,
+    typeof computedLimit === "number" ? computedLimit : undefined,
+  );
 
   return (
     <>

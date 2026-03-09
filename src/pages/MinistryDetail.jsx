@@ -39,18 +39,21 @@ function MinistryDetail() {
     if (!slug) return;
 
     setIsLoading(true);
+    setMinistry(null);
     sanityClient
       .fetch(ministryBySlugQuery, { slug })
       .then((data) => setMinistry(data || null))
       .finally(() => setIsLoading(false));
   }, [slug]);
 
+  const useTransparentNavbar = !isLoading && Boolean(ministry);
+
   return (
     <main className="min-h-screen bg-off-white">
-      <Navbar transparent />
+      <Navbar transparent={useTransparentNavbar} />
       {isLoading ? (
         <section className="px-4 py-24">
-          <div className="max-w-4xl mx-auto text-center text-midnight-navy/70 min-h-screen">
+          <div className="max-w-4xl mx-auto text-center text-midnight-navy/70 min-h-screen mt-20">
             {t("ministries.loading")}
           </div>
         </section>
@@ -65,8 +68,8 @@ function MinistryDetail() {
           />
         </>
       ) : (
-        <section className="px-4 py-24">
-          <div className="max-w-4xl mx-auto text-center">
+        <section className="px-4 py-24 min-h-screen">
+          <div className="max-w-4xl mx-auto text-center mt-20">
             <h2 className="text-3xl md:text-4xl font-black text-midnight-navy mb-4">
               {t("ministries.notFoundTitle")}
             </h2>

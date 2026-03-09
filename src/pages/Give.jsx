@@ -42,12 +42,12 @@ export default function Give() {
         {
           labelKey: "give.categories.titheOffering",
           account: "1000007220581",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header",
+          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
         },
         {
           labelKey: "give.categories.gift",
           account: "1000007220409",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header",
+          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfJU764pk6A4xxluMYurNfrFOGmKTjcsnaFTonBbE9ocuEFeQ/viewform?usp=publish-editor",
         },
       ],
     },
@@ -59,7 +59,7 @@ export default function Give() {
         {
           labelKey: "give.categories.mission",
           account: "013521306869400",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header",
+          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLScggt2_K_Y9xOHxHFm8nsXfbHy__5-qYydA47yjrRdU4YbHCQ/viewform?usp=publish-editor",
         },
       ],
     },
@@ -71,12 +71,12 @@ export default function Give() {
         {
           labelKey: "give.categories.titheOffering",
           account: "2600010000572",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header",
+          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
         },
         {
           labelKey: "give.categories.titheOffering",
           account: "1500010001725",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfXbDGWjMwzqMQlANtZhI-HaFMLsSZ0AvvTUyUUjMO1cTnBkw/viewform?usp=header",
+          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
         },
       ],
     },

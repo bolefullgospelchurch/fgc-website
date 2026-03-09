@@ -217,6 +217,18 @@
       ]
     }
   },
+  "aboutStaff": {
+    "leadersLabel": "መሪዎች",
+    "assemblyTitle": "የመሪዎች ጉባኤ",
+    "ministersLabel": "አገልጋዮች",
+    "fulltimeTitle": "የሙሉ ጊዜ አገልጋዮች",
+    "staffLabel": "አገልጋዮች",
+    "adminTitle": "አስተዳደር አገልጋዮች",
+    "fulltimeGroup": "የሙሉ ጊዜ አገልጋዮች",
+    "pastorsGroup": "መጋቢዎች",
+    "evangelistsGroup": "ወንጌላውያን",
+    "adminGroup": "አስተዳደር አገልጋዮች"
+  },
   "contact": {
     "label": "ያግኙን",
     "title": "እኛን ያግኙ",
@@ -310,7 +322,10 @@
     "podcast": "ፖድካስት",
     "podcast_desc": "በጉዞ ላይ ያዳምጡ",
     "listen_now": "ሚዲያን ይመልከቱ",
-    "watch_live": "ቀጥታ ይመልከቱ"
+    "watch_live": "ቀጥታ ይመልከቱ",
+    "unavailable": "ሚዲያ በቅርቡ ይጨመራል",
+    "openAudio": "ድምጽ ክፈት",
+    "openDocument": "ሰነድ ክፈት"
   },
   "give": {
     "label": "መስጠት",
@@ -336,6 +351,7 @@
   "resources": {
     "label": "መረጃዎች",
     "title": "መረጃዎች",
+    "comingSoon": "በቅርብ ጊዜ ይጠብቁን",
     "description": "ለመንፈሳዊ ጉዞዎ ጠቃሚ መረጃዎች፣ መመሪያዎች እና ፋይሎች።",
     "body": "በቅርብ ጊዜ ተጨማሪ መረጃዎች እዚህ ላይ እናካትታለን።"
   },
@@ -347,7 +363,7 @@
     "home_church_desc": "የቤት እምነት ቡድን ምዝገባ ያድርጉ እና ይገናኙ።",
     "membership_form": "የአባልነት ፎርም",
     "membership_form_desc": "የአባልነት ፎርምን ሙሉ እና ይግቡ።",
-    "choose_ministry": "አገልግሎት ምርጫ",
+    "choose_ministry": "የአገልግሎት ምርጫ",
     "choose_ministry_desc": "መካከላችን ለመገልገል የሚፈልጉትን አገልግሎት ይምረጡ።",
     "view_form": "ምዝገባ ክፈት",
     "page_description": "ከታች ያለውን ፎርም ሙሉ እና በፍጥነት እንመልሳለን።"
