@@ -17,8 +17,56 @@ import {
 
 export default function Contact() {
   const { t } = useTranslation();
-  const contactItems = t("contact.items", { returnObjects: true });
-  const mapEmbedUrl = t("contact.map.embedUrl");
+  const contactItems = [
+    {
+      id: "email",
+      values: [
+        {
+          value: "Bolefullgospelchurch@gmail.com",
+          href: "mailto:bolefullgospelchurch@gmail.com",
+        },
+      ],
+    },
+    {
+      id: "telegram",
+      value: "t.me/yourchurch",
+      href: "https://t.me/yourchurch",
+    },
+    {
+      id: "instagram",
+      value: "instagram.com/yourchurch",
+      href: "https://instagram.com/yourchurch",
+    },
+    {
+      id: "tiktok",
+      value: "tiktok.com/@yourchurch",
+      href: "https://tiktok.com/@yourchurch",
+    },
+    {
+      id: "facebook",
+      value: "facebook.com/yourchurch",
+      href: "https://facebook.com/yourchurch",
+    },
+    {
+      id: "youtube",
+      value: "youtube.com/@yourchurch",
+      href: "https://youtube.com/@yourchurch",
+    },
+    {
+      id: "telephones",
+      values: [{ value: "+251116622968" }, { value: "+251995550777" }],
+    },
+    {
+      id: "posta",
+      value: "P.O. Box 12345",
+    },
+    {
+      id: "location",
+      value: "100 meters behind Oromia Bank near Bole Rwanda Bridge.",
+    },
+  ];
+  const mapEmbedUrl =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2033.6290939093703!2d38.77861433148785!3d8.991098311157714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b859a42d74a7b%3A0x6db92443d960c37f!2sBole%20Full%20Gospel%20Believers%20Church!5e0!3m2!1sen!2set!4v1770973775139!5m2!1sen!2set";
   const iconMap = {
     email: FaEnvelope,
     telegram: FaTelegramPlane,
@@ -41,13 +89,21 @@ export default function Contact() {
   const coreIds = ["email", "telephones", "posta", "location"];
   const socialIds = ["telegram", "instagram", "tiktok", "facebook", "youtube"];
 
-  const coreItems = Array.isArray(contactItems)
-    ? contactItems.filter((item) => coreIds.includes(item.id?.toLowerCase()) && item.value)
-    : [];
+  const getItemEntries = (item) => {
+    if (Array.isArray(item?.values) && item.values.length > 0) return item.values;
+    if (item?.value) return [{ value: item.value, href: item.href }];
+    return [];
+  };
 
-  const socialItems = Array.isArray(contactItems)
-    ? contactItems.filter((item) => socialIds.includes(item.id?.toLowerCase()) && item.value)
-    : [];
+  const coreItems = contactItems.filter(
+    (item) =>
+      coreIds.includes(item.id?.toLowerCase()) && getItemEntries(item).length > 0,
+  );
+
+  const socialItems = contactItems.filter(
+    (item) =>
+      socialIds.includes(item.id?.toLowerCase()) && getItemEntries(item).length > 0,
+  );
 
   return (
     <main className="min-h-screen bg-off-white">
@@ -81,22 +137,30 @@ export default function Contact() {
                       </div>
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-midnight-navy/40 mb-1">
-                          {item.label}
+                          {t(`contact.itemLabels.${item.id}`)}
                         </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            className="text-xl md:text-2xl font-black text-midnight-navy hover:text-sky-blue transition-colors break-all leading-tight"
-                            target={item.href.startsWith("http") ? "_blank" : undefined}
-                            rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="text-xl md:text-2xl font-black text-midnight-navy leading-tight">
-                            {item.value}
-                          </p>
-                        )}
+                        <div className="space-y-1.5">
+                          {getItemEntries(item).map((entry, index) =>
+                            entry.href ? (
+                              <a
+                                key={`${item.id}-${index}`}
+                                href={entry.href}
+                                className="block text-xl md:text-2xl font-black text-midnight-navy hover:text-sky-blue transition-colors break-all leading-tight"
+                                target={entry.href.startsWith("http") ? "_blank" : undefined}
+                                rel={entry.href.startsWith("http") ? "noreferrer" : undefined}
+                              >
+                                {entry.value}
+                              </a>
+                            ) : (
+                              <p
+                                key={`${item.id}-${index}`}
+                                className="text-xl md:text-2xl font-black text-midnight-navy leading-tight"
+                              >
+                                {entry.value}
+                              </p>
+                            ),
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
@@ -113,10 +177,12 @@ export default function Contact() {
                 {socialItems.map((item) => {
                   const iconKey = String(item.id || "").toLowerCase();
                   const Icon = iconMap[iconKey] || FaMapMarkerAlt;
+                  const firstEntry = getItemEntries(item)[0];
+                  if (!firstEntry?.href) return null;
                   return (
                     <a
                       key={item.id}
-                      href={item.href}
+                      href={firstEntry.href}
                       target="_blank"
                       rel="noreferrer"
                       className="group flex items-center justify-between border-b border-midnight-navy/5 pb-6 hover:border-midnight-navy/20 transition-colors"
@@ -126,7 +192,7 @@ export default function Contact() {
                           <Icon size={24} />
                         </div>
                         <span className="text-lg font-black text-midnight-navy uppercase tracking-tight">
-                          {item.label}
+                          {t(`contact.itemLabels.${item.id}`)}
                         </span>
                       </div>
                       <span className="text-xs font-bold text-midnight-navy/20 group-hover:text-midnight-navy group-hover:translate-x-2 transition-all uppercase tracking-widest">

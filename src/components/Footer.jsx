@@ -2,30 +2,112 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import logo from "../assets/logo.png";
-import { FaFacebook, FaTelegram, FaInstagram, FaTiktok, FaYoutube, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaTelegram,
+  FaInstagram,
+  FaTiktok,
+  FaYoutube,
+  FaEnvelope,
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 export default function Footer() {
   const { t } = useTranslation();
-  
+
   const currentYear = new Date().getFullYear();
-  
-  const contactItems = t("contact.items", { returnObjects: true }) || [];
-  
+
+  const contactItems = [
+    {
+      id: "email",
+      values: [
+        {
+          value: "Bolefullgospelchurch@gmail.com",
+          href: "mailto:bolefullgospelchurch@gmail.com",
+        },
+      ],
+    },
+    {
+      id: "telegram",
+      value: "t.me/yourchurch",
+      href: "https://t.me/yourchurch",
+    },
+    {
+      id: "instagram",
+      value: "instagram.com/yourchurch",
+      href: "https://instagram.com/yourchurch",
+    },
+    {
+      id: "tiktok",
+      value: "tiktok.com/@yourchurch",
+      href: "https://tiktok.com/@yourchurch",
+    },
+    {
+      id: "facebook",
+      value: "facebook.com/yourchurch",
+      href: "https://facebook.com/yourchurch",
+    },
+    {
+      id: "youtube",
+      value: "youtube.com/@yourchurch",
+      href: "https://youtube.com/@yourchurch",
+    },
+    {
+      id: "telephones",
+      values: [{ value: "+251116622968" }, { value: "+251995550777" }],
+    },
+    {
+      id: "location",
+      value: "100 meters behind Oromia Bank near Bole Rwanda Bridge.",
+    },
+  ];
+
   const getContactInfo = (id) => {
-    return contactItems.find(item => item.id === id) || {};
+    return contactItems.find((item) => item.id === id) || {};
+  };
+
+  const getItemEntries = (item) => {
+    if (Array.isArray(item?.values) && item.values.length > 0)
+      return item.values;
+    if (item?.value) return [{ value: item.value, href: item.href }];
+    return [];
   };
 
   const email = getContactInfo("email");
   const telephone = getContactInfo("telephones");
   const location = getContactInfo("location");
-  
+  const emailEntries = getItemEntries(email);
+  const telephoneEntries = getItemEntries(telephone);
+  const locationEntries = getItemEntries(location);
+
   const socialLinks = [
-    { id: "facebook", icon: <FaFacebook />, href: getContactInfo("facebook").href },
-    { id: "telegram", icon: <FaTelegram />, href: getContactInfo("telegram").href },
-    { id: "instagram", icon: <FaInstagram />, href: getContactInfo("instagram").href },
-    { id: "tiktok", icon: <FaTiktok />, href: getContactInfo("tiktok").href },
-    { id: "youtube", icon: <FaYoutube />, href: getContactInfo("youtube").href },
-  ].filter(link => link.href);
+    {
+      id: "facebook",
+      icon: <FaFacebook />,
+      href: getItemEntries(getContactInfo("facebook"))[0]?.href,
+    },
+    {
+      id: "telegram",
+      icon: <FaTelegram />,
+      href: getItemEntries(getContactInfo("telegram"))[0]?.href,
+    },
+    {
+      id: "instagram",
+      icon: <FaInstagram />,
+      href: getItemEntries(getContactInfo("instagram"))[0]?.href,
+    },
+    {
+      id: "tiktok",
+      icon: <FaTiktok />,
+      href: getItemEntries(getContactInfo("tiktok"))[0]?.href,
+    },
+    {
+      id: "youtube",
+      icon: <FaYoutube />,
+      href: getItemEntries(getContactInfo("youtube"))[0]?.href,
+    },
+  ].filter((link) => link.href);
 
   const quickLinks = [
     { label: t("navbar.home"), href: "/" },
@@ -44,7 +126,11 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <img src={logo} alt="Logo" className="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity" />
+              <img
+                src={logo}
+                alt="Logo"
+                className="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              />
             </Link>
             <p className="text-off-white/60 text-base leading-relaxed max-w-md font-light mb-8">
               {t("mission.description")}
@@ -72,24 +158,49 @@ export default function Footer() {
               {t("footer.find_us")}
             </h3>
             <div className="space-y-6">
-              {location.value && (
+              {locationEntries.length > 0 && (
                 <div className="flex gap-4">
                   <FaMapMarkerAlt className="text-sky-blue shrink-0 mt-1" />
-                  <p className="text-off-white/70 text-sm leading-relaxed">
-                    {location.value}
-                  </p>
+                  <div className="space-y-1">
+                    {locationEntries.map((entry, index) => (
+                      <p
+                        key={`location-${index}`}
+                        className="text-off-white/70 text-sm leading-relaxed"
+                      >
+                        {entry.value}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               )}
-              {telephone.value && (
+              {telephoneEntries.length > 0 && (
                 <div className="flex gap-4">
                   <FaPhoneAlt className="text-sky-blue shrink-0 mt-1" />
-                  <p className="text-off-white/70 text-sm">{telephone.value}</p>
+                  <div className="space-y-1">
+                    {telephoneEntries.map((entry, index) => (
+                      <p
+                        key={`phone-${index}`}
+                        className="text-off-white/70 text-sm"
+                      >
+                        {entry.value}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               )}
-              {email.value && (
+              {emailEntries.length > 0 && (
                 <div className="flex gap-4">
                   <FaEnvelope className="text-sky-blue shrink-0 mt-1" />
-                  <p className="text-off-white/70 text-sm break-all">{email.value}</p>
+                  <div className="space-y-1">
+                    {emailEntries.map((entry, index) => (
+                      <p
+                        key={`email-${index}`}
+                        className="text-off-white/70 text-sm break-all"
+                      >
+                        {entry.value}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
