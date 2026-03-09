@@ -145,12 +145,12 @@ export default function Home() {
                 {t("hero.verse")}
               </h1>
               <div className="flex flex-col sm:flex-row gap-3 mt-2">
-                <button className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-4 font-bold text-sm tracking-wide transition-colors flex items-center gap-2 w-fit">
+                <Link to="/#mission" className="bg-coral-red hover:bg-coral-red/90 text-off-white px-8 py-4 font-bold text-sm tracking-wide transition-colors flex items-center gap-2 w-fit">
                   <FaPlay className="text-xs" /> {t("hero.watch_message")}
-                </button>
-                <button className="border border-off-white/30 hover:border-off-white/60 text-off-white px-8 py-4 font-bold text-sm tracking-wide transition-colors w-fit">
+                </Link>
+                <Link to="/registrations" className="border border-off-white/30 hover:border-off-white/60 text-off-white px-8 py-4 font-bold text-sm tracking-wide transition-colors w-fit">
                   {t("hero.new_here")}
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -171,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* Mission Statement Section */}
-      <section className="bg-midnight-navy text-off-white px-4 pt-32 pb-48 relative overflow-hidden z-20">
+      <section id="mission" className="bg-midnight-navy text-off-white px-4 pt-32 pb-48 relative overflow-hidden z-20">
         <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-sky-blue/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4"></div>
         <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-coral-red/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
         <div 

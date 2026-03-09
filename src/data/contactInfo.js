@@ -39,7 +39,7 @@ export const CONTACT_ITEMS = [
   },
   {
     id: "posta",
-    value: "P.O. Box 12345",
+    value: "",
   },
   {
     id: "location",
