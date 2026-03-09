@@ -11,27 +11,27 @@ export const CONTACT_ITEMS = [
   {
     id: "telegram",
     value: "t.me/yourchurch",
-    href: "https://t.me/yourchurch",
+    href: "/",
   },
   {
     id: "instagram",
     value: "instagram.com/yourchurch",
-    href: "https://instagram.com/yourchurch",
+    href: "/",
   },
   {
     id: "tiktok",
     value: "tiktok.com/@yourchurch",
-    href: "https://tiktok.com/@yourchurch",
+    href: "/",
   },
   {
     id: "facebook",
     value: "facebook.com/yourchurch",
-    href: "https://facebook.com/yourchurch",
+    href: "/",
   },
   {
     id: "youtube",
     value: "youtube.com/@yourchurch",
-    href: "https://youtube.com/@yourchurch",
+    href: "/",
   },
   {
     id: "telephones",

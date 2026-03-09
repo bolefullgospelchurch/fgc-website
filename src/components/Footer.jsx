@@ -73,12 +73,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pb-12 border-b border-off-white/10">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="inline-block mb-6">
+            <Link to="/" className="inline-flex items-center gap-3 mb-6">
               <img
                 src={logo}
                 alt="Logo"
                 className="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
               />
+              <div className="flex flex-col gap-0.5 max-w-[320px]">
+                <span className="font-bold tracking-wide leading-tight text-sm text-off-white/85">
+                  በኢትዮጵያ ሙሉ ወንጌል
+                  <br /> አማኞች ቤተ ክርስቲያን ቦሌ አጥቢያ
+                </span>
+                <span className="tracking-tighter text-xs text-off-white/60">
+                  Ethiopian Full Gospel Believers Church Bole Local church
+                </span>
+              </div>
             </Link>
             <p className="text-off-white/60 text-base leading-relaxed max-w-md font-light mb-8">
               {t("mission.description")}
