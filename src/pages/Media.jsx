@@ -7,7 +7,7 @@ import { FaPlay } from "react-icons/fa";
 
 export default function Media() {
   const { t } = useTranslation();
-  const watchLiveUrl = "https://www.youtube.com/@yourchannel";
+  const watchLiveUrl = "https://youtube.com/@bolefullgospelchurch?si=NvUVKChHtdYp5aMT";
 
   return (
     <main className="min-h-screen bg-off-white">

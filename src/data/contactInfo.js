@@ -11,27 +11,27 @@ export const CONTACT_ITEMS = [
   {
     id: "telegram",
     value: "t.me/yourchurch",
-    href: "/",
+    href: "https://t.me/+WkY8aZT3R0phMTA0",
   },
   {
     id: "instagram",
-    value: "instagram.com/yourchurch",
-    href: "/",
+    value: "instagram.com/bolefullgospelchurch",
+    href: "https://www.instagram.com/bolefullgospelchurch?igsh=MW9sdzIxbjdvbzI2&utm_source=ig_contact_invite",
   },
   {
     id: "tiktok",
-    value: "tiktok.com/@yourchurch",
-    href: "/",
+    value: "tiktok.com/@bolefullgospelchurch",
+    href: "https://www.tiktok.com/@bolefullgospelchurch?_r=1&_t=ZS-94ahpatsqJU",
   },
   {
     id: "facebook",
-    value: "facebook.com/yourchurch",
-    href: "/",
+    value: "facebook.com/bolefullgospelchurch",
+    href: "https://www.facebook.com/share/1GMn5PXv3T/?mibextid=wwXIfr",
   },
   {
     id: "youtube",
-    value: "youtube.com/@yourchurch",
-    href: "/",
+    value: "youtube.com/@bolefullgospelchurch",
+    href: "https://youtube.com/@bolefullgospelchurch?si=NvUVKChHtdYp5aMT",
   },
   {
     id: "telephones",
@@ -43,7 +43,7 @@ export const CONTACT_ITEMS = [
   },
   {
     id: "location",
-    value: "ቦሌ ሩዋንዳ ድልድይ አካባቢ  ከኦሮሚያ ባንክ ጀርባ 100 ሜትር ገባ ብሎ",
+    value: "ቦሌ ሩዋንዳ ድልድይ አካባቢ ከኦሮሚያ ህብረት ስራ ባንክ ጀርባ 100 ሜትር ገባ ብሎ",
   },
 ];
 
