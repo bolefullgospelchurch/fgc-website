@@ -8,7 +8,6 @@ import { useLanguage } from "../context/LanguageContext";
 import EventsSection from "../components/EventsSection";
 import stage from "../assets/churchstage.jpg";
 import whiteBgLogo from "../assets/logo_white_bg.png";
-import choir from "../assets/ministries/choir.jpeg";
 import placeholderBg from "../assets/wetatoch.jpeg";
 import ministriesBg from "../assets/bible.jpg";
 import MediaSection from "../components/MediaSection";
@@ -23,10 +22,61 @@ import gubae2 from "../assets/gubae2.jpeg";
 import gubae3 from "../assets/gubae3.jpeg";
 import gubae4 from "../assets/gubae4.jpeg";
 
+import choir1 from "../assets/ministries/choir1.jpeg";
+import choir2 from "../assets/ministries/choir2.jpeg";
+import choir3 from "../assets/ministries/choir3.jpeg";
+import choir4 from "../assets/ministries/choir4.jpeg";
 
 export default function Home() {
   const { t } = useTranslation();
   const { language: lang } = useLanguage();
+  const givePreviewBanks = [
+    {
+      bankKey: "give.banks.cbe",
+      entries: [
+        {
+          labelKey: "give.categories.titheOffering",
+          account: "1000007220581",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
+        },
+        {
+          labelKey: "give.categories.gift",
+          account: "1000007220409",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSfJU764pk6A4xxluMYurNfrFOGmKTjcsnaFTonBbE9ocuEFeQ/viewform?usp=publish-editor",
+        },
+      ],
+    },
+    {
+      bankKey: "give.banks.awash",
+      entries: [
+        {
+          labelKey: "give.categories.mission",
+          account: "013521306869400",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLScggt2_K_Y9xOHxHFm8nsXfbHy__5-qYydA47yjrRdU4YbHCQ/viewform?usp=publish-editor",
+        },
+      ],
+    },
+    {
+      bankKey: "give.banks.birhan",
+      entries: [
+        {
+          labelKey: "give.categories.titheOffering",
+          account: "2600010000572",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
+        },
+        {
+          labelKey: "give.categories.titheOffering",
+          account: "1500010001725",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
+        },
+      ],
+    },
+  ];
   const dayMap = {
     sunday: { en: "Sunday", am: "እሁድ" },
     monday: { en: "Monday", am: "ሰኞ" },
@@ -50,7 +100,7 @@ export default function Home() {
   const [weeklyPrograms, setWeeklyPrograms] = useState([]);
   const [isWeeklyLoading, setIsWeeklyLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const heroImages = [stage, gubae1, churchBldg, gubae2, gubae3, gubae4];
+  const heroImages = [churchBldg, choir1, gubae1, choir2, stage, gubae2, choir3, gubae3, choir4, gubae4];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -88,6 +138,7 @@ export default function Home() {
       .fetch(
         `*[_type == "weeklyProgram"]{
         _id,
+        order,
         "name": name.${lang},
         "ageGroup": ageGroup.${lang},
         schedule[]{
@@ -102,10 +153,19 @@ export default function Home() {
 
   const sortedWeeklyPrograms = weeklyPrograms
     .slice()
-    .sort(
-      (a, b) =>
-        getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule),
-    );
+    .sort((a, b) => {
+      const aHasOrder = Number.isFinite(a?.order);
+      const bHasOrder = Number.isFinite(b?.order);
+
+      if (aHasOrder && bHasOrder) {
+        return a.order - b.order;
+      }
+
+      if (aHasOrder && !bHasOrder) return -1;
+      if (!aHasOrder && bHasOrder) return 1;
+
+      return getProgramDayIndex(a.schedule) - getProgramDayIndex(b.schedule);
+    });
 
   return (
     <main className="min-h-screen bg-off-white">
@@ -191,7 +251,7 @@ export default function Home() {
             </p>
             <div>
               <Link
-                to="/about"
+                to="/about#statement-of-faith"
                 className="inline-block bg-white hover:bg-off-white text-black px-8 py-4 font-bold text-sm tracking-wide transition-colors"
               >
                 {t("mission.button")}
@@ -394,6 +454,65 @@ export default function Home() {
             </Link>
           </div>
           <MediaSection featuredOnly limit={3} />
+        </div>
+      </section>
+
+      {/* ── GIVE ─────────────────────────────────────────────────────── */}
+      <section className="bg-midnight-navy text-off-white py-16 md:py-24 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div>
+              <p className="text-xs font-bold tracking-[0.25em] uppercase text-coral-red mb-3">
+                {t("give.label")}
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-off-white leading-tight">
+                {t("give.title")}
+              </h2>
+              <p className="mt-4 text-off-white/70 text-base md:text-lg max-w-3xl">
+                {t("give.description")}
+              </p>
+            </div>
+            <Link
+              to="/give#top"
+              className="inline-flex items-center bg-off-white text-midnight-navy px-6 py-3 font-bold text-sm tracking-wide transition-colors hover:bg-white shrink-0"
+            >
+              {t("navbar.give")}
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {givePreviewBanks.map((bank) => (
+              <article
+                key={bank.bankKey}
+                className="border border-white/15 bg-white/5 p-5"
+              >
+                <h3 className="text-xl font-black mb-4">{t(bank.bankKey)}</h3>
+                <div className="space-y-2">
+                  {bank.entries.map((entry) => (
+                    <div
+                      key={`${bank.bankKey}-${entry.account}`}
+                      className="border border-white/10 bg-midnight-navy/40 px-3 py-2 flex items-center justify-between"
+                    >
+                      <div>
+                        <p className="text-xs font-semibold text-off-white/70 mb-1">
+                          {t(entry.labelKey)}
+                        </p>
+                        <p className="font-black tracking-wide">{entry.account}</p>
+                      </div>
+                      <a
+                        href={entry.receiptHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex w-fit justify-center text-xs font-bold text-white border-white/15 bg-white/10 px-3 py-2 transition-colors"
+                      >
+                        {t("give.sendReceipt")}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

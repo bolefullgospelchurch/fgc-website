@@ -43,12 +43,14 @@ export default function Give() {
         {
           labelKey: "give.categories.titheOffering",
           account: "1000007220581",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
         },
         {
           labelKey: "give.categories.gift",
           account: "1000007220409",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSfJU764pk6A4xxluMYurNfrFOGmKTjcsnaFTonBbE9ocuEFeQ/viewform?usp=publish-editor",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSfJU764pk6A4xxluMYurNfrFOGmKTjcsnaFTonBbE9ocuEFeQ/viewform?usp=publish-editor",
         },
       ],
     },
@@ -61,7 +63,8 @@ export default function Give() {
         {
           labelKey: "give.categories.mission",
           account: "013521306869400",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLScggt2_K_Y9xOHxHFm8nsXfbHy__5-qYydA47yjrRdU4YbHCQ/viewform?usp=publish-editor",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLScggt2_K_Y9xOHxHFm8nsXfbHy__5-qYydA47yjrRdU4YbHCQ/viewform?usp=publish-editor",
         },
       ],
     },
@@ -74,12 +77,14 @@ export default function Give() {
         {
           labelKey: "give.categories.titheOffering",
           account: "2600010000572",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
         },
         {
           labelKey: "give.categories.titheOffering",
           account: "1500010001725",
-          receiptHref: "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
+          receiptHref:
+            "https://docs.google.com/forms/d/e/1FAIpQLSegAkQ7cGow1aqSREUpCjBO80cDi2UZF9oc4KheupolXuOzow/viewform?usp=publish-editor",
         },
       ],
     },
@@ -111,23 +116,7 @@ export default function Give() {
           </p> */}
         </div>
       </section>
-      <section className="px-4 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto mb-12 md:mb-16 border-y border-midnight-navy/10 py-6 md:py-8">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
-            <div className="md:col-span-9">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral-red mb-2">
-                {t("give.instruction")}
-              </p>
-              <p className="text-midnight-navy/80 text-base md:text-lg leading-relaxed max-w-xl">
-                {selectedType ? t("give.selected", { type: selectedType }) : t("give.prompt")}
-              </p>
-            </div>
-            <div className="md:col-span-3 flex md:justify-end">
-              <div className="h-0.5 w-20 bg-sky-blue" />
-            </div>
-          </div>
-        </div>
-
+      <section className="px-4 py-16 md:py-24" id="top">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {bankAccounts.map((bank, bankIndex) => (
             <article
@@ -172,36 +161,62 @@ export default function Give() {
                     className="relative border border-midnight-navy/10 bg-off-white/40 p-4 transition-colors hover:border-sky-blue/40"
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">
-                      <p className="text-sm text-midnight-navy/70 font-semibold">{t(entry.labelKey)}</p>
+                      <p className="text-sm text-midnight-navy/70 font-semibold">
+                        {t(entry.labelKey)}
+                      </p>
                       <span className="text-[11px] font-bold text-midnight-navy/40 tracking-widest">
                         {String(entryIndex + 1).padStart(2, "0")}
                       </span>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(entry.account)}
-                      className="w-full text-left bg-white hover:bg-sky-blue/10 border border-midnight-navy/10 transition-colors px-3 py-2"
-                      title={t("give.copyAccount")}
-                    >
-                      <span className="font-black text-midnight-navy tracking-wide break-all">{entry.account}</span>
-                    </button>
+                    <div className="w-full bg-white border border-midnight-navy/10 px-3 py-2 flex items-center justify-between gap-3">
+                      <span className="font-black text-midnight-navy tracking-wide break-all">
+                        {entry.account}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(entry.account)}
+                        className="shrink-0 text-xs font-bold px-2.5 py-1.5 border border-midnight-navy/20 text-midnight-navy hover:bg-sky-blue/10 transition-colors"
+                        title={t("give.copyAccount")}
+                      >
+                        {t("give.copyAccount")}
+                      </button>
+                    </div>
                     {copiedAccount === entry.account && (
                       <p className="text-xs text-sky-blue font-bold mt-2">
                         {t("give.copied")}
                       </p>
                     )}
                     <a
-                      href={entry.receiptHref} target="_blank"
+                      href={entry.receiptHref}
+                      target="_blank"
                       className="inline-flex mt-3 w-full justify-center text-sm font-bold text-off-white bg-midnight-navy hover:bg-deep-blue px-4 py-2 transition-colors"
                     >
-                      {t("give.sendReceipt")}
+                      {t("give.sendReceipt")} - {t(entry.labelKey)}
                     </a>
                   </div>
                 ))}
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto mt-12 md:mt-16 border-y border-midnight-navy/10 py-6 md:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+            <div className="md:col-span-9">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral-red mb-2">
+                {t("give.instruction")}
+              </p>
+              <p className="text-midnight-navy/80 text-base md:text-lg leading-relaxed max-w-xl">
+                {selectedType
+                  ? t("give.selected", { type: selectedType })
+                  : t("give.prompt")}
+              </p>
+            </div>
+            <div className="md:col-span-3 flex md:justify-end">
+              <div className="h-0.5 w-20 bg-sky-blue" />
+            </div>
+          </div>
         </div>
       </section>
       <Footer />

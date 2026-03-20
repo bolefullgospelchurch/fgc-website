@@ -1,16 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logoNameWhite from "../assets/logo_name_white.png";
 import logoNameBlue from "../assets/logo_name_blue.png";
 import { useLanguage } from "../context/LanguageContext";
 import { useTranslation } from "react-i18next";
+import { sanityClient } from "../sanity";
+import { getLocalizedField } from "./ministries/ministryUtils";
 
 export default function Navbar({ transparent = false, contained = true }) {
   const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState({});
+  const [ministriesMenuItems, setMinistriesMenuItems] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(`*[_type == "ministry" && coalesce(isActive, true) == true] | order(order asc, _createdAt asc){
+        _id,
+        title,
+        meetingDayAndTime,
+        "slug": slug.current
+      }`)
+      .then((data) => setMinistriesMenuItems(Array.isArray(data) ? data : []))
+      .catch(() => setMinistriesMenuItems([]));
+  }, []);
+
+  const ministriesChildren = ministriesMenuItems
+    .filter((ministry) => ministry?.slug)
+    .map((ministry) => ({
+      key: `ministry-${ministry._id}`,
+      label: getLocalizedField(ministry?.title, language),
+      schedule: getLocalizedField(ministry?.meetingDayAndTime, language),
+      href: `/ministries/${ministry.slug}`,
+    }))
+    .filter((item) => item.label);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -24,9 +49,24 @@ export default function Navbar({ transparent = false, contained = true }) {
       href: "/about",
       children: [
         {
+          key: "about_vision",
+          label: t("navbar.about_vision"),
+          href: "/about#vision",
+        },
+        {
           key: "about_mission",
           label: t("navbar.about_mission"),
-          href: "/about#mission",
+          href: "/about#vision",
+        },
+        {
+          key: "about_values",
+          label: t("navbar.about_values"),
+          href: "/about#values",
+        },
+        {
+          key: "about_purpose",
+          label: t("navbar.about_purpose"),
+          href: "/about#purpose",
         },
         {
           key: "about_statement",
@@ -39,6 +79,13 @@ export default function Navbar({ transparent = false, contained = true }) {
           href: "/about#staff",
         },
       ],
+    },
+    {
+      key: "ministries",
+      label: t("navbar.ministries"),
+      href: "/ministries",
+      children: ministriesChildren,
+      isGridMenu: true,
     },
     {
       key: "media",
@@ -113,6 +160,11 @@ export default function Navbar({ transparent = false, contained = true }) {
           label: t("navbar.resources_pentecostalism"),
           href: "/resources",
         },
+        {
+          key: "other_resources",
+          label: t("navbar.other_resources"),
+          href: "/resources",
+        },
       ],
     },
     {
@@ -120,6 +172,12 @@ export default function Navbar({ transparent = false, contained = true }) {
       label: t("navbar.registrations"),
       href: "/registrations",
       children: [
+        {
+          key: "reg_membership",
+          label: t("navbar.reg_membership"),
+          href: "https://docs.google.com/forms/d/e/1FAIpQLSfrqVBgzPGrhk8CQtA6pmO842l8bbADluaKFfn67MNMAu22PA/viewform?usp=publish-editor",
+          newTab: true,
+        },
         {
           key: "reg_home_church",
           label: t("navbar.reg_home_church"),
@@ -130,24 +188,9 @@ export default function Navbar({ transparent = false, contained = true }) {
           label: t("navbar.reg_choose_ministry"),
           href: "/registrations/choose-ministry",
         },
-        {
-          key: "reg_membership",
-          label: t("navbar.reg_membership"),
-          href: "https://docs.google.com/forms/d/e/1FAIpQLSfrqVBgzPGrhk8CQtA6pmO842l8bbADluaKFfn67MNMAu22PA/viewform?usp=publish-editor",
-          newTab: true,
-        },
       ],
     },
     { key: "contact", label: t("navbar.contact"), href: "/contact" },
-    {
-      key: "more",
-      label: t("navbar.more"),
-      href: "",
-      children: [
-        { key: "ministries", label: t("navbar.ministries"), href: "/ministries" },
-        { key: "events", label: t("navbar.events"), href: "/events" },
-      ],
-    },
     {
       key: "give",
       label: t("navbar.give"),
@@ -250,7 +293,7 @@ export default function Navbar({ transparent = false, contained = true }) {
   return (
     <>
       {/* Floating Language Selector - always visible and isolated from Navbar flow */}
-      <div className="fixed bottom-4 left-4 z-[60] group">
+      <div className="fixed bottom-4 left-4 z-60 group">
         <button
           type="button"
           className={`px-3 py-1.5 rounded-full text-[13px] font-bold transition-all shadow-lg border inline-flex items-center gap-1 ${
@@ -267,7 +310,7 @@ export default function Navbar({ transparent = false, contained = true }) {
           aria-hidden="true"
         />
         <div
-          className={`absolute left-0 bottom-full mb-2 min-w-[140px] rounded-xl border shadow-2xl opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${
+          className={`absolute left-0 bottom-full mb-2 min-w-35 rounded-xl border shadow-2xl opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${
             transparent ? "bg-midnight-navy border-white/20" : "bg-white border-midnight-navy/20"
           }`}
         >
@@ -334,20 +377,48 @@ export default function Navbar({ transparent = false, contained = true }) {
                       aria-hidden="true"
                     />
                     <div
-                      className={`absolute right-0 mt-2 min-w-[220px] rounded-lg border shadow-lg opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${dropdownBg}`}
+                      className={`absolute mt-2 rounded-lg border shadow-lg opacity-0 translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 ${dropdownBg} ${
+                        link.isGridMenu
+                          ? "left-1/2 -translate-x-1/2 w-[min(92vw,960px)]"
+                            : "right-0 min-w-55"
+                      }`}
                     >
-                      <div className="py-2">
-                        {link.children.map((child) => (
-                          <React.Fragment key={child.key}>
-                            {renderNavLink({
-                              href: child.href,
-                              label: child.label,
-                              newTab: child.newTab,
-                              className: `block px-4 py-2 text-sm font-semibold transition-colors ${dropdownText}`,
-                            })}
-                          </React.Fragment>
-                        ))}
-                      </div>
+                      {link.isGridMenu ? (
+                        <div className="p-4">
+                          <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
+                            {link.children.map((child) => (
+                              <React.Fragment key={child.key}>
+                                {renderNavLink({
+                                  href: child.href,
+                                  label: (
+                                    <span className="flex flex-col gap-1">
+                                      <span className="text-sm font-bold leading-tight">{child.label}</span>
+                                      <span className={`${subTextColor} text-xs font-medium leading-tight`}>
+                                        {child.schedule || "—"}
+                                      </span>
+                                    </span>
+                                  ),
+                                  newTab: child.newTab,
+                                  className: `block rounded-md px-3 py-3 transition-colors ${dropdownText} hover:bg-midnight-navy/5`,
+                                })}
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="py-2">
+                          {link.children.map((child) => (
+                            <React.Fragment key={child.key}>
+                              {renderNavLink({
+                                href: child.href,
+                                label: child.label,
+                                newTab: child.newTab,
+                                className: `block px-4 py-2 text-sm font-semibold transition-colors ${dropdownText}`,
+                              })}
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ) : (
@@ -423,7 +494,14 @@ export default function Navbar({ transparent = false, contained = true }) {
                         <React.Fragment key={child.key}>
                           {renderNavLink({
                             href: child.href,
-                            label: child.label,
+                            label: link.isGridMenu ? (
+                              <span className="flex flex-col">
+                                <span className="font-semibold">{child.label}</span>
+                                <span className="text-xs opacity-80">{child.schedule || "—"}</span>
+                              </span>
+                            ) : (
+                              child.label
+                            ),
                             newTab: child.newTab,
                             onClick: () => setIsOpen(false),
                             className: `${mobileLinkColor} block px-3 py-2 rounded-md text-sm font-semibold`,
