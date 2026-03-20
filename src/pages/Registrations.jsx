@@ -9,6 +9,12 @@ export default function Registrations() {
 
   const options = [
     {
+      title: t("registrations.membership_form"),
+      description: t("registrations.membership_form_desc"),
+      href: "https://docs.google.com/forms/d/e/1FAIpQLSfrqVBgzPGrhk8CQtA6pmO842l8bbADluaKFfn67MNMAu22PA/viewform?usp=publish-editor",
+      newTab: true,
+    },
+    {
       title: t("registrations.home_church"),
       description: t("registrations.home_church_desc"),
       href: "/registrations/home-church",
@@ -17,12 +23,6 @@ export default function Registrations() {
       title: t("registrations.choose_ministry"),
       description: t("registrations.choose_ministry_desc"),
       href: "/registrations/choose-ministry",
-    },
-    {
-      title: t("registrations.membership_form"),
-      description: t("registrations.membership_form_desc"),
-      href: "https://docs.google.com/forms/d/e/1FAIpQLSfrqVBgzPGrhk8CQtA6pmO842l8bbADluaKFfn67MNMAu22PA/viewform?usp=publish-editor",
-      newTab: true,
     },
   ];
 
